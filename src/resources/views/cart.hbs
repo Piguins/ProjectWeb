@@ -1,0 +1,34 @@
+<div class="cart-container">
+  <h1>Gio Hang</h1>
+  <form name="change" action="/cart/bought" method="post">
+    {{#each item}}
+    <div class="cart-item">
+      <div class="name">
+        <h4>{{this.name}}</h4>
+      </div>
+      <div class="img">
+        <img src="/img/post/{{this.img}}" />
+      </div>
+      <div class="price">
+        <p>{{this.price}}</p>
+      </div>
+      <div class="quantity">
+        <p>{{this.customer.quantity}}</p>
+      </div>
+      <div class="check">
+        <input onchange="" type="checkbox" value={{this._id}} name="bought" />
+      </div>
+    </div>
+    {{/each}}
+
+    <input type="submit" value="mua" />
+  </form>
+</div>
+<script>
+
+  $(document).ready(function () {
+    var myform = document.forms["change"];
+
+  });
+
+</script>

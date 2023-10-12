@@ -1,0 +1,36 @@
+<div>
+    <h1> cập nhật ảnh của bạn để mọi người có thể xác thực</h1>
+    <form method="post" action="/user/setavatar" enctype="multipart/form-data">
+        <div class="add-input add-img">
+            <label for="image"> <img id="uploadPreview" class="rounded-circle mb-3" style="width: 250px; height:250px"
+                    alt="Avatar" /></label>
+            <input style="display: none;" type="file" id="image" onchange="PreviewImage()" rows="2" name="productImg"
+                multiple />
+
+        </div>
+
+        <div class="add-submit add-input">
+            <input type="submit" value="tiep"></input>
+        </div>
+    </form>
+</div>
+
+
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+        document.getElementById("uploadPreview").src = "https://static.vecteezy.com/system/resources/previews/009/734/564/original/default-avatar-profile-icon-of-social-media-user-vector.jpg";
+    });
+
+    function PreviewImage() {
+        var oFReader = new FileReader();
+        oFReader.readAsDataURL(document.getElementById("image").files[0]);
+
+        oFReader.onload = function (oFREvent) {
+            document.getElementById("uploadPreview").src = oFREvent.target.result;
+        };
+    };
+
+</script>
