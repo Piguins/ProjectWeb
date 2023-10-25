@@ -10,13 +10,14 @@ const app = express();
 const mongoose = require("mongoose");
 const Route = require("./route/index.route");
 const http = require("http");
-const server=http.createServer(app);
-const {Server}=require("socket.io");
-const ConfigPaypal=require("../src/config/paypal");
-const io=new Server(server);
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const ConfigPaypal = require("../src/config/paypal");
+const io = new Server(server);
 var cookieParser = require("cookie-parser");
 const session = require('express-session');
 const dotenv = require('dotenv')
+
 dotenv.config();
 //configure paypal
 ConfigPaypal.config();
@@ -67,8 +68,8 @@ app.get('/auth/google/callback',
     });
 
 
-  
-    
+
+
 
 app.get('/error', (req, res) => res.send("error logging in"));
 
@@ -96,20 +97,21 @@ db.connect();
 
 Route(app);
 
-const messModel=require("./models/message.model");
-io.on('connection', function(socket){
-console.log("Connection established");
-socket.on('on-chat',(data)=>{
-    io.emit('user-chat',data);
-    let newMes=new messModel({
-      host:data.host,
-      value:data.message,
-      cus:data.cus  
-    });
-    newMes.save();
+const room = require("./models/product.model");
+
+io.on('connection', function (socket) {
+    console.log("Connection established");
+    socket.on('on-chat', (data) => {
+        io.emit('user-chat', data);
+        let newMes = new messModel({
+            host: data.host,
+            value: data.message,
+            cus: data.cus
+        });
+        newMes.save();
 
 
 
-})
+    })
 });
 server.listen(port);

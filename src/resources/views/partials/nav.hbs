@@ -4,19 +4,25 @@
   <div class="mainnav-home"><a href="/"><i class=" fa fa-regular fa-map" title="hihi"> montecarlo</i></a>
   </div>
   <div class="mainnav-search">
-    <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <button type="button" data-bs-toggle="modal" data-bs-target="#searchBar">
       <input type="text" placeholder="Địa điểm ... |   Thời gian ... |   Khách ...">
     </button>
 
   </div>
-  {{#if isAdmin}}
+  {{#if (IsUser role "admin")}}
   <div class="mainnav-add">
     <button class="bg-danger text-white btn-outline-danger"> <a class="text-white" href="/admin">Quản lí </a></button>
   </div>
-  {{else}}
+  {{else if (IsUser role "user")}}
   <div class="mainnav-add">
-    <button class="btn btn-outline-danger overflow-hidden "> <a class="text-danger" href="/host/addproduct/overview">Cho thuê chỗ ở qua
+    <button class="btn btn-outline-danger overflow-hidden rounded-4 "> <a class="text-danger" href="/host/room">Cho
+        thuê chỗ ở qua
         fiat</a></button>
+  </div>
+  {{else if (IsUser role "host")}}
+  <div class=" m-4">
+    <button class="rounded-3 btn btn-dark"> <a class="link-light" href="/user/hosting">đón tiếp khách
+      </a></button>
   </div>
   {{/if}}
   <div class="btn-group mainnav-user p-4 rounded-1">
@@ -30,7 +36,7 @@
 
       <li><a class="dropdown-item" href="/user/trip"> Thông tin chuyến đi </a></li>
       <li><a class="dropdown-item" href="/user/wishlist"> Danh sách yêu thích</a></li>
-      <li><a class="dropdown-item" href="/user/porpolio"> Hồ Sơ</a></li>
+      <li><a class="dropdown-item" href="/user/personaldetail/{{id}}"> Hồ Sơ</a></li>
       <li><a class="dropdown-item" href="/user/message"> Tin Nhắn</a></li>
       <li><a class="dropdown-item" href="/user/hosting">Đón tiếp khách </a></li>
       <li> <a class="dropdown-item" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
@@ -38,13 +44,13 @@
           Thông tin cá nhân
         </a></li>
 
-  
+
       {{else}}
 
       <li><a class="dropdown-item" href="/login">Đăng Nhập </a></li>
       <li><a class="dropdown-item" href="/register">Đăng Kí Tài Khoản</a></li>
       {{/if}}
-    
+
     </ul>
   </div>
 
@@ -55,13 +61,13 @@
 
 
 <!-- Modal -->
-<div class="modal fade mt-5" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade mt-5" id="searchBar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content rounded-5">
       <div class="modal-header">
         Kiếm Phòng
       </div>
-      <div class="modal-body">
+      <div class="modal-body ">
         <form id="searchForm" class="searchBoard-form" action="/" method="GET">
           <div class="item"> <label for="start">Ngày bắt đầu
               <input type="date" id="start" onfocus="this.showPicker()" autocomplete="off" name="start" value="">
@@ -84,10 +90,10 @@
             </label>
           </div>
 
-      
+
         </form>
 
-    <button id="searchBtn" class="btn btn-outline-info" type="">Tìm Kiếm</button>
+        <button id="searchBtn" class="btn btn-outline-info" type="">Tìm Kiếm</button>
       </div>
 
     </div>
@@ -107,7 +113,7 @@
     <div class="container d-flex flex-column align-items-center">
       <div class="mb-3 row w-100">
         <div class="col-12 d-flex flex-row justify-content-center bg-light p-4">
-          <img class="rounded-circle" style="width:180px;height:180px" src="/img/user/{{avatar}}" alt="user avatar" >
+          <img class="rounded-circle" style="width:180px;height:180px" src="{{avatar}}" alt="user avatar">
         </div>
 
       </div>
@@ -121,17 +127,19 @@
           Chỉnh sửa
         </a>
         <div class="collapse w-100" id="collapsename">
-          <div class="card card-body d-flex flex-row flex-wrap">
+
+          <form class="card card-body d-flex flex-row flex-wrap" method="post" action="/user/personaldetail/name">
             <div class="form-floating mb-3 w-50">
-              <input type="text" class="form-control" id="floatingInput" placeholder="...">
+              <input type="text" class="form-control" name="firstname" id="floatingInput">
               <label for="floatingInput">Họ</label>
             </div>
             <div class="form-floating  w-50">
-              <input type="text" class="form-control" id="floatingPassword" placeholder="...">
-              <label for="floatingPassword">Tên</label>
+              <input type="text" class="form-control" id="lastname" name="lastname">
+              <label for="lastname">Tên</label>
             </div>
-            <button class=" btn btn-dark text-white">Sửa</button>
-          </div>
+            <button type="submit" class=" btn btn-dark text-white">Sửa</button>
+          </form>
+
         </div>
       </div>
       <div class="mb-3 row w-100 d-flex flex-row flex-wrap">
@@ -139,23 +147,7 @@
         <div class="col-8">
           <input type="text" readonly class="form-control-plaintext" id="name" value={{email}}>
         </div>
-        <a class="link link-dark col-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseemail"
-          aria-expanded="false" aria-controls="collapseExample">
-          Chỉnh sửa
-        </a>
-        <div class="collapse w-100" id="collapseemail">
-          <div class="card card-body d-flex flex-column flex-wrap">
-            <div class="form-floating mb-3 w-100">
-              <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-              <label for="floatingInput">Email Cũ</label>
-            </div>
-            <div class="form-floating  w-100">
-              <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-              <label for="floatingPassword">Email mới</label>
-            </div>
-            <button class=" btn btn-dark text-white">Sửa</button>
-          </div>
-        </div>
+
       </div>
       <div class="mb-3 row w-100 d-flex flex-row flex-wrap">
         <label for="name" class="col-8 col-form-label fw-bold">Số điện thoại</label>
@@ -167,39 +159,42 @@
           Chỉnh sửa
         </a>
         <div class="collapse w-100" id="collapsephone">
-          <div class="card card-body d-flex flex-row flex-wrap">
-            <div class="form-floating mb-3 w-100">
-              <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-              <label for="floatingInput">Số điện thoại</label>
-            </div>
+          <form class="w-100" method="post" action="/user/personaldetail/phone">
+            <div class="card card-body d-flex flex-row flex-wrap">
+              <div class="form-floating mb-3 w-100">
+                <input type="text" class="form-control" id="floatingInput" name="phone">
+                <label for="floatingInput">Số điện thoại</label>
+              </div>
 
-            <button class=" btn btn-dark text-white">Sửa</button>
-          </div>
+              <button type="submit" class=" btn btn-dark text-white">Sửa</button>
+          </form>
         </div>
       </div>
-      <div class="mb-3 row w-100 d-flex flex-row flex-wrap">
-        <label for="name" class="col-8 col-form-label fw-bold">Địa chỉ</label>
-        <div class="col-8">
-          <input type="text" readonly class="form-control-plaintext" id="name" value="Đại học cntt">
-        </div>
-        <a class="link link-dark col-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseaddress"
-          aria-expanded="false" aria-controls="collapseExample">
-          Chỉnh sửa
-        </a>
-        <div class="collapse w-100" id="collapseaddress">
-          <div class="card card-body d-flex flex-column flex-wrap">
+    </div>
+    <div class="mb-3 row w-100 d-flex flex-row flex-wrap">
+      <label for="name" class="col-8 col-form-label fw-bold">Địa chỉ</label>
+      <div class="col-8">
+        <input type="text" readonly class="form-control-plaintext" id="name" value="{{address}}">
+      </div>
+      <a class="link link-dark col-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseaddress"
+        aria-expanded="false" aria-controls="collapseExample">
+        Chỉnh sửa
+      </a>
+      <div class="collapse w-100" id="collapseaddress">
+        <div class="card card-body d-flex flex-column flex-wrap">
+          <form class="w-100" method="post" action="/user/personaldetail/address">
             <div class="form-floating mb-3 w-100">
-              <input type="text" class="form-control" id="floatingInput" placeholder="...">
+              <input type="text" class="form-control" name="address" id="floatingInput" placeholder="...">
               <label for="floatingInput">Địa chỉ mới</label>
             </div>
 
 
-          </div>
-          <button class=" btn btn-dark text-white ml-2">Sửa</button>
         </div>
+        <button type="submit" class=" btn btn-dark text-white ml-2">Sửa</button></form>
       </div>
     </div>
   </div>
+</div>
 
 </div>
 </div>
@@ -207,27 +202,25 @@
   $(document).ready(function () {
 
 
-$( "#searchBtn" ).on( "click", function() {
-      
-var now = new Date();
-    var month = (now.getMonth() + 1);               
-    var day = now.getDate();
-    if (month < 10) 
+    $("#searchBtn").on("click", function () {
+
+      var now = new Date();
+      var month = (now.getMonth() + 1);
+      var day = now.getDate();
+      if (month < 10)
         month = "0" + month;
-    if (day < 10) 
+      if (day < 10)
         day = "0" + day;
-    var today = now.getFullYear()+1 + '-' + month + '-' + day;
-    if($('#start').val()=="")
-    {$('#start').val(today);}
+      var today = now.getFullYear() + 1 + '-' + month + '-' + day;
+      if ($('#start').val() == "") { $('#start').val(today); }
 
-      var endday = now.getFullYear()-1 + '-' + month + '-' + day;
-        if($('#end').val()=="")
-      {$('#end').val(endday);}
-    
+      var endday = now.getFullYear() - 1 + '-' + month + '-' + day;
+      if ($('#end').val() == "") { $('#end').val(endday); }
 
 
-  $( "#searchForm" ).trigger( "submit" );
-} );
+
+      $("#searchForm").trigger("submit");
+    });
 
 
     $("#user-btn").on("click", function () {

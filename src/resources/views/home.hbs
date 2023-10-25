@@ -3,23 +3,41 @@
     <form method="get" action="/">
       <input type="text" value={{this._id}} name="type" style="display: none;">
       <button type="submit">
-        <img src="/img/type/{{this.img}}">
+        <img src="{{this.img}}">
       </button>
       <p>{{this.name}}</p>
     </form>
-    {{/each}} <button class="btn btn-outline-dark align-self-center  rounded-2" data-bs-target="#filter" data-bs-toggle="modal"
-      data-bs-dismiss="modal">Bộ
+    {{/each}} <button class="btn btn-outline-dark align-self-center  rounded-2" data-bs-target="#filter"
+      data-bs-toggle="modal" data-bs-dismiss="modal">Bộ
       lọc
       <i class="bi-solid bi-filter"></i>
-      </button>
+    </button>
   </div>
   <div class="home-main">
     {{#each list
     }}
+    <div class="modal w-100 h-100 position-absolute mt-5" style="z-index: 100000;" id="cc{{this.host._id}}"
+      tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content rounded-5">
+          <div class="modal-header">
+            Kiếm Phòng
+          </div>
+          <div class="modal-body">
+
+
+            <p>jhdshakdjshkj</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
     <div class="home-main-card position-relative ">
       <img id="host" src="img/default/portail.png" style="z-index: 1; width:27%; height:27%;"
         class="rounded  position-absolute top-0 end-0 m-1">
-      <img id="host" src="img/user/{{this.host.avatar}}" style="z-index: 2;"
+      <img id="host" src="{{this.host.avatar}}" style="z-index: 2;"
         class="w-25 h-25 rounded-circle position-absolute top-0 end-0 m-1 p-2">
       </img>
       <div id="carouselExample{{this._id}}" class="carousel slide w-100 h-75">
@@ -29,16 +47,13 @@
                 alt="..."></a>
           </div>
           <div class="carousel-item h-100 w-100 rounded-5">
-            <a href="/rooms/{{this._id}}"><img class="d-block h-100 w-100 rounded" src="{{this.img.[1]}}"
-                alt="..."></a>
+            <a href="/rooms/{{this._id}}"><img class="d-block h-100 w-100 rounded" src="{{this.img.[1]}}" alt="..."></a>
           </div>
           <div class="carousel-item h-100 w-100 rounded-5">
-            <a href="/rooms/{{this._id}}"><img class="d-block h-100 w-100 rounded" src="{{this.img.[2]}}"
-                alt="..."></a>
+            <a href="/rooms/{{this._id}}"><img class="d-block h-100 w-100 rounded" src="{{this.img.[2]}}" alt="..."></a>
           </div>
           <div class="carousel-item h-100 w-100 rounded-5">
-            <a href="/rooms/{{this._id}}"><img class="d-block h-100 w-100 rounded" src="{{this.img.[3]}}"
-                alt="..."></a>
+            <a href="/rooms/{{this._id}}"><img class="d-block h-100 w-100 rounded" src="{{this.img.[3]}}" alt="..."></a>
           </div>
           <div class="carousel-item h-100 w-100 rounded-5">
             <a href="/rooms/{{this._id}}"><img class="d-block  h-100 w-100 rounded" src="{{this.img.[4]}}"
@@ -76,14 +91,13 @@
 
         <div class="addToWishlist">
           {{#if this.isLoggedIn}}
-      
+
           <button data-bs-roomId={{this._id}} data-bs-toggle="modal" data-bs-target="#wishlist"><i
               class="bi bi-heart"></i>
           </button>
           {{else}}
-       <a href="/login"><i
-              class="bi bi-heart"></i></a>
-{{/if}}
+          <a href="/login"><i class="bi bi-heart"></i></a>
+          {{/if}}
 
 
 
@@ -156,7 +170,7 @@
   <div class="modal-dialog modal-dialog-scrollable">
 
     <div class="modal-content">
-     
+
       <div class="modal-body d-flex  flex-column align-content-center justify-content-center mt-2 ">
 
 
@@ -170,12 +184,12 @@
           </section>
           <label for="numberRoomInput">Số phòng</label>
           <div id="numberRoomInput" class="numberRoomInput d-flex flex-row justify-content-center w-100">
-   <p class="p-1 m-1 bg-dark text-white rounded-pill" style="width: 50px;">
+            <p class="p-1 m-1 bg-dark text-white rounded-pill" style="width: 50px;">
               <input type="radio" id="room" class="bg-danger" name="quantity" checked value="0">
               <label for="room">all</label>
             </p>
             <p class="p-1 m-1 bg-dark text-white rounded-pill" style="width: 50px;">
-              <input type="radio" id="room1" class="bg-danger" name="quantity"  value="1">
+              <input type="radio" id="room1" class="bg-danger" name="quantity" value="1">
               <label for="room1">1</label>
             </p>
             <p class="p-1 m-1 bg-dark text-white rounded-pill" style="width: 50px;">
@@ -201,12 +215,12 @@
           </div>
           <label for="showerInput">số phòng tắm</label>
           <div id="showerInput" class="numberRoomInput d-flex flex-row justify-content-center w-100">
- <p class="p-1 m-1 bg-dark text-white rounded-pill" style="width: 50px;">
+            <p class="p-1 m-1 bg-dark text-white rounded-pill" style="width: 50px;">
               <input type="radio" id="shower" name="showerroom" checked value="0">
               <label for="shower">all</label>
             </p>
             <p class="p-1 m-1 bg-dark text-white rounded-pill" style="width: 50px;">
-              <input type="radio" id="shower1" name="showerroom"  value="1">
+              <input type="radio" id="shower1" name="showerroom" value="1">
               <label for="shower1">1</label>
             </p>
             <p class="p-1 m-1 bg-dark text-white rounded-pill" style="width: 50px;">
@@ -232,7 +246,7 @@
           </div>
           <label for="bedroom">số phòng ngủ</label>
           <div id="bedroom" class="numberRoomInput d-flex flex-row justify-content-center w-100">
-    <p class="p-1 m-1 bg-dark text-white rounded-pill" style="width: 50px;">
+            <p class="p-1 m-1 bg-dark text-white rounded-pill" style="width: 50px;">
               <input type="radio" id="bed" name="bedroom" checked value="0">
               <label for="bed">all</label>
             </p>
@@ -266,7 +280,7 @@
         </form>
         <div class="modal-footer  d-flex flex-row justify-content-between">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" name="maxPrice">Đóng</button>
-          <button id="filter-submit-btn" type="button" class="btn btn-primary">Tìm kiếm </button>
+          <button id="filter-submit-btn" type="button" class="btn btn-outline-dark">Tìm kiếm </button>
         </div>
       </div>
     </div>
@@ -277,9 +291,9 @@
 <script>
   $(document).ready(function () {
 
-    $( "#filter-submit-btn" ).on( "click", function() {
-  $( "#filterForm" ).trigger( "submit" );
-} );
+    $("#filter-submit-btn").on("click", function () {
+      $("#filterForm").trigger("submit");
+    });
 
     const ctx = document.getElementById('myChart');
 

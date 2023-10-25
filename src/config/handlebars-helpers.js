@@ -7,14 +7,19 @@ module.exports = {
         }
         return options.inverse(this);
     },
+    IsUser: function (role,role2) {
+    return role ===role2 ;
+    },
     bar: function () {
         return "BAR!";
     },
     genTime: function (date, format) {
         return moment(date).format(format);
 
-    }
-    ,
+    },
+    checkListEmpty: function (list) {
+         return (list.length===0);
+    },
     extracost: function (value) {
         return 0.2 * value;
     },

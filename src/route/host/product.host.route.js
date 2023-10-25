@@ -1,7 +1,7 @@
 const express = require("express");
 const Route = express.Router();
-const ProductController = require("../../controllers/host/product.host.controllers");
-const cloudinary =require("../../config/cloudinary");
+const RoomController = require("../../controllers/host/product.host.controllers");
+const cloudinary = require("../../config/cloudinary");
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
 const multer = require("multer");
@@ -14,21 +14,24 @@ const multer = require("multer");
 //   },
 // });
 
- 
+
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
- folder:'product',
- allowedFormats:['jpg','png','jpeg'],
- transformation:[{width:500,height:500,crop:'limit'}],
+  folder: 'product',
+  allowedFormats: ['jpg', 'png', 'jpeg'],
+  transformation: [{ width: 500, height: 500, crop: 'limit' }],
 });
 var upload = multer({ storage: storage }).array("productImg", 12);
 
 
-Route.get("/addproduct/overview", ProductController.overView);
-Route.get("/addproduct/step1", ProductController.displayProductAddingForm);
-Route.post("/addproduct/savedata", ProductController.saveDataFromForm);
-Route.get("/addproduct/secondstep", ProductController.displayProductAddingForm1);
-Route.post("/addproduct/savesecondstepdata", ProductController.saveDataFromForm1);
-Route.get("/addproduct/thirdstep", ProductController.displayProductAddingForm2);
-Route.post("/addproduct/savenewproduct", upload, ProductController.saveNewProduct);
+Route.get("/room", RoomController.Index);
+Route.get("/room/title", RoomController.DisplayTitle);
+Route.post("/room/title", RoomController.SaveTitle);
+Route.get("/room/detail", RoomController.DisplayDetail);
+Route.post("/room/detail", RoomController.SaveDetail);
+Route.get("/room/photos", RoomController.DisplayPhotos);
+Route.post("/room/photos", upload, RoomController.SavePhotos);
+Route.get("/room/price", RoomController.DisplayPrice);
+Route.post("/room/price", RoomController.SaveNewRoom);
+
 module.exports = Route;

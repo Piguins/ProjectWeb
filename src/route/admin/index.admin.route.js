@@ -3,6 +3,7 @@ const Route = express.Router();
 const DashBoard = require("../../controllers/admin/dashboard.admin.controllers");
 
 Route.get("/", DashBoard.index);
+Route.get("/mostvisit", DashBoard.mostvisit);
 Route.get("/roomsrequest", DashBoard.roomsRequest);
 Route.get("/contractlist", DashBoard.contractlist);
 Route.get("/roomlist", DashBoard.roomlist);

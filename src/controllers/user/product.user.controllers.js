@@ -1,18 +1,48 @@
 const Product = require("../../models/product.model");
 const paypal = require('paypal-rest-sdk');
 const Reserve = require("../../models/Reserve.model");
-const collection = require("../../models/collection.model");
-const Converesation=require("../../models/conversation.model");
+const Rating = require("../../models/rating.model");
+const Converesation = require("../../models/conversation.model");
+const Comment = require("../../models/rating.model");
 const { response } = require("express");
 class ProductController {
 
-  specific(req, res, next) {
+
+  addComment(req, res, next) {
+
+    Comment.findOne({ owner: req.cookies.id, room: req.body.room }).then((item) => {
+      if (item) {
+        item.value = req.body.value,
+          item.star = req.body.rating
+
+        item.save();
+      } else {
+        let newComment = new Comment({
+          owner: req.cookies.id,
+          value: req.body.value,
+          star: req.body.rating,
+          room: req.body.room,
+          host:req.body.host
+
+
+        })
+        newComment.save();
+      }
+
+
+      res.redirect("/user/trip");
+    }).catch(err => { console.log(err); })
+
+
+  }
+  async specific(req, res, next) {
+   
     let logged;
     let conversationId;
     if (req.cookies.token) {
-     
-      
-    
+
+
+
       logged = true;
     }
     else {
@@ -24,24 +54,30 @@ class ProductController {
       isAdmin = req.cookies.role === "admin" ? true : false;
     }
     else { isAdmin = false; }
+   let item=await Reserve.find({value:"9.2"});
+            
 
     Product.findOne({ _id: id }).populate('host')
       .then((data) => {
-
+        data.Visittime = data.Visittime + 1;
+        data.save();
         data = data ? data.toObject() : data;
         let img = data.img;
-        collection.find({ user: req.cookies.id }).then(wish => {
+        Rating.find({ room:id,owner:req.cookies.id }).populate("owner").then(wish => {
+          
           wish = wish.map((i) => i.toObject());
           let name = req.cookies.username;
           let email = req.cookies.email;
           let phone = req.cookies.phone;
           let avatar = req.cookies.avatar;
-          let id=req.cookies.id;
-          let isOwner=(req.cookies.id===data.host._id)
-        
-          ?true : false;
-         let   conversationId=req.cookies.conversationId;
-          res.render("specific", {isOwner, conversationId:conversationId,id,name, email, phone, avatar, img, islogged: logged, data, admin: isAdmin, Title: data.name, wish });
+          let address = req.cookies.address;
+          let id = req.cookies.id;
+          let isOwner = (req.cookies.id === data.host._id)
+
+            ? true : false;
+          let conversationId = req.cookies.conversationId; 
+
+          res.render("specific", { item,role: req.cookies.role, address, isOwner, conversationId: conversationId, id, name, email, phone, avatar, img, islogged: logged, data, admin: isAdmin, Title: data.name, wish });
 
         }).catch(err => console.log(err));
 
@@ -60,7 +96,7 @@ class ProductController {
         "payment_method": "paypal"
       },
       "redirect_urls": {
-        "return_url": "http://localhost:3000/product/payment/success",
+        "return_url": "http://localhost:3000/rooms/payment/success",
         "cancel_url": "http://localhost:3000"
       },
       "transactions": [{
@@ -128,7 +164,7 @@ class ProductController {
         throw error;
       } else {
         console.log(JSON.stringify(payment));
-        res.render('success', { addProcessing: true });
+        res.render('success', { hideNavigation: true });
       }
     });
   }

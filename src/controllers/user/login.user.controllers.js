@@ -18,7 +18,9 @@ class LoginController {
           email: req.cookies.userProfile.email,
           fullName: req.cookies.userProfile.name,
           role: "user",
-          autherized:false
+          brief: "",
+          numberOfjudgement: 0,
+          autherized: true
         });
 
         NewUser.save();
@@ -29,8 +31,14 @@ class LoginController {
         res.cookie("username", NewUser.fullName);
         res.cookie("role", NewUser.role);
         res.cookie("email", NewUser.email);
+        res.cookie("evaluate",NewUser.numberOfjudgement);
+          res.cookie("evaluate",NewUser.numberOfjudgement);
+          res.cookie("address", NewUser.address);
+          res.cookie("phone", NewUser.phoneNumber);
+  
         
-        res.redirect(`/user/validemail/${NewUser._id}`);
+        
+
       }
       else {
 
@@ -42,17 +50,21 @@ class LoginController {
         res.cookie("username", docs[0].fullName);
         res.cookie("role", docs[0].role);
         res.cookie("email", docs[0].email);
-        res.cookie("phone", docs[0].phoneNumber);
+        res.cookie("phone", docs[0].phoneNumber || "chưa cập nhật");
+        res.cookie("evaluate",docs[0].numberOfjudgement);
+   
+        res.cookie("address", req.body.password);
+
         if (docs[0].avatar === undefined) {
           res.redirect("/user/setavatar");
         } else {
-          if(docs[0].autherized===false){
+          if (docs[0].autherized === false) {
             res.redirect(`/user/validemail/${docs[0]._id}`);
           }
-          else{
-          res.redirect("/");
+          else {
+            res.redirect("/");
           }
-          
+
         }
 
       }
@@ -66,7 +78,7 @@ class LoginController {
           message: "tài khoản chưa  được đăng kí",
           announce: true,
           addProcessing: true,
-          hideNavigation :true
+          hideNavigation: true
         });
       }
     });
@@ -83,10 +95,10 @@ class LoginController {
       .then((data) => {
 
         if (data) {
-         
+
           bcrypt.compare(req.body.password, data.password).then(function (result) {
             if (result) {
-           
+
               const token = jwt.sign({ name: req.body.username }, "fiat");
               res.cookie("id", data._id);
               res.cookie("token", token);
@@ -94,14 +106,23 @@ class LoginController {
               res.cookie("username", data.fullName);
               res.cookie("password", data.password);
               res.cookie("role", data.role);
-            if(data.autherized!==false){
+              res.cookie("evaluate",data.numberOfjudgement);
+              res.cookie("email", req.body.username);
+              res.cookie("address", req.body.password);
+              res.cookie("phone", req.body.phone);
+              if (data.avatar === undefined) {
+                res.redirect("/user/setavatar");
+              } else {
+                if (data.autherized !== false) {
                   res.redirect("/");
-            }
-            else{
-              res.redirect(`/user/validemail/${data.id}`);
-            }
-            
-              
+                }
+                else {
+                  res.redirect(`/user/validemail/${data.id}`);
+                }
+              }
+
+
+
             } else {
               res.render("login", {
                 message: "sai mật khẩu",
@@ -113,7 +134,7 @@ class LoginController {
           });
         } else {
           res.render("login");
-        } 
+        }
       })
       .catch((err) => console.log(err));
   }

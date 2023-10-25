@@ -1,0 +1,164 @@
+<div class="container d-flex w-100 flex-row" style=" margin-top:80px">
+  <div class="mb-3 row w-100 d-flex flex-row">
+    <div style="opacity: 0;" class=" flex-column d-flex col-4 ">
+      <div style="border-radius: 30px; min-width:200px"
+        class="m-4 w-100 d-flex flex-row justify-content-center bg-light p-4 rounded-4">
+        <div class="col-6 d-flex flex-column align-items-center m-3">
+          <img class="rounded-circle align-self-center" style="width:100px;height:100px" src="{{avatar}}"
+            alt="user avatar">
+          <div class="w-100 text-center">
+            {{name}}
+          </div>
+          <div class="w-100 text-center">
+            {{role}}
+          </div>
+        </div>
+        <div class="col-6 d-flex flex-column">
+          <div class="w-100 d-flex flex-column">
+            <p>{{ratings.length}}</p>
+            <p>Lượt đánh giá</p>
+          </div>
+          <hr>
+          <div class="w-100">
+            <p>{{evaluate}}</p>
+            <p>Năm kinh nghiệm</p>
+          </div>
+        </div>
+
+      </div>
+      <div style="border-radius: 30px; min-width:200px"
+        class="m-4 w-100 d-flex flex-row justify-content-center bg-light p-4 rounded-4">
+        <div class="w-100 d-flex flex-column align-items-center">
+          Thông tin đã được xác nhận của {{name}}
+
+          <div class="w-100 text-start">
+            <i class="bi-solid bi-check"></i>Danh tính
+          </div>
+          <div class="w-100 text-start">
+            <i class="bi-solid bi-check"></i> Số điện thoại
+          </div>
+          <div class="w-100 text-start">
+            <i class="bi-solid bi-check"></i> địa chỉ email
+          </div>
+        </div>
+
+
+      </div>
+
+
+    </div>
+    <div class=" flex-column d-flex col-4 position-fixed">
+      <div style="border-radius: 30px; min-width:200px"
+        class="m-4 w-100 d-flex flex-row justify-content-center bg-light p-4 rounded-4">
+        <div class="col-6 d-flex flex-column align-items-center m-3">
+          <img class="rounded-circle align-self-center" style="width:100px;height:100px" src="{{avatar}}"
+            alt="user avatar">
+          <div class="w-100 text-center">
+            {{name}}
+          </div>
+          <div class="w-100 text-center">
+            {{role}}
+          </div>
+        </div>
+        <div class="col-6 d-flex flex-column">
+          <div class="w-100 d-flex flex-column">
+            <p>{{ratings.length}}</p>
+            <p>Lượt đánh giá</p>
+          </div>
+          <hr>
+          <div class="w-100">
+            <p>{{evaluate}}</p>
+            <p>Năm kinh nghiệm</p>
+          </div>
+        </div>
+
+      </div>
+      <div style="border-radius: 30px; min-width:200px"
+        class="m-4 w-100 d-flex flex-row justify-content-center bg-light p-4 rounded-4">
+        <div class="w-100 d-flex flex-column align-items-center">
+          Thông tin đã được xác nhận của {{name}}
+
+          <div class="w-100 text-start">
+            <i class="bi-solid bi-check"></i>Danh tính
+          </div>
+          <div class="w-100 text-start">
+            <i class="bi-solid bi-check"></i> Số điện thoại
+          </div>
+          <div class="w-100 text-start">
+            <i class="bi-solid bi-check"></i> địa chỉ email
+          </div>
+        </div>
+
+
+      </div>
+
+
+    </div>
+    <div class="col-8 d-flex flex-column align-items-center">
+
+      <div style="border-radius: 20px;" class="w-75 d-flex flex-column bg-light p-4">
+        <h1>Thông tin về{{name}}</h1>
+        {{#if introduce}}
+        <p class="w-100"> {{introduce}}</p>
+        {{else}}
+        <p class="w-100"> người dùng chưa cập nhật giới thiệu</p>
+        {{/if}}
+      </div>
+      <hr class="w-75">
+      <div style="border-radius: 20px;" class="w-75 d-flex flex-column bg-light p-4">
+        <h1>Đánh giá về {{name}}</h1>
+        <div class="w-100 grid2">
+          {{#each ratings}}
+          <div style="height: 200px; border-radius:20px" class="w-100   p-4">
+            <p class="w-100 h-75 overflow-hidden">{{this.value}}</p>
+              <div class="w-100 h-25 d-flex flex-column flex-wrap">
+                   <div class="w-25 h-100">
+                    <img class="w-100 h-100 rounded-circle" src="{{this.owner.avatar}}">
+                   </div>
+                   <div class="w-75 h-50  d-flex justify-content-center">
+                    {{this.owner.fullName}}
+                   </div>
+                      <div class="w-75 h-50 d-flex justify-content-center">
+               {{genTime this.createAt 'MMMM Do YYYY'}}
+                   </div>
+                   
+
+
+              </div>
+          </div>
+       {{/each}}
+        </div>
+
+      </div>
+          <hr class="w-75">
+          
+      <div style="border-radius: 20px;" class="w-75 d-flex flex-column bg-light p-4">
+    {{#if (IsUser role "user")}}
+    
+        <h1>Danh sách nhà cho thuê của  {{name}}</h1>
+  
+        {{else}}
+        <h1>Hiện không có nhà đăng trên nền tảng</h1>
+        {{/if}}
+      <div class="w-100 grid2">
+         {{#each rooms}}
+          <div style="height: 200px; border-radius:20px" class="w-100    p-4">
+            
+                <a class="h-75 w-75" href="/rooms/{{this._id}}">
+                <img class="w-100 h-100" src="{{this.img.[0]}}" >
+                </a>
+          </div>
+          {{/each}}
+       
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+
+
+
+
+</div>

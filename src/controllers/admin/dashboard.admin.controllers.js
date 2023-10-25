@@ -52,6 +52,14 @@ class DashBoard {
 
 
     }
+    mostvisit(req,res,next) {
+        rooms.find({}).sort({Visittime:-1}).limit(20).then(list=>{
+          
+list=list.map((i)=>i.toObject());
+res.render('dashboard', { list,hideNavigation: true,mostvisit:true});
+
+        }).catch((err) => {console.log(err)});
+    }
     contractlist(req, res, next) {
         let avatar = req.cookies.avatar;
 

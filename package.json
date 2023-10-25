@@ -64,6 +64,7 @@
     "passport-google-oauth": "^2.0.0",
     "paypal-rest-sdk": "^1.8.1",
     "perfect-scrollbar": "^1.5.1",
+    "redis": "^4.6.10",
     "skycons": "^1.0.0",
     "socket.io": "^4.7.2",
     "socket.io-client": "^4.7.2",

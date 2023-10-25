@@ -1,24 +1,88 @@
 <div class="w-100 bg-dark p-4 " style="min-height:100vh">
-    <a class="link link-light" href="/">back</a>
-    <div class="w-100 d-flex flex-row flex-wrap p-4 h-100">
-        {{#each list}}
-        <div class="card m-2 rounded-2 w-25 h-25 " data-bs-toggle="tooltip" data-bs-placement="bottom"
-            data-bs-custom-class="custom-tooltip"
-            data-bs-title="Chuyến đi tới {{this.room.name}} trong {{this.day}} với giá {{this.value}} $">
-            <img class="w-100 h-100" src="/img/post/{{this.room.display}}">
+  <a class="link link-light" href="/">back</a>
+  <div class="w-100 d-flex flex-row flex-wrap p-4 h-100">
+    {{#each list}}
+    <div class="card m-2 rounded-2 w-25 h-50 bg-light " style="min-width: 200px;" data-bs-toggle="tooltip"
+      data-bs-placement="bottom" data-bs-custom-class="custom-tooltip"
+      data-bs-title="Bạn đã thuê phòng {{this.room.name}} trong {{this.day}} với giá {{this.value}} $">
+      <img style="width: 200px; height:200px" class=" m-1" src="{{this.room.img.[0]}}">
 
-        </div>
-
-        {{/each}}
+      <button class="btn btn-outline-warning" data-bs-roomId={{this.room._id}}  data-bs-hostId={{this.host._id}}  data-bs-toggle="modal"
+        data-bs-target="#wishlist">Đánh giá
+      </button>
 
     </div>
 
+    {{/each}}
+
+  </div>
+  <div class="modal fade" id="wishlist" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+       
+        <div class="modal-body">
+
+          <div class=" w-100 h-100">
+            <form action="/rooms/comment" method="post">
+              <div class="form-floating mb-3 w-100">
+                <input name="room" id="roomId" class="d-none">
+                  <input name="host" id="hostId" class="d-none">
+                <input type="text" class="form-control" id="floatingInput" name="value"
+                  placeholder="chủ nhà thân thiện ...">
+                <label for="floatingInput">Để lại đánh giá</label>
+                <p>Rating: <span class="star-rating">
+                    <label for="rate-1" style="--i:1"><i class="bi-solid bi-star"></i></label>
+                    <input type="radio" name="rating" id="rate-1" value="1">
+                    <label for="rate-2" style="--i:2"><i class="bi-solid bi-star"></i></label>
+                    <input type="radio" name="rating" id="rate-2" value="2" checked>
+                    <label for="rate-3" style="--i:3"><i class="bi-solid bi-star"></i></label>
+                    <input type="radio" name="rating" id="rate-3" value="3">
+                    <label for="rate-4" style="--i:4"><i class="bi-solid bi-star"></i></label>
+                    <input type="radio" name="rating" id="rate-4" value="4">
+                    <label for="rate-5" style="--i:5"><i class="bi-solid bi-star"></i></label>
+                    <input type="radio" name="rating" id="rate-5" value="5">
+                  </span></p>
+                <button class=" btn btn-dark text-white" type="submit">đánh giá</button>
+              </div>
+            </form>
+
+          </div>
+          <div class="modal-footer">
+
+          </div>
+        </div>
+      </div>
+    </div>
 
 
-</div>
-<script>
+  </div>
+  <script>
     $(document).ready(function () {
-        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+      var exampleModal = document.getElementById('wishlist')
+      exampleModal.addEventListener('show.bs.modal', function (event) {
+
+        // Button that triggered the modal
+        var button = event.relatedTarget
+        // Extract info from data-bs-* attributes
+        var recipient = button.getAttribute('data-bs-roomId')
+         var hostId = button.getAttribute('data-bs-hostId')
+        // If necessary, you could initiate an AJAX request here
+        // and then do the updating in a callback.
+
+        // Update the modal's content.
+        $("[id=roomId]").val(recipient);
+
+$("[id=hostId]").val(hostId);
+
+
+
+
+      })
+
+
+
     });
-</script>
+  </script>

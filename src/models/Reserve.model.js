@@ -6,7 +6,7 @@ const reserveSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, ref: "Users"
     },
     room: {
-        type: mongoose.Schema.Types.ObjectId, ref: "Product"
+        type: mongoose.Schema.Types.ObjectId, ref: "Room"
     },
     start: {
         type: Date,

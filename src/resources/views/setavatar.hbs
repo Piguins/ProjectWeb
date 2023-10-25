@@ -1,6 +1,7 @@
-<div>
-    <h1> cập nhật ảnh của bạn để mọi người có thể xác thực</h1>
-    <form method="post" action="/user/setavatar" enctype="multipart/form-data">
+<div class="d-flex container p-3 flex-column align-items-center justify-content-center w-100 vh-100">
+<div class="w-100 d-flex flex-column align-items-center justify-content-center">
+    <h1 class="text-center w-75 "> Cập nhật ảnh đại diện</h1>
+    <form class="bg-light p-2 w-50 d-flex align-items-center justify-content-center flex-column" method="post" action="/user/setavatar" enctype="multipart/form-data">
         <div class="add-input add-img">
             <label for="image"> <img id="uploadPreview" class="rounded-circle mb-3" style="width: 250px; height:250px"
                     alt="Avatar" /></label>
@@ -9,10 +10,13 @@
 
         </div>
 
-        <div class="add-submit add-input">
-            <input type="submit" value="tiep"></input>
-        </div>
+
+            <input class="btn btn-outline-dark align-self-center" type="submit" value="lưu ảnh đại diện"></input>
+             
+ 
     </form>
+</div>
+
 </div>
 
 

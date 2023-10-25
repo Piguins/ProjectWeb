@@ -13,6 +13,7 @@ class Resister {
             message: "gmail đã được đăng kí",
             announce: true,
             hideNavigation: true,
+
           });
         }
       })
@@ -41,6 +42,10 @@ class Resister {
             email: req.body.email,
             fullName: req.body.fullName,
             role: role,
+            autherized:false,
+            brief:"",
+            numberOfjudgement:0
+            
           });
 
           NewUser.save();

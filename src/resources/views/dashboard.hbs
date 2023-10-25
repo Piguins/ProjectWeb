@@ -6,12 +6,27 @@
     </a>
     <ul class="side-menu top">
 
+        <li {{#if indexPage }} class="active" {{else }} class="" {{/if}}>
+            <a href="/admin">
+                <i class='bx bxs-dashboard'></i>
+                <span class="text">Thống kê phân tích</span>
+            </a>
+        </li>
+
         <li {{#if roomlist }} class="active" {{else }} class="" {{/if}}>
             <a href="/admin/roomlist">
                 <i class='bx bxs-dashboard'></i>
                 <span class="text">Danh sách nhà</span>
             </a>
         </li>
+
+        <li {{#if mostVisit }} class="active" {{else }} class="" {{/if}}>
+            <a href="/admin/mostvisit">
+                <i class='bx bxs-dashboard'></i>
+                <span class="text">Truy cập nhiều nhất</span>
+            </a>
+        </li>
+
         <li {{#if contractlist }} class="active" {{else }} class="" {{/if}}>
             <a href="/admin/contractlist">
                 <i class='bx bxs-shopping-bag-alt'></i>
@@ -58,14 +73,14 @@
                 <button type="submit" class="search-btn bg-danger"><i class='bx bx-search'></i></button>
             </div>
         </form>
-        <input class="bg-danger" type="checkbox" id="switch-mode" hidden>
+        <input class="bg-warning" type="checkbox" id="switch-mode" hidden>
         <label for="switch-mode" class="switch-mode"></label>
         <a href="#" class="notification">
             <i class='bx bxs-bell'></i>
             <span class="num">8</span>
         </a>
         <a href="#" class="profile">
-            <img src="/img/user/{{avatar}}">
+            <img src="{{avatar}}">
         </a>
     </nav>
     <!-- NAVBAR -->
@@ -85,6 +100,10 @@
                     {{#if indexPage}}
                     <li>
                         <a class="active" href="/admin">Home</a>
+                    </li>
+                    {{else if mostvisit}}
+                    <li>
+                        <a class="active" href="/mostvisit">Most Visited</a>
                     </li>
                     {{else if roomlist}}
                     <li>
@@ -117,29 +136,143 @@
                 <i class='bx bxs-calendar-check'></i>
                 <span class="text">
                     <h3>{{ roomAmount }}</h3>
-                    <p>rooms</p>
+                    <p>phòng</p>
                 </span>
             </li>
             <li>
                 <i class='bx bxs-group'></i>
                 <span class="text">
                     <h3>{{userAmount}}</h3>
-                    <p>user and host</p>
+                    <p>người dùng</p>
                 </span>
             </li>
             <li>
                 <i class='bx bxs-dollar-circle'></i>
                 <span class="text">
                     <h3>${{beautyNumber totalVenue }}</h3>
-                    <p>Total Venues</p>
+                    <p>tổng lợi nhuận</p>
                 </span>
             </li>
         </ul>
+
+
+        <div class="card p-3 w-75 ">
+            <h2 class="text-start m-3   p-3">Đặt phòng/đặt chỗ của bạn</h2>
+            <nav class="w-74 d">
+                <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+                    <button class="nav-link link-secondary rounded-pill m-3 active" id="nav-home-tab"
+                        data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab"
+                        aria-controls="nav-home" aria-selected="true">
+                        Sắp trả phòng</button>
+                    <button class="nav-link link-secondary  rounded-pill m-3" id="nav-profile-tab" data-bs-toggle="tab"
+                        data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile"
+                        aria-selected="false">Hiện đang đón tiếp</button>
+                    <button class="nav-link link-secondary  rounded-pill m-3" id="nav-contact-tab" data-bs-toggle="tab"
+                        data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact"
+                        aria-selected="false">Sắp đến </button>
+                </div>
+            </nav>
+
+            <div class="tab-content p-3 border bg-light" id="nav-tabContent">
+                <div class="tab-pane fade active show" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <div class="d-flex flex-row flex-wrap">{{#each hasGone}}
+                        <div class="card" style="width: 18rem; border-radius:15%">
+                            <div class="card-body w-100">
+                                <h5 class="card-title w-100"><img class="w-25 h-100 rounded-circle"
+                                        src={{this.cus.avatar}}>
+
+                                    <p class=" w-100">{{this.cus.fullName}}</p>
+                                </h5>
+                                <img class="w-50 h-50" src="{{this.room.img.[0]}}">
+                                <p> Ngày trả phòng {{ genTime this.end 'MMMM Do YYYY'}} </p>
+
+
+                            </div>
+                        </div>
+                        {{/each}}
+                        {{#if hasGone.length}}
+                        {{else}}
+                        <p>Hiện tại chưa có phòng sắp trả </p>
+                        {{/if}}
+                    </div>
+
+                </div>
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    {{#each isMeeting}}
+                    <div class="card" style="width: 18rem; border-radius:15%">
+                        <div class="card-body w-100">
+                            <h5 class="card-title w-100"><img class="w-25 h-100 rounded-circle" src={{this.cus.avatar}}>
+
+                                <p class=" w-100">{{this.cus.fullName}}</p>
+                            </h5>
+                            <img class="w-50 h-50" src="{{this.room.img.[0]}}">
+                            <p> Từ ngày {{ genTime this.start 'MMMM Do YYYY'}} </p>
+
+                            <p> Đén ngày {{ genTime this.end 'MMMM Do YYYY'}} </p>
+                        </div>
+                    </div>
+
+                    {{/each}}
+                    {{#if isMeeting.length}}
+                    {{else}}
+                    <p>Hiện không có phòng đón tiếp </p>
+                    {{/if}}
+
+
+                </div>
+                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                    {{#each gonnaCome}}
+                    <div class="card" style="width: 18rem; border-radius:15%">
+                        <div class="card-body w-100">
+                            <h5 class="card-title w-100"><img class="w-25 h-100 rounded-circle" src={{this.cus.avatar}}>
+
+                                <p class=" w-100">{{this.cus.fullName}}</p>
+                            </h5>
+                            <img class="w-50 h-50" src="{{this.room.img.[0]}}">
+                            <p> Ngày đến {{ genTime this.start 'MMMM Do YYYY'}} </p>
+
+
+                        </div>
+                    </div>
+
+                    {{/each}}
+                    {{#if isMeeting.length}}
+                    {{else}}
+                    <p>Hiện Chưa có khách đặt phòng của bạn</p>
+                    {{/if}}
+                </div>
+                {{#each item}}
+                {{this.host}}
+                {{/each}}
+            </div>
+        </div>
         <div>
             <canvas id="myChart"></canvas>
         </div>
 
 
+
+        {{/if}}
+        {{#if mostvisit}}
+
+        <div id="ranking-slide" class="w-75">
+            <ol class="w-100">
+                {{#each list}}
+                <li class="w-100 h-50">
+                    <div class="w-100 h-100 d-flex flex-row m-3 align-items-center justify-content-center">
+                        <img class="" style="width:130px;height:130px" src="{{this.img.[0]}}">
+
+                        <p class="w-50 m-3"> {{this.name}}</p>
+                        <p class="w-50 m-3"> số lượt truy cập :{{this.Visittime}}</p>
+                    </div>
+                </li>
+                {{/each }}
+
+
+            </ol>
+            <a class="prev" onclick="prev()"></a>
+            <a class="next" onclick="next()"></a>
+        </div>
 
         {{/if}}
         {{#if roomsRequest}}
@@ -161,6 +294,12 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {{#if rooms.length}}
+                        {{else}}
+                        <div class="bg-warning w-100 d-flex flex-row justify-content-center">
+                            <p>Hiện tại chưa có yêu cầu đăng phòng</p>
+                        </div>
+                        {{/if}}
                         {{#each rooms}}
                         <tr>
                             <td>
@@ -168,7 +307,7 @@
                                 <p>{{this.host.fullName}}</p>
                             </td>
                             <td>
-                                <img src="/img/user/{{this.host/avatar}}">
+                                <img src={{this.host.avatar}}>
                             </td>
                             <td>
                                 <p>{{this.name}}</p>
@@ -189,6 +328,7 @@
             </div>
 
         </div>
+
         {{else if contractlist}}
         <div class="table-data">
             <div class="order">
@@ -210,6 +350,12 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {{#if list.length}}
+                        {{else}}
+                        <div class="bg-warning w-100 d-flex flex-row justify-content-center">
+                            <p>Hiện tại chưa có người thuê </p>
+                        </div>
+                        {{/if}}
                         {{#each list}}
                         <tr>
                             <td>
@@ -511,7 +657,7 @@
 <script>
     $(document).ready(function () {
 
-        const ctx = document.getElementById('myChart');
+
 
         new Chart(ctx, {
             type: 'bar',

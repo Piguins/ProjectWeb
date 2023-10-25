@@ -18,7 +18,7 @@ function Route(App) {
   App.use("/rooms", ProductRouter);
   App.use("/host", addProduct);
   App.use("/logout", LogoutRouter);
-  App.use("/addtype", addType);
+  App.use("/category", addType);
   App.use("/user", userRoute);
   App.use("/", HomeRouter);
   App.use("/admin", adminRoute)

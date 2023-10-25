@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const productSchema = new mongoose.Schema({
+const roomSchema = new mongoose.Schema({
   name: {
     type: String,
 
@@ -32,6 +32,7 @@ const productSchema = new mongoose.Schema({
     type: Number,
   },
 
+
   type: {
     type: mongoose.Schema.Types.ObjectId, ref: "Type"
   },
@@ -44,9 +45,18 @@ const productSchema = new mongoose.Schema({
   hosthome: {
     type: Boolean
   },
+  address: {
+    type: String
+  },
+  isRented:{
+    type: Boolean
+  },
   validByAdmin: {
     type: Boolean
   },
+  Visittime:{
+    type:Number
+  }
 });
-const Product = mongoose.model("Product", productSchema);
+const Product = mongoose.model("Room", roomSchema);
 module.exports = Product;

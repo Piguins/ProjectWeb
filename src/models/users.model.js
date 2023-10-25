@@ -15,7 +15,8 @@ const UserSchema = new Schema({
   password: String,
   date: { type: Date, default: Date.now },
   age: { type: Number, min: 0, max: 120 },
-
+  introduce :{type: String,},
+address: { type: String},
   avatar: String,
   fullName: String,
   role: String,
@@ -23,7 +24,11 @@ const UserSchema = new Schema({
   autherized:{
     type: Boolean,
    
-  }
+  },
+  brief:{
+    type:String,
+  },
+  numberOfjudgement: { type: Number}
 
 }, { timestamps: { createdAt: 'created_at' } });
 const User = mongoose.model("Users", UserSchema);

@@ -1,7 +1,9 @@
 const userData = require("../../models/users.model");
+const Room = require("../../models/product.model");
 const productData = require("../../models/product.model");
 const Collection = require("../../models/collection.model");
 const Converesation = require("../../models/conversation.model");
+const Rating = require("../../models/rating.model");
 const sendmail = require("../../config/nodemail");
 const Reserve = require("../../models/Reserve.model");
 var generator = require('generate-password');
@@ -9,18 +11,33 @@ const bcrypt = require("bcrypt");
 const { response } = require("express");
 class user {
     setavatar(req, res, next) {
-
-        res.render("setavatar", { addProcessing: true });
+        res.render("setavatar", { hideNavigation: true });
     }
 
     saveAvatar(req, res, next) {
-
-        userData.findByIdAndUpdate({ _id: req.cookies.id }, { avatar: req.file.originalname }).then((love) => {
+        userData.findByIdAndUpdate({ _id: req.cookies.id }, { avatar: req.file.path }).then((love) => {
+            res.cookie("avatar", req.file.path);
             res.redirect("/")
         }).catch(err => res.json("failed"))
     }
     getHosting(req, res, next) {
-    res.render("hosting",{hideNavigation:true});
+        let gonnaCome, isMeeting, hasGone;
+        Reserve.find({ host: req.cookies.id }).populate(["room", "cus"]).then((item) => {
+            item = item.map(i => i.toObject());
+            gonnaCome = item.filter((item) => {
+                return item.start.getTime() > Date.now()
+            })
+            isMeeting = item.filter((item) => {
+                return (item.start.getTime() < Date.now() && item.end.getTime() > Date.now())
+            })
+            hasGone = item.filter((item) => {
+                return item.end.getTime() < Date.now()
+            })
+
+
+            res.render("hosting", { hideNavigation: true, gonnaCome, isMeeting, hasGone, userId: req.cookies.id });
+        }).catch(err => console.error(err));
+
     }
     getTrip(req, res, next) {
         let logged;
@@ -35,7 +52,7 @@ class user {
         let email = req.cookies.email;
         let phone = req.cookies.phone;
         let avatar = req.cookies.avatar;
-        Reserve.find({ cus: req.cookies.id }).populate("room")
+        Reserve.find({ cus: req.cookies.id }).populate(["room", "host"])
             .then((list) => {
                 list = list.map((item) => item.toObject());
 
@@ -43,6 +60,9 @@ class user {
             })
             .catch((err) => console.log(err));
 
+    }
+    getHostingCalendar(req, res, next) {
+        res.render("calendar", { hideNavigation: true });
     }
     addCollection(req, res, next) {
         const love = new Collection({
@@ -144,15 +164,14 @@ class user {
     }
 
 
-    async send(req, res) {
+    async send(req, res, next) {
+
         try {
 
-            const url = `${process.env.BASE_URL}/user/validemail/${req.params.id}`;
-            await sendmail("20520923@gm.uit.edu.vn", "Verify Email", url);
+            const url = `${process.env.BASE_URL}/user/activateAccount/${req.params.id}`;
+            await sendmail(req.cookies.email, "Verify Email", url);
 
-            res
-                .status(201)
-                .send({ message: "An Email sent to your account please verify" });
+            next();
         } catch (error) {
             console.log(error);
             res.status(500).send({ message: "Internal Server Error" });
@@ -164,17 +183,28 @@ class user {
     }
     validateEmail(req, res, next) {
 
-        userData.findByIdAndUpdate({ _id: req.params.id }, { autherized: true }).then((user) => {
-            res.redirect("/");
-        }).catch(err => {
+        res.clearCookie("token");
+        res.clearCookie("id");
 
-        })
+        res.clearCookie("avatar");
+        res.clearCookie("role");
+        res.clearCookie("username");
+        res.clearCookie("phone");
+        res.clearCookie("password");
+        res.render("emailnotify", { hideNavigation: true });
 
 
 
 
     }
-   
+    activateAccount(req, res, next) {
+        userData.findById(req.params.id).then(item => {
+            item.autherized = true;
+            item.save();
+            res.redirect("/login");
+        }).catch(err => { console.log(err); });
+    }
+
     getPassword(req, res, next) {
         res.render("forgetpassword", { hideNavigation: true });
     }
@@ -183,7 +213,7 @@ class user {
         const user = await userData.find({ email: req.body.email });
         if (Object.entries(user).length === 0) {
             res.render("forgetpassword", {
-                message: "gmail khong co trong he thong",
+                message: "địa chỉ email không có trong hệ thống",
                 announce: true,
                 hideNavigation: true,
             });
@@ -199,20 +229,83 @@ class user {
                 userData.findOneAndUpdate({ email: req.body.email }, { password: hash }).then((item) => {
                     const url = "Your new password is " + password;
                     sendmail(req.body.email, "Verify Email", url).then((item) => {
-                        res.render("forgetpassword",{ message: "mat khau da duoc gui toi emaildjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj",
-                        announce: true,
-                        hideNavigation: true, });
+                        res.render("forgetpassword", {
+                            message: "Mật khẩu mới được gửi tới "+req.body.email,
+                            announce: true,
+                            hideNavigation: true,
+                        });
 
 
                     }).catch((err) => { console.log(err); })
                 }).catch(err => console.log(err));
             }).catch(err => console.log(err));
-              
 
 
-            }
 
-    }
+        }
 
     }
+
+    getPersonaldetail(req, res, next) {
+
+        userData.findOne({ _id: req.params.id }).then((person) => {
+
+         Rating.find({ host: req.params.id }).populate("owner").then(list => {
+            list = list.map(i => i.toObject());
+                Room.find({ host: req.params.id }).limit(4).then(rooms => {
+                    
+                    rooms = rooms.map(i => i.toObject());
+                    res.render("PersonalDetail", {
+                        ratings: list,
+                        hideNavigation: true,
+                        role: person.role,
+                        avatar: person.avatar,
+                        name: person.fullName,
+                        email: person.email,
+                        phone: person.phoneNumber,
+                        evaluate: person.numberOfjudgement,
+                        introduce: person.introduce,
+                        rooms
+
+                    });
+
+
+                });
+            }).catch((err) => { console.log(err) });
+
+
+        }).catch(err => console.log(err));
+
+    }
+    async updatePersonalName(req, res, next) {
+
+        let name = req.body.firstname + req.body.lastname;
+
+        await userData.findOne({ _id: req.cookies.id }).then((user) => {
+            user.fullName = name;
+            user.save();
+        }).catch(err => console.log(err));
+        res.cookie("username", name);
+        res.redirect("/");
+    }
+    async updatePersonalPhone(req, res, next) {
+
+        await userData.findOne({ _id: req.cookies.id }).then((user) => {
+            user.phoneNumber = req.body.phone;
+
+        }).catch(err => console.log(err));
+        res.cookie("phone", req.body.phone);
+        user.save(); res.redirect("/");
+    }
+    async updatePersonalAddress(req, res, next) {
+
+        await userData.findOne({ _id: req.cookies.id }).then((user) => {
+            user.address = req.body.address;
+            user.save();
+        }).catch(err => console.log(err));
+        res.cookie("address", req.body.address);
+        res.redirect("/");
+    }
+
+}
 module.exports = new user();

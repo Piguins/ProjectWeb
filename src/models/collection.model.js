@@ -15,7 +15,7 @@ const collectionSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId, ref: "Users"
     },
     room: [{
-        type: mongoose.Schema.Types.ObjectId, ref: "Product"
+        type: mongoose.Schema.Types.ObjectId, ref: "Room"
     }],
     display: [{ type: String }]
 });

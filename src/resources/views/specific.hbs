@@ -74,6 +74,7 @@
       <hr>
       <h3>Nơi này có gì cho bạn</h3>
       <div class="row d-flex justify-content-start align-items-center h-100 w-100 p-3">
+              <p class="col-6"><i class="bi bi-wifi ms-2"></i> {{item.value}}</p>
         <p class="col-6"><i class="bi bi-wifi ms-2"></i> Wi-fi</p>
         <p class="col-6"><i class="bi bi-p-circle ms-2"></i> Chỗ đỗ xe miễn phí tại nơi ở</p>
         <p class="col-6"><i class="bi bi-water ms-2"></i> Bể bơi</p>
@@ -154,21 +155,48 @@
 
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-start align-items-center h-100">
-        <div class="col-8 p-4 ">
-          <h3>Đánh giá</h3>
-          <p class="fw-bolg ml-2"> Chưa có đánh giá</p>
+        <h3>Đánh giá</h3>
+        {{#if wish}}
+        {{else}} <p class="fw-bolg ml-2"> Chưa có đánh giá</p>
+        {{/if}}
+        {{#each wish}}
+        <div class="col-8 p-4 grid2 ">
+
+          <div style="height: 200px; border-radius:20px ;" class="w-100 bg-light  p-4">
+            <p class="w-100 h-75 overflow-hidden">
+
+              {{this.value}}
+            </p>
+            <div class="w-100 h-25 d-flex flex-column flex-wrap">
+              <div class="w-25 h-100">
+                <img class="w-100 h-100 rounded-circle" src="{{this.owner.avatar}}">
+              </div>
+              <div class="w-75 h-50  d-flex justify-content-center">
+                {{this.owner.fullName}}
+              </div>
+              <div class="w-75 h-50 d-flex justify-content-center">
+                <p class="t"> {{genTime this.createdAt 'MMMM Do YYYY'}} </p>
+              </div>
+
+
+
+
+            </div>
+
+          </div>
+          {{/each }}
         </div>
       </div>
 
     </div>
 
   </div>
-{{#if isOwner}}
-{{else}}
+  {{#if isOwner}}
+  {{else}}
   <div class="specific-container-host w-75" id="host-part">
 
 
-    <div class="container py-5 h-100 " style="min-width: 500px;">
+    <div class="container py-5 h-100 ">
       <div class="row d-flex justify-content-start align-items-center h-100 p-3">
         <div class="col-8">
           <div class="card p-2" style="border-radius: 15px;">
@@ -180,8 +208,8 @@
             <div class="card-body p-4">
               <div class="d-flex text-black">
                 <div class="flex-shrink-0">
-                  <img src="/img/user/{{data.host.avatar}}" class="img-fluid"
-                    style="width: 180px; border-radius: 10px;" />
+                 <a href="/user/personaldetail/{{data.host._id}}"><img src="{{data.host.avatar}}" class="img-fluid"
+                    style="width: 180px; border-radius: 10px;" /></a> 
                 </div>
                 <div class="flex-grow-1 ms-3 ">
                   <h5 class="mb-1">{{data.host.fullName}}</h5>
@@ -206,7 +234,7 @@
                     </div>
                     <div>
                       <p class="small text-muted mb-1">
-                     {{conversationId}}
+                        {{conversationId}}
                       </p>
                       <p class="mb-0">8.5</p>
                     </div>
@@ -214,12 +242,12 @@
                   <div class="align-seft-center">
                     {{#if islogged}}
                     <form action="/user/message/{{conversationId}}" method="get">
-                    <input type="text" name="cus" value="{{id}}" style="display: none;">
-                              <input type="text" name="host" value="{{data.host._id}}" style="display: none;">
-                              
-                              <input type="submit" value="chat to this host"> 
+                      <input type="text" name="cus" value="{{id}}" style="display: none;">
+                      <input type="text" name="host" value="{{data.host._id}}" style="display: none;">
+
+                      <input class="btn btn-primary" type="submit" value="chat to this host">
                     </form>
-                 
+
                     {{else}}
                     <a class="dropdown-item btn btn-info text-center w-50 align-self-center text-uppercase"
                       href="/login" role="button">
@@ -347,8 +375,7 @@
 
           <form id="msgForm" action="" class="h-100 position-relative">
             <div class="w-100  h-75 " style="overflow-y: scroll;" id="messageBox"></div>
-            <input class=" position-absolute bottom-0 start-0 w-75 rounded-5" id="msg" type="text" name="msg"
-              value="">
+            <input class=" position-absolute bottom-0 start-0 w-75 rounded-5" id="msg" type="text" name="msg" value="">
             <input class="" style="display:none" id="hostId" type="text" name="msg" value="{{data.host._id}}">
 
             <input class="" style="display:none" id="cusId" type="text" name="msg" value="{{id}}">
