@@ -16,29 +16,14 @@
   <div class="home-main">
     {{#each list
     }}
-    <div class="modal w-100 h-100 position-absolute mt-5" style="z-index: 100000;" id="cc{{this.host._id}}"
-      tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content rounded-5">
-          <div class="modal-header">
-            Kiếm Phòng
-          </div>
-          <div class="modal-body">
 
-
-            <p>jhdshakdjshkj</p>
-          </div>
-
-        </div>
-      </div>
-    </div>
 
 
     <div class="home-main-card position-relative ">
-      <img id="host" src="img/default/portail.png" style="z-index: 1; width:27%; height:27%;"
-        class="rounded  position-absolute top-0 end-0 m-1">
-      <img id="host" src="{{this.host.avatar}}" style="z-index: 2;"
-        class="w-25 h-25 rounded-circle position-absolute top-0 end-0 m-1 p-2">
+      <img id="host" src="img/default/portail.png" style="z-index: 1; width:27%; height:27%; margin-top:10px;margin-right:10px"
+        class="rounded  position-absolute top-0 end-0 ">
+      <img id="host" src="{{this.host.avatar}}" style="z-index: 2;  margin-top:12px;margin-right:12px"
+        class="w-25 h-25 rounded-circle position-absolute top-0 end-0 ">
       </img>
       <div id="carouselExample{{this._id}}" class="carousel slide w-100 h-75">
         <div class="carousel-inner w-100 h-100" style="border-radius: 10px;">
@@ -75,7 +60,7 @@
 
 
 
-      <div class="home-main-card-body">
+      <div class="home-main-card-body ">
         <div class="home-main-card-body-name">{{this.name}}</div>
         <div class="home-main-card-body-day">
           <p class="t"> {{genTime this.startday 'MMMM Do YYYY'}} </p>

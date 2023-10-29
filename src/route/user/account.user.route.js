@@ -15,14 +15,14 @@ const storage = new CloudinaryStorage({
   
 
 var upload = multer({ storage: storage }).single("productImg");
-router.get("/setavatar", userController.setavatar);
+router.get("/avatar", userController.setavatar);
 router.get("/trip", userController.getTrip);
 router.get("/hosting", userController.getHosting);
 router.get("/hosting/calendar", userController.getHostingCalendar);
 router.post("/getpassword", userController.sendPassword);
 router.get("/getpassword",userController.getPassword);
 router.get("/wishlist", userController.getWishlist);
-router.post("/setavatar", upload, userController.saveAvatar);
+router.post("/avatar", upload, userController.saveAvatar);
 router.post("/wishlist/collection", userController.addCollection);
 router.post("/wishlist/update/:id", userController.updateWishlist);
 router.get("/porpolio", userController.displayUserPorpolio);

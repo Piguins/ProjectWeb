@@ -13,16 +13,18 @@
   <div class="mainnav-add">
     <button class="bg-danger text-white btn-outline-danger"> <a class="text-white" href="/admin">Quản lí </a></button>
   </div>
-  {{else if (IsUser role "user")}}
-  <div class="mainnav-add">
-    <button class="btn btn-outline-danger overflow-hidden rounded-4 "> <a class="text-danger" href="/host/room">Cho
-        thuê chỗ ở qua
-        fiat</a></button>
-  </div>
+
   {{else if (IsUser role "host")}}
   <div class=" m-4">
     <button class="rounded-3 btn btn-dark"> <a class="link-light" href="/user/hosting">đón tiếp khách
       </a></button>
+  </div>
+
+    {{else }}
+  <div class="mainnav-add">
+    <button class="btn btn-outline-danger overflow-hidden rounded-4 "> <a class="text-danger" href="/host/room">Cho
+        thuê chỗ ở qua
+        fiat</a></button>
   </div>
   {{/if}}
   <div class="btn-group mainnav-user p-4 rounded-1">

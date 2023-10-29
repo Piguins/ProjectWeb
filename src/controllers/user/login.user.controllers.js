@@ -56,7 +56,7 @@ class LoginController {
         res.cookie("address", req.body.password);
 
         if (docs[0].avatar === undefined) {
-          res.redirect("/user/setavatar");
+          res.redirect("/user/avatar");
         } else {
           if (docs[0].autherized === false) {
             res.redirect(`/user/validemail/${docs[0]._id}`);
@@ -111,7 +111,7 @@ class LoginController {
               res.cookie("address", req.body.password);
               res.cookie("phone", req.body.phone);
               if (data.avatar === undefined) {
-                res.redirect("/user/setavatar");
+                res.redirect("/user/avatar");
               } else {
                 if (data.autherized !== false) {
                   res.redirect("/");

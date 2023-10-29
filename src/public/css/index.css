@@ -44,9 +44,9 @@ body {
   overflow-x: hidden; }
 
 .fixed {
-  position: fixed;
+  position: fixed !important;
   top: 80px;
-  right: 15%;
+  right: 10% !important;
   z-index: 14; }
 
 .congrats {
@@ -169,14 +169,7 @@ body {
 .specific-container {
   position: relative;
   top: 80px;
-  padding-left: 50px;
-  padding-right: 50px;
   width: 100%; }
-  .specific-container .float-container {
-    width: 85%;
-    height: 500px;
-    position: relative;
-    padding: 0px; }
   .specific-container-name {
     margin-top: 20px;
     display: flex;
@@ -272,107 +265,22 @@ body {
         .specific-container-img-some .img5 img {
           width: 100%;
           height: 100%; }
-  .specific-container-payment {
-    background-color: white;
-    width: 25%;
-    float: right;
-    height: 450px;
-    min-width: 300px;
+  .specific-container .float-container {
+    width: 100%;
+    height: auto;
+    position: relative;
+    padding-left: 60px;
+    padding-right: 60px;
     display: flex;
+    flex-direction: row;
     justify-content: center;
-    align-items: center;
-    border: 0.5px solid black;
-    border-radius: 10px; }
-    .specific-container-payment-fee .realcost {
-      width: 100%;
-      display: flex;
-      flex-direction: row; }
-      .specific-container-payment-fee .realcost label {
-        color: black;
-        font-size: larger;
-        font-weight: bold;
-        width: fit-content;
-        height: 1.25em; }
-      .specific-container-payment-fee .realcost input {
-        border: none;
-        width: 30%;
-        background-color: transparent;
-        color: black;
-        font-size: larger;
-        font-weight: bold;
-        height: 1, 25em; }
-    .specific-container-payment-fee .fiatcost {
-      width: 100%;
-      display: flex;
-      flex-direction: row; }
-      .specific-container-payment-fee .fiatcost input {
-        width: 45%;
-        border: none;
-        background-color: transparent;
-        height: 1.25em; }
-      .specific-container-payment-fee .fiatcost p {
-        width: fit-content; }
-    .specific-container-payment-inputsubmit {
-      width: 100%;
-      padding: 10px;
-      display: flex;
-      flex-direction: row;
-      justify-content: center; }
-      .specific-container-payment-inputsubmit input {
-        padding: 5px;
-        background-color: #e41d56;
-        color: white;
-        border: none;
-        border-radius: 7px;
-        font-size: larger;
-        height: 2.25em;
-        width: 100%; }
-      .specific-container-payment-inputsubmit input:hover {
-        opacity: 0.9; }
-    .specific-container-payment-inputday {
-      width: 100%;
-      height: 3em;
-      border: 4px;
-      margin-bottom: 20px; }
-      .specific-container-payment-inputday-start {
-        width: 48%;
-        display: flex;
-        flex-direction: column;
-        float: left; }
-        .specific-container-payment-inputday-start label {
-          font-weight: bold; }
-        .specific-container-payment-inputday-start input {
-          border: none; }
-      .specific-container-payment-inputday-end {
-        width: 48%;
-        display: flex;
-        flex-direction: column;
-        float: right; }
-        .specific-container-payment-inputday-end label {
-          font-weight: bold; }
-        .specific-container-payment-inputday-end input {
-          border: none; }
-    .specific-container-payment-price p {
-      font-weight: bold;
-      font-size: 1.5em; }
-  .specific-container-detail {
-    float: left;
-    width: 50%;
-    padding-left: 30px; }
-    .specific-container-detail-house {
-      margin-left: 30px;
-      font-size: 2em; }
-    .specific-container-detail-host {
-      margin-left: 30px;
-      display: flex;
-      flex-direction: row;
-      align-items: center; }
-      .specific-container-detail-host h2 {
-        width: 30%; }
-      .specific-container-detail-host p {
-        font-size: larger;
-        font-weight: bolder;
-        width: 45%; }
+    align-items: center; }
+    .specific-container .float-container-payment {
+      min-width: 350px;
+      height: auto; }
+    .specific-container .float-container-detail {
+      height: auto;
+      min-width: 350px; }
   .specific-container-host {
     width: 100%;
     padding: 30px; }
@@ -462,12 +370,13 @@ body {
     .home-main-card {
       width: 25%;
       height: 40%;
+      padding: 10px;
       min-width: 290px;
       border-radius: 10px;
       min-height: 400px;
       display: flex;
       flex-direction: column;
-      margin-bottom: 10px; }
+      margin: 10px; }
       .home-main-card #host:hover {
         transform: scale(1.4);
         /* Start the shake animation and make the animation last for 0.5 seconds */
@@ -691,17 +600,14 @@ body {
   #registerForm {
     width: 90%; } }
 
-@media (max-width: 700px) {
+@media (max-width: 699px) {
   .img-container-add {
     display: flex;
     flex-direction: column; }
   #registerForm {
     width: 80%; }
   .fixed {
-    position: fixed;
-    top: 80px;
-    right: 15%;
-    z-index: 14; }
+    display: none !important; }
   .mainnav {
     width: 100%;
     height: 80px;
@@ -837,103 +743,6 @@ body {
           .specific-container-img-some .img5 img {
             width: 100%;
             height: 100%; }
-    .specific-container-payment {
-      background-color: white;
-      width: 70%;
-      left: 15%;
-      height: 450px;
-      padding: 20px;
-      border: 0.5px solid black;
-      border-radius: 10px; }
-      .specific-container-payment-fee .realcost {
-        width: 100%;
-        display: flex;
-        flex-direction: row; }
-        .specific-container-payment-fee .realcost label {
-          color: black;
-          font-size: larger;
-          font-weight: bold;
-          width: fit-content;
-          height: 1.25em; }
-        .specific-container-payment-fee .realcost input {
-          border: none;
-          width: 30%;
-          background-color: transparent;
-          color: black;
-          font-size: larger;
-          font-weight: bold;
-          height: 1, 25em; }
-      .specific-container-payment-fee .fiatcost {
-        width: 100%;
-        display: flex;
-        flex-direction: row; }
-        .specific-container-payment-fee .fiatcost input {
-          width: 45%;
-          border: none;
-          background-color: transparent;
-          height: 1.25em; }
-        .specific-container-payment-fee .fiatcost p {
-          width: fit-content; }
-      .specific-container-payment-inputsubmit {
-        width: 100%;
-        padding: 10px;
-        display: flex;
-        flex-direction: row;
-        justify-content: center; }
-        .specific-container-payment-inputsubmit input {
-          padding: 5px;
-          background-color: #e41d56;
-          color: white;
-          border: none;
-          border-radius: 7px;
-          font-size: larger;
-          height: 2.25em;
-          width: 100%; }
-        .specific-container-payment-inputsubmit input:hover {
-          opacity: 0.9; }
-      .specific-container-payment-inputday {
-        width: 100%;
-        height: 3em;
-        border: 4px;
-        margin-bottom: 20px; }
-        .specific-container-payment-inputday-start {
-          width: 48%;
-          display: flex;
-          flex-direction: column;
-          float: left; }
-          .specific-container-payment-inputday-start label {
-            font-weight: bold; }
-          .specific-container-payment-inputday-start input {
-            border: none; }
-        .specific-container-payment-inputday-end {
-          width: 48%;
-          display: flex;
-          flex-direction: column;
-          float: right; }
-          .specific-container-payment-inputday-end label {
-            font-weight: bold; }
-          .specific-container-payment-inputday-end input {
-            border: none; }
-      .specific-container-payment-price p {
-        font-weight: bold;
-        font-size: 1.5em; }
-    .specific-container-detail {
-      width: 100%;
-      padding-left: 30px; }
-      .specific-container-detail-house {
-        margin-left: 30px;
-        font-size: 2em; }
-      .specific-container-detail-host {
-        margin-left: 30px;
-        display: flex;
-        flex-direction: row;
-        align-items: center; }
-        .specific-container-detail-host h2 {
-          width: 30%; }
-        .specific-container-detail-host p {
-          font-size: larger;
-          font-weight: bolder;
-          width: 45%; }
     .specific-container-host {
       width: 100%;
       padding: 30px; } }
@@ -1377,6 +1186,8 @@ body {
 /* MAIN */
 /* CONTENT */
 @media screen and (max-width: 768px) {
+  .fixed {
+    background-color: red !important; }
   #sidebar {
     width: 200px; }
   #content {

@@ -10,16 +10,19 @@ var generator = require('generate-password');
 const bcrypt = require("bcrypt");
 const { response } = require("express");
 class user {
+
+    //[Get] /user/avatar
     setavatar(req, res, next) {
         res.render("setavatar", { hideNavigation: true });
     }
-
+    //[Post] /user/avatar
     saveAvatar(req, res, next) {
         userData.findByIdAndUpdate({ _id: req.cookies.id }, { avatar: req.file.path }).then((love) => {
             res.cookie("avatar", req.file.path);
             res.redirect("/")
         }).catch(err => res.json("failed"))
     }
+     //[Get] /user/hosting
     getHosting(req, res, next) {
         let gonnaCome, isMeeting, hasGone;
         Reserve.find({ host: req.cookies.id }).populate(["room", "cus"]).then((item) => {
@@ -39,6 +42,7 @@ class user {
         }).catch(err => console.error(err));
 
     }
+    //[Get] /user/trip
     getTrip(req, res, next) {
         let logged;
 
@@ -64,6 +68,7 @@ class user {
     getHostingCalendar(req, res, next) {
         res.render("calendar", { hideNavigation: true });
     }
+    //[Post] /user/wishlist/collection
     addCollection(req, res, next) {
         const love = new Collection({
             name: req.body.name,
@@ -76,10 +81,6 @@ class user {
 
     }
     updateWishlist(req, res, next) {
-
-        // Collection.findOneAndUpdate({ _id: req.params.id }, {
-        //     $push: { room: req.body.roomId },
-        // })
         productData.find({ _id: req.body.roomId }).then((love) => {
             love = love.map((i) => i.toObject()); Collection.findByIdAndUpdate(
                 req.params.id,
@@ -230,7 +231,7 @@ class user {
                     const url = "Your new password is " + password;
                     sendmail(req.body.email, "Verify Email", url).then((item) => {
                         res.render("forgetpassword", {
-                            message: "Mật khẩu mới được gửi tới "+req.body.email,
+                            message: "mật khẩu mới được gửi tơi " + req.body.email,
                             announce: true,
                             hideNavigation: true,
                         });
@@ -245,38 +246,31 @@ class user {
         }
 
     }
+   //[Get]/user/personaldetail/:id
+    async getPersonaldetail(req, res, next) {
+        let personalroom = await Room.find({ host: req.params.id },{_id:1,img:1}).limit(4);
+        personalroom = personalroom.map(i => i.toObject());
+        let rating = await Rating.find({ host: req.params.id }).populate("owner");
+        rating = rating.map(i => i.toObject());
+        let personaldetail = await userData.findOne({ _id: req.params.id }, { role: 1, avatar: 1, fullName: 1, email: 1, phoneNumber: 1, numberOfjudgement: 1, introduce: 1 });
+        res.render("PersonalDetail", {
+            ratings: rating,
+            hideNavigation: true,
+            role: personaldetail.role,
+            avatar: personaldetail.avatar,
+            name: personaldetail.fullName,
+            email: personaldetail.email,
+            phone: personaldetail.phoneNumber,
+            evaluate: personaldetail.numberOfjudgement,
+            introduce: personaldetail.introduce,
+            rooms: personalroom
 
-    getPersonaldetail(req, res, next) {
+        })
 
-        userData.findOne({ _id: req.params.id }).then((person) => {
-
-         Rating.find({ host: req.params.id }).populate("owner").then(list => {
-            list = list.map(i => i.toObject());
-                Room.find({ host: req.params.id }).limit(4).then(rooms => {
-                    
-                    rooms = rooms.map(i => i.toObject());
-                    res.render("PersonalDetail", {
-                        ratings: list,
-                        hideNavigation: true,
-                        role: person.role,
-                        avatar: person.avatar,
-                        name: person.fullName,
-                        email: person.email,
-                        phone: person.phoneNumber,
-                        evaluate: person.numberOfjudgement,
-                        introduce: person.introduce,
-                        rooms
-
-                    });
-
-
-                });
-            }).catch((err) => { console.log(err) });
-
-
-        }).catch(err => console.log(err));
 
     }
+
+
     async updatePersonalName(req, res, next) {
 
         let name = req.body.firstname + req.body.lastname;

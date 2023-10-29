@@ -59,12 +59,12 @@
 
 
   <div class="float-container" id="detail-part">
-    <div class="specific-container-detail">
-      <div class="specific-container-detail-host">
+    <div class="specific-container-detail w-75 p-5" style="min-width: 350px;">
+      <div class="">
         <h2>Toàn bộ nhà</h2>
 
       </div>
-      <div class="specific-container-detail-house">
+      <div class="">
         <p>
           {{data.maximuncus}} khách tối đa . {{data.bed}} phòng ngủ . {{data.shower}} nhà tắm
         </p>
@@ -73,8 +73,8 @@
 
       <hr>
       <h3>Nơi này có gì cho bạn</h3>
-      <div class="row d-flex justify-content-start align-items-center h-100 w-100 p-3">
-              <p class="col-6"><i class="bi bi-wifi ms-2"></i> {{item.value}}</p>
+      <div class="row d-flex justify-content-center flex-row align-items-center h-100 w-100 bg-light  p-3" >
+        <p class="col-6"><i class="bi bi-wifi ms-2"></i> {{item.value}}</p>
         <p class="col-6"><i class="bi bi-wifi ms-2"></i> Wi-fi</p>
         <p class="col-6"><i class="bi bi-p-circle ms-2"></i> Chỗ đỗ xe miễn phí tại nơi ở</p>
         <p class="col-6"><i class="bi bi-water ms-2"></i> Bể bơi</p>
@@ -91,55 +91,75 @@
 
     </div>
     <hr>
-    <div class="specific-container-payment" id="payment">
-      <form method="post" action="/rooms/payment" class="w-75">
+    <div class="specific-container-payment w-25 d-flex flex-column align-items-center justify-content-center"
+      id="payment">
+      <form method="post" action="/rooms/payment"
+        class="detailForm w-75 d-flex flex-column align-items-start border border-light rounded-2 bg-light p-3" style="min-width: 350px;">
         <div class="reservate-info" style="display:none">
           <input type="text" name="roomId" value={{data._id}}>
           <input type="text" name="hostId" value={{data.host._id}}>
           <input type="number" name="days" value="0" id="day">
         </div>
-        <div class="specific-container-payment-price">
-          <p>${{data.price}}/đêm</p>
+        <div class="">
+          <p style="font-weight: bold !important; font-size:larger !important" class="font-weight-bold">
+            ${{data.price}}/đêm</p>
 
         </div>
-        <div class="specific-container-payment-inputday">
-          <div class="specific-container-payment-inputday-start">
-            <label for="datepicker">Ngày nhận phòng</label>
-            <input type="date" name="startday" id="datepicker2" autocomplete="off" max={{ genTime
+        <div class="w-100 d-flex flex-row  justify-content-center">
+          <div class="w-50 d-flex flex-column align-items-center">
+            <label class="w-75 text-center" for="datepicker">Ngày nhận phòng</label>
+            <input class="w-75" type="date" name="startday" id="datepicker2" autocomplete="off" max={{ genTime
               data.endday "YYYY-MM-DD" }} min={{ genTime data.startday "YYYY-MM-DD" }}>
 
           </div>
-          <div class="specific-container-payment-inputday-end">
-            <label for="datepicker2">Ngày trả phòng</label>
-            <input type="date" name="endday" id="datepicker5" max={{genTime data.endday "YYYY-MM-DD" }} min={{genTime
-              data.startday "YYYY-MM-DD" }} autocomplete="off">
+          <div class="w-50 d-flex flex-column align-items-center">
+            <label class="w-75 text-center" for="datepicker2">Ngày trả phòng</label>
+            <input class="w-75" type="date" name="endday" id="datepicker5" max={{genTime data.endday "YYYY-MM-DD" }}
+              min={{genTime data.startday "YYYY-MM-DD" }} autocomplete="off">
 
           </div>
         </div>
         <hr>
-
-        <div class="specific-container-payment-inputnumber">
-          <label for="datepicker2">Số lượng khách
-            <input type="number" name="cc" id="datepicker3" value="1" autocomplete="off" max="{{data.maximuncus}}"
-              min="1">
-          </label>
-        </div>
-        <div class="specific-container-payment-inputsubmit">
-          <input type="submit" value="Đặt phòng" />
-        </div>
-        <p>Bạn vẫn chưa bị trừ tiền</p>
-        <div class="specific-container-payment-fee">
-
-          <div class="extracost">
-            <p>Phí vệ sinh 8$</p>
+        <div class="d-flex flex-row justify-content-between w-100 p-4  " style="height:fit-content;">
+          <label class="" for="maxcus">Số lượng khách tối đa </label>
+          <div class="value-container">
+            <div class="value-button" id="decrease" onclick="decreaseValue()" value="Decrease Value">-</div>
+            <input type="number" id="datepicker3" value="1" name="cc" required class="border-none number"
+              max="{{data.maximuncus}}" min="1" />
+            <div class="value-button" id="increase" onclick="increaseValue()" value="Increase Value">+</div>
           </div>
-          <div class="fiatcost">
-            <p>Phí dịch vụ $</p>
-            <input type="number" readonly value={{extracost data.price}}>
+
+
+        </div>
+
+        <div class="w-100 p-3 ">
+          <input class="w-100 btn btn-outline-danger text-center" type="submit" value="Đặt phòng" />
+        </div>
+        <p class="w-100 text-center">Bạn vẫn chưa bị trừ tiền</p>
+        <div class="w-100 d-flex flex-column align-items-start">
+
+
+          <div class="w-100 d-flex flex-row align-items-center justify-content-between">
+            <p>Phí vệ sinh</p>
+            <div class="input-group-prepend">
+
+              <span class="input-group-text">8$</span>
+            </div>
+
           </div>
-          <div class="realcost">
+          <div class="w-100 d-flex flex-row align-items-center justify-content-between">
+            <p>Phí dịch vụ </p>
+            <div class="input-group-prepend">
+
+              <span class="input-group-text">{{extracost data.price}}$</span>
+            </div>
+
+          </div>
+          <div class="w-100 d-flex flex-row align-items-center justify-content-between">
             <label for="finalcost">Tổng chi phí trước thuế :$ </label>
-            <input type="number" id="finalcost" name="final" readonly value="0" </div>
+           
+            <input class="text-center border-0 bg-transparent" type="number" id="finalcost" name="final" readonly value="0">
+             </div>
           </div>
         </div>
       </form>
@@ -193,13 +213,13 @@
   </div>
   {{#if isOwner}}
   {{else}}
-  <div class="specific-container-host w-75" id="host-part">
+  <div class=" w-100 " id="host-part">
 
 
-    <div class="container py-5 h-100 ">
+    <div class=" py-5 h-100 w-100 d-flex flex-row justify-content-start  ">
       <div class="row d-flex justify-content-start align-items-center h-100 p-3">
-        <div class="col-8">
-          <div class="card p-2" style="border-radius: 15px;">
+        <div class="">
+          <div class="border border-1 border-dark" style="border-radius: 15px;">
             <div class="card-head">
               <div class="card-title mx-auto p-2">
                 Thông tin chủ nhà
@@ -208,8 +228,8 @@
             <div class="card-body p-4">
               <div class="d-flex text-black">
                 <div class="flex-shrink-0">
-                 <a href="/user/personaldetail/{{data.host._id}}"><img src="{{data.host.avatar}}" class="img-fluid"
-                    style="width: 180px; border-radius: 10px;" /></a> 
+                  <a href="/user/personaldetail/{{data.host._id}}"><img src="{{data.host.avatar}}" class="img-fluid"
+                      style="width: 180px; border-radius: 10px;" /></a>
                 </div>
                 <div class="flex-grow-1 ms-3 ">
                   <h5 class="mb-1">{{data.host.fullName}}</h5>
@@ -267,7 +287,7 @@
   </div>
   {{/if}}
 </div>
-<hr>
+
 </div>
 <div class="modal fade" id="love" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-fullscreen ">
@@ -277,17 +297,17 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div id="carouselExample" class="carousel slide bg-dark">
-          <div class="carousel-inner " id="resultsBox">
+        <div id="carouselExample" class="carousel slide p-4 bg-dark  d-flex justify-content-center">
+          <div class="carousel-inner   w-75 " id="resultsBox">
 
             {{#each data.img}}
-            <div class="carousel-item">
-              <img class="d-block w-50 h-75 rounded-4" src="/img/post/{{this}}">
+            <div class="carousel-item w-100">
+              <img class="d-block  rounded-3" style="width: 100%; height:100%" src="{{this}}">
             </div>
 
             {{/each}}
-            <div class="carousel-item active"> {{#with img.[0]}}
-              <img class="d-block w-80 h-75" src="/img/post/{{this}}"> {{/with}}
+            <div class="carousel-item active w-100"> {{#with img.[0]}}
+              <img class="d-block rounded-3" style="width: 100%; height:100%" src="{{this}}"> {{/with}}
             </div>
 
           </div>
@@ -400,6 +420,22 @@
 </div>
 <script src="/socket.io/socket.io.js"></script>
 <script>
+  function increaseValue() {
+    var value = parseInt(document.getElementById('datepicker3').value, 10);
+    value = isNaN(value) ? 0 : value;
+    value = Math.min(value + 1, {{ data.maximuncus }});
+  document.getElementById('datepicker3').value = value;
+       
+    }
+
+  function decreaseValue() {
+    var value = parseInt(document.getElementById('datepicker3').value, 10);
+    value = isNaN(value) ? 0 : value;
+    value < 1 ? value = 1 : '';
+    value--;
+    document.getElementById('datepicker3').value = value;
+  }
+
   const socket = io();
 
   const chartForm = document.querySelector('#msgForm');
@@ -438,7 +474,6 @@
 </script>
 <script>
   $(document).ready(function () {
-
 
 
     var exampleModal = document.getElementById('wishlist')
@@ -483,27 +518,28 @@
 
   var payment = $("#payment");
   var threshold = payment.offset().top;
-  var host = $("#host-part");
-  var threshold1 = payment.offset().top;
-  console.log(threshold)
+  var host = $("#comment-part");
+  var threshold1 = host.offset().top ;
+
+  
+
   $(window).on("scroll", function () {
     var currentScroll = $(this).scrollTop();
+       if( $( window ).width()<70){
+         payment.removeClass("fixed");
+       }
+    if (currentScroll > threshold1) {
 
-    if (currentScroll > threshold - 50) {
-
-      if (currentScroll > threshold1 + screen.height) {
-        payment.removeClass("fixed");
-      }
-      else {
+     
         payment.addClass("fixed");
-      }
+      
 
     } else {
       payment.removeClass("fixed");
 
     }
 
-    if (currentScroll > threshold) {
+    if (currentScroll > threshold + 250) {
 
       $("#specific-nav").addClass("displayFlex");
     } else {
@@ -512,6 +548,7 @@
     }
 
   });
+
 
   $('#resultsBox li:first').addClass('active');
 

@@ -17,6 +17,9 @@ const io = new Server(server);
 var cookieParser = require("cookie-parser");
 const session = require('express-session');
 const dotenv = require('dotenv')
+const client=require("../src/config/redis");
+client.on('error', err => console.log('Redis Client Error', err));
+ client.connect().then(() =>{console.log('Client Connect')}).catch(err => console.log('err'));
 
 dotenv.config();
 //configure paypal
@@ -39,7 +42,7 @@ const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 passport.use(new GoogleStrategy({
     clientID: "995051606326-qofa95ttdiic99l0kckrac33p0bpch6q.apps.googleusercontent.com",
     clientSecret: "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",
-    callbackURL: "http://localhost:3000/auth/google/callback"
+    callbackURL: "https://roomshosting.onrender.com/auth/google/callback"
 },
     function (accessToken, refreshToken, profile, done) {
         userProfile = profile;

@@ -53,10 +53,11 @@ body {
 }
 
 .fixed {
-  position: fixed;
+  position: fixed !important;
   top: 80px;
- right:15%;
+ right:10% !important;
   z-index: 14;
+  
 }
 .congrats {
   position: absolute;
@@ -247,17 +248,8 @@ body {
 .specific-container {
   position: relative;
   top: 80px;
-  padding-left: 50px;
-  padding-right: 50px;
   width: 100%;
-
-  .float-container {
-    width: 85%;
-    height: 500px;
-    position: relative;
-    padding: 0px;
-  }
-  &-name {
+ &-name {
     margin-top: 20px;
     display: flex;
     flex-direction: row;
@@ -392,139 +384,34 @@ body {
       }
     }
   }
-  &-payment {
-    background-color: white;
-    width: 25%;
-    float: right;
-    height: 450px;
-min-width: 300px;
-    display:flex;
+  .float-container {
+    width: 100%;
+  
+    height: auto;
+    position: relative;
+ padding-left: 60px;;
+ padding-right: 60px;
+    display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
+  &-payment {
+   
+  
+   min-width: 350px;
+    height: auto;
 
-    border: 0.5px solid black;
 
-    border-radius: 10px;
-    &-fee {
-      .realcost {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        label {
-          color: black;
-          font-size: larger;
-          font-weight: bold;
-          width: fit-content;
-          height: 1.25em;
-        }
-        input {
-          border: none;
-          width: 30%;
-          background-color: transparent;
-          color: black;
-          font-size: larger;
-          font-weight: bold;
 
-          height: 1, 25em;
-        }
-      }
-      .fiatcost {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        input {
-          width: 45%;
-          border: none;
-          background-color: transparent;
-          height: 1.25em;
-        }
-        p {
-          width: fit-content;
-        }
-      }
-    }
-    &-inputsubmit {
-      width: 100%;
-      padding: 10px;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      input {
-        padding: 5px;
-        background-color: #e41d56;
-        color: white;
-        border: none;
-        border-radius: 7px;
-        font-size: larger;
-        height: 2.25em;
-        width: 100%;
-      }
-      input:hover {
-        opacity: 0.9;
-      }
-    }
-    &-inputday {
-      width: 100%;
-      height: 3em;
-      border: 4px;
-      margin-bottom: 20px;
-      &-start {
-        width: 48%;
-        display: flex;
-        flex-direction: column;
-        float: left;
-        label {
-          font-weight: bold;
-        }
-        input {
-          border: none;
-        }
-      }
-      &-end {
-        width: 48%;
-        display: flex;
-        flex-direction: column;
-        float: right;
-        label {
-          font-weight: bold;
-        }
-        input {
-          border: none;
-        }
-      }
-    }
-    &-price {
-      p {
-        font-weight: bold;
-        font-size: 1.5em;
-      }
-    }
+
   }
   &-detail {
-    float: left;
-    width: 50%;
-
-    padding-left: 30px;
-    &-house {
-      margin-left: 30px;
-
-      font-size: 2em;
-    }
-    &-host {
-      margin-left: 30px;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      h2 {
-        width: 30%;
-      }
-      p {
-        font-size: larger;
-        font-weight: bolder;
-        width: 45%;
-      }
-    }
+    height: auto;
+    min-width: 350px;
   }
+  }
+ 
+
   &-host {
     width: 100%;
     padding: 30px;
@@ -638,16 +525,17 @@ min-width: 300px;
     justify-items: center;
     grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
     grid-auto-rows: 430px;
+ 
     &-card {
       width: 25%;
       height: 40%;
-
+   padding: 10px;
       min-width: 290px;
       border-radius: 10px;
       min-height: 400px;
       display: flex;
       flex-direction: column;
-      margin-bottom: 10px;
+      margin: 10px;
 
       #host:hover {
         transform: scale(1.4);
@@ -953,7 +841,8 @@ min-width: 300px;
     width: 90%;
   }
 }
-@media (max-width: 700px) {
+@media (max-width: 699px) {
+
   .img-container-add{
     display: flex;
     flex-direction: column;
@@ -963,10 +852,8 @@ min-width: 300px;
   }
 
   .fixed {
-    position: fixed;
-    top: 80px;
-    right:15%;
-    z-index: 14;
+    display: none !important;
+    
   }
   .mainnav {
     width: 100%;
@@ -1150,136 +1037,8 @@ min-width: 300px;
         }
       }
     }
-    &-payment {
-      background-color: white;
-      width: 70%;
-     left:15%;
-      height: 450px;
-
-      padding: 20px;
-
-      border: 0.5px solid black;
-
-      border-radius: 10px;
-      &-fee {
-        .realcost {
-          width: 100%;
-          display: flex;
-          flex-direction: row;
-          label {
-            color: black;
-            font-size: larger;
-            font-weight: bold;
-            width: fit-content;
-            height: 1.25em;
-          }
-          input {
-            border: none;
-            width: 30%;
-            background-color: transparent;
-            color: black;
-            font-size: larger;
-            font-weight: bold;
-
-            height: 1, 25em;
-          }
-        }
-        .fiatcost {
-          width: 100%;
-          display: flex;
-          flex-direction: row;
-          input {
-            width: 45%;
-            border: none;
-            background-color: transparent;
-            height: 1.25em;
-          }
-          p {
-            width: fit-content;
-          }
-        }
-      }
-      &-inputsubmit {
-        width: 100%;
-        padding: 10px;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        input {
-          padding: 5px;
-          background-color: #e41d56;
-          color: white;
-          border: none;
-          border-radius: 7px;
-          font-size: larger;
-          height: 2.25em;
-          width: 100%;
-        }
-        input:hover {
-          opacity: 0.9;
-        }
-      }
-      &-inputday {
-        width: 100%;
-        height: 3em;
-        border: 4px;
-        margin-bottom: 20px;
-        &-start {
-          width: 48%;
-          display: flex;
-          flex-direction: column;
-          float: left;
-          label {
-            font-weight: bold;
-          }
-          input {
-            border: none;
-          }
-        }
-        &-end {
-          width: 48%;
-          display: flex;
-          flex-direction: column;
-          float: right;
-          label {
-            font-weight: bold;
-          }
-          input {
-            border: none;
-          }
-        }
-      }
-      &-price {
-        p {
-          font-weight: bold;
-          font-size: 1.5em;
-        }
-      }
-    }
-    &-detail {
-      width: 100%;
-
-      padding-left: 30px;
-      &-house {
-        margin-left: 30px;
-
-        font-size: 2em;
-      }
-      &-host {
-        margin-left: 30px;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        h2 {
-          width: 30%;
-        }
-        p {
-          font-size: larger;
-          font-weight: bolder;
-          width: 45%;
-        }
-      }
-    }
+  
+  
     &-host {
       width: 100%;
       padding: 30px;
@@ -1734,6 +1493,9 @@ min-width: 300px;
 /* CONTENT */
 
 @media screen and (max-width: 768px) {
+  .fixed{
+    background-color: red !important;
+  }
   #sidebar {
     width: 200px;
   }
