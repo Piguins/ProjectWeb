@@ -42,7 +42,7 @@ const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 passport.use(new GoogleStrategy({
     clientID: "995051606326-qofa95ttdiic99l0kckrac33p0bpch6q.apps.googleusercontent.com",
     clientSecret: "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",
-    callbackURL: "/auth/google/callback"
+    callbackURL: "https://roomshosting.onrender.com/auth/google/callback"
 },
     function (accessToken, refreshToken, profile, done) {
         userProfile = profile;
