@@ -20,7 +20,7 @@ const dotenv = require('dotenv')
 const client=require("../src/config/redis");
 client.on('error', err => console.log('Redis Client Error', err));
  client.connect().then(() =>{console.log('Client Connect')}).catch(err => console.log('err'));
-
+  
 dotenv.config();
 //configure paypal
 ConfigPaypal.config();
@@ -42,14 +42,13 @@ const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 passport.use(new GoogleStrategy({
     clientID: "995051606326-qofa95ttdiic99l0kckrac33p0bpch6q.apps.googleusercontent.com",
     clientSecret: "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",
-    callbackURL: "https://roomshosting.onrender.com/auth/google/callback"
+    callbackURL: "http://localhost:3000/auth/google/callback"
 },
     function (accessToken, refreshToken, profile, done) {
         userProfile = profile;
         return done(null, userProfile);
     }
 ));
-
 
 
 passport.serializeUser(function (user, done) {
@@ -85,7 +84,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // parse application/json
 app.use(bodyParser.json());
-
 
 
 

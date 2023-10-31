@@ -96,7 +96,7 @@ user.save();
                     
                 });
                 newProduct.save();
-                req.cookie("role","admmin");
+                res.cookie("role","host");
         res.clearCookie("name");
         res.clearCookie("startday");
         res.clearCookie("endday");

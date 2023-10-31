@@ -58,8 +58,8 @@
   </div>
 
 
-  <div class="float-container" id="detail-part">
-    <div class="specific-container-detail w-75 p-5" style="min-width: 350px;">
+  <div class="float-container justify-content-center" id="detail-part">
+    <div class="specific-container-detail w-75 p-5 " style="min-width: 350px;">
       <div class="">
         <h2>Toàn bộ nhà</h2>
 
@@ -91,10 +91,10 @@
 
     </div>
     <hr>
-    <div class="specific-container-payment w-25 d-flex flex-column align-items-center justify-content-center"
+    <div class="specific-container-payment w-25 d-flex flex-column align-items-center justify-content-center p-3" style="min-width: 350px;"
       id="payment">
       <form method="post" action="/rooms/payment"
-        class="detailForm w-75 d-flex flex-column align-items-start border border-light rounded-2 bg-light p-3" style="min-width: 350px;">
+        class="detailForm w-75 d-flex flex-column align-items-center border border-dark rounded-2  p-3 bg-white" style="min-width: 350px;">
         <div class="reservate-info" style="display:none">
           <input type="text" name="roomId" value={{data._id}}>
           <input type="text" name="hostId" value={{data.host._id}}>
@@ -133,7 +133,7 @@
         </div>
 
         <div class="w-100 p-3 ">
-          <input class="w-100 btn btn-outline-danger text-center" type="submit" value="Đặt phòng" />
+          <input class="w-100 btn btn-danger text-center" type="submit" value="Đặt phòng" />
         </div>
         <p class="w-100 text-center">Bạn vẫn chưa bị trừ tiền</p>
         <div class="w-100 d-flex flex-column align-items-start">
@@ -170,7 +170,7 @@
 
 
 
-  <div class="specific-container-host" id="comment-part">
+  <div class="specific-container-host p-4" id="comment-part">
 
 
     <div class="container py-5 h-100">
@@ -213,7 +213,7 @@
   </div>
   {{#if isOwner}}
   {{else}}
-  <div class=" w-100 " id="host-part">
+  <div class=" w-100 p-4 " style="min-width: 350px;" id="host-part">
 
 
     <div class=" py-5 h-100 w-100 d-flex flex-row justify-content-start  ">

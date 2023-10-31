@@ -36,7 +36,7 @@
     "express-session": "^1.17.3",
     "file-loader": "^6.2.0",
     "font-awesome": "^4.7.0",
-    "fullcalendar": "^5.11.3",
+    "fullcalendar": "^5.11.5",
     "generate-password": "^1.7.0",
     "handlebars": "^4.7.7",
     "handlebars-dateformat": "^1.1.3",
