@@ -2,15 +2,13 @@ const Product = require("../../models/product.model");
 const paypal = require('paypal-rest-sdk');
 const Reserve = require("../../models/Reserve.model");
 const Rating = require("../../models/rating.model");
-const Converesation = require("../../models/conversation.model");
 const Comment = require("../../models/rating.model");
-const { response } = require("express");
+const client = require("../../config/redis");
+const { result } = require("lodash");
+
 class ProductController {
-
-
   addComment(req, res, next) {
-
-    Comment.findOne({ owner: req.cookies.id, room: req.body.room }).then((item) => {
+Comment.findOne({ owner: req.cookies.id, room: req.body.room }).then((item) => {
       if (item) {
         item.value = req.body.value,
           item.star = req.body.rating
@@ -22,69 +20,73 @@ class ProductController {
           value: req.body.value,
           star: req.body.rating,
           room: req.body.room,
-          host:req.body.host
-
-
+          host: req.body.host
         })
         newComment.save();
       }
-
-
       res.redirect("/user/trip");
     }).catch(err => { console.log(err); })
-
-
   }
   async specific(req, res, next) {
-   
     let logged;
-    let conversationId;
     if (req.cookies.token) {
-
-
-
       logged = true;
     }
     else {
       logged = false;
     }
-    const id = req.params.id;
     let isAdmin = false;
     if (req.cookies.role) {
       isAdmin = req.cookies.role === "admin" ? true : false;
     }
     else { isAdmin = false; }
-   let item=await Reserve.find({value:"9.2"});
-            
+    let name = req.cookies.username;
+    let email = req.cookies.email;
+    let phone = req.cookies.phone;
+    let avatar = req.cookies.avatar;
+    let address = req.cookies.address;
+    let id = req.cookies.id;
 
-    Product.findOne({ _id: id }).populate('host')
-      .then((data) => {
+    let conversationId = req.cookies.conversationId;
+    let item = await Reserve.find({ value: "9.2" });
+    let key = "room" + req.params.id;
+    client.hGetAll(key, async (error, value) => {
+      if (error || value === null) {
+        
+        let data = await Product.findOne({ _id: req.params.id }).populate('host');
         data.Visittime = data.Visittime + 1;
         data.save();
         data = data ? data.toObject() : data;
+        await client.hSet(key,'data',JSON.stringify(data));
         let img = data.img;
-        Rating.find({ room:id,owner:req.cookies.id }).populate("owner").then(wish => {
-          
-          wish = wish.map((i) => i.toObject());
-          let name = req.cookies.username;
-          let email = req.cookies.email;
-          let phone = req.cookies.phone;
-          let avatar = req.cookies.avatar;
-          let address = req.cookies.address;
-          let id = req.cookies.id;
-          let isOwner = (req.cookies.id === data.host._id)
+        let isOwner = (req.cookies.id === data.host._id)
+          ? true : false;
+          await client.hSet(key,'img',JSON.stringify(data.img));
+          await client.hSet(key,'isOwner',JSON.stringify(isOwner));
+        let rate = await Rating.find({ room: req.params.id }).populate("owner")
+        let wish = rate.map((i) => i.toObject());
+        await client.hSet(key,'wish',JSON.stringify(wish));
+        client.expire(key,600);
+      data=JSON.stringify(data);
+      data=JSON.parse(data);
 
-            ? true : false;
-          let conversationId = req.cookies.conversationId; 
+        res.render("specific", {item, role: req.cookies.role, address, isOwner, conversationId: conversationId, id, name, email, phone, avatar, img, islogged: logged, data, admin: isAdmin, Title: data.name, wish });
 
-          res.render("specific", { item,role: req.cookies.role, address, isOwner, conversationId: conversationId, id, name, email, phone, avatar, img, islogged: logged, data, admin: isAdmin, Title: data.name, wish });
+      }
+    else{
+   
+      let data=JSON.parse(value.data);
+      let img=JSON.parse(value.img);
+      let isOwner=JSON.parse(value.isOwner);
+      let wish=JSON.parse(value.wish);
 
-        }).catch(err => console.log(err));
+      res.render("specific", { Love,item, role: req.cookies.role, address, isOwner, conversationId: conversationId, id, name, email, phone, avatar, img, islogged: logged, data, admin: isAdmin, Title: data.name, wish });
 
+    }});
+  
 
-      })
-      .catch((err) => console.log(err));
   }
+
   payment(req, res, next) {
 
 
@@ -128,6 +130,24 @@ class ProductController {
       cus: req.cookies.id
 
     });
+
+    const datesInRange = [];
+const currentDate = new Date(req.body.startday);
+const endDate = new Date(req.body.endday);
+
+while (currentDate <= endDate) {
+  datesInRange.push(new Date(currentDate));
+  currentDate.setDate(currentDate.getDate() + 1);
+}
+
+Product.findByIdAndUpdate(req.body.roomId, { $push: { DatesRented: { $each: datesInRange } } })
+  .then(() => {
+    console.log('Items added to the array');
+  })
+  .catch((error) => {
+    console.error('Error adding items to the array:', error);
+  });
+
     newReserve.save();
     paypal.payment.create(create_payment_json, function (error, payment) {
       if (error) {

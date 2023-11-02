@@ -522,9 +522,11 @@ body {
 
     padding: 30px;
     display: grid;
-    justify-items: center;
+
     grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
     grid-auto-rows: 430px;
+    justify-content: center;
+
  
     &-card {
       width: 25%;

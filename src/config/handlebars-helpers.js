@@ -7,21 +7,41 @@ module.exports = {
         }
         return options.inverse(this);
     },
-    IsUser: function (role,role2) {
-    return role ===role2 ;
+    IsUser: function (role, role2) {
+        return role === role2;
     },
     bar: function () {
         return "BAR!";
     },
+    iterateArray:function(array, options) {
+        let result = '';
+        for (let i = 0; i < array.length; i++) {
+          result += options.fn(array[i]);
+        }
+        return result;
+      },
+    genarr: function (arr){
+        let result=[];
+        for(let i=0; i<arr.length; i++) {
+result.push(arr[i]);
+        }
+        return result;
+    },
+    json: function(context) {
+        return JSON.stringify(context);},
     genTime: function (date, format) {
-        return moment(date).format(format);
+        return moment(date).format(format).toString();
+
+    },
+    genTimeloz: function (dates, format) {
+        return dates.map((e) => { return "'" + moment(e).format(format).toString() + "'" });
 
     },
     checkListEmpty: function (list) {
-         return (list.length===0);
+        return (list.length === 0);
     },
     extracost: function (value) {
-        return 0.2 * value;
+        return Math.round(0.2 * value);
     },
     addedWishlist: function (value1, value2) {
         return (value1 === value2) ? "v" : "";
@@ -39,5 +59,11 @@ module.exports = {
     },
     beautyNumber: function (number) {
         return Math.floor(number);
+    },
+    for: function (from, to, incr, block) {
+        var accum = '';
+        for (var i = from; i < to; i += incr)
+            accum += block.fn(i);
+        return accum;
     }
 }

@@ -73,7 +73,7 @@
 
       <hr>
       <h3>Nơi này có gì cho bạn</h3>
-      <div class="row d-flex justify-content-center flex-row align-items-center h-100 w-100 bg-light  p-3" >
+      <div class="row d-flex justify-content-center flex-row align-items-center h-100 w-100 bg-light  p-3">
         <p class="col-6"><i class="bi bi-wifi ms-2"></i> {{item.value}}</p>
         <p class="col-6"><i class="bi bi-wifi ms-2"></i> Wi-fi</p>
         <p class="col-6"><i class="bi bi-p-circle ms-2"></i> Chỗ đỗ xe miễn phí tại nơi ở</p>
@@ -91,10 +91,11 @@
 
     </div>
     <hr>
-    <div class="specific-container-payment w-25 d-flex flex-column align-items-center justify-content-center p-3" style="min-width: 350px;"
-      id="payment">
+    <div class="specific-container-payment w-25 d-flex flex-column align-items-center justify-content-center p-3"
+      style="min-width: 350px;" id="payment">
       <form method="post" action="/rooms/payment"
-        class="detailForm w-75 d-flex flex-column align-items-center border border-dark rounded-2  p-3 bg-white" style="min-width: 350px;">
+        class="detailForm w-75 d-flex flex-column align-items-center border border-dark rounded-2  p-3 bg-white"
+        style="min-width: 350px;">
         <div class="reservate-info" style="display:none">
           <input type="text" name="roomId" value={{data._id}}>
           <input type="text" name="hostId" value={{data.host._id}}>
@@ -106,15 +107,20 @@
 
         </div>
         <div class="w-100 d-flex flex-row  justify-content-center">
-          <div class="w-50 d-flex flex-column align-items-center">
+
+          <div style="height:30px" class="w-100 d-flex flex-column align-items-center">
             <label class="w-75 text-center" for="datepicker">Ngày nhận phòng</label>
-            <input class="w-75" type="date" name="startday" id="datepicker2" autocomplete="off" max={{ genTime
+            <input id="dateRangeInput" type="text" name="datetimes" />
+          </div>
+          <div class="w-50 d-flex flex-column align-items-center d-none ">
+            <label class="w-75 text-center" for="datepicker">Ngày nhận phòng</label>
+            <input class="w-75" type="date" name="startday" id="startDay" autocomplete="off" max={{ genTime
               data.endday "YYYY-MM-DD" }} min={{ genTime data.startday "YYYY-MM-DD" }}>
 
           </div>
-          <div class="w-50 d-flex flex-column align-items-center">
+          <div class="w-50 d-flex flex-column align-items-center d-none">
             <label class="w-75 text-center" for="datepicker2">Ngày trả phòng</label>
-            <input class="w-75" type="date" name="endday" id="datepicker5" max={{genTime data.endday "YYYY-MM-DD" }}
+            <input class="w-75" type="date" name="endday" id="endDay" max={{genTime data.endday "YYYY-MM-DD" }}
               min={{genTime data.startday "YYYY-MM-DD" }} autocomplete="off">
 
           </div>
@@ -124,7 +130,7 @@
           <label class="" for="maxcus">Số lượng khách tối đa </label>
           <div class="value-container">
             <div class="value-button" id="decrease" onclick="decreaseValue()" value="Decrease Value">-</div>
-            <input type="number" id="datepicker3" value="1" name="cc" required class="border-none number"
+            <input type="number" id="numberOfCustomer" value="1" name="cc" required class="border-none number"
               max="{{data.maximuncus}}" min="1" />
             <div class="value-button" id="increase" onclick="increaseValue()" value="Increase Value">+</div>
           </div>
@@ -156,136 +162,145 @@
 
           </div>
           <div class="w-100 d-flex flex-row align-items-center justify-content-between">
-            <label for="finalcost">Tổng chi phí trước thuế :$ </label>
-           
-            <input class="text-center border-0 bg-transparent" type="number" id="finalcost" name="final" readonly value="0">
-             </div>
+            <label for="finalcost">Tổng chi phí trước thuế :${{ genarr data.DatesRented}} </label>
+
+            <input class="text-center border-0 bg-transparent" type="number" id="finalcost" name="final" readonly
+              value="0">
+             
           </div>
         </div>
-      </form>
     </div>
-
+    </form> 
   </div>
 
-
-
-
-  <div class="specific-container-host p-4" id="comment-part">
-
-
-    <div class="container py-5 h-100">
-      <div class="row d-flex justify-content-start align-items-center h-100">
-        <h3>Đánh giá</h3>
-        {{#if wish}}
-        {{else}} <p class="fw-bolg ml-2"> Chưa có đánh giá</p>
-        {{/if}}
-        {{#each wish}}
-        <div class="col-8 p-4 grid2 ">
-
-          <div style="height: 200px; border-radius:20px ;" class="w-100 bg-light  p-4">
-            <p class="w-100 h-75 overflow-hidden">
-
-              {{this.value}}
-            </p>
-            <div class="w-100 h-25 d-flex flex-column flex-wrap">
-              <div class="w-25 h-100">
-                <img class="w-100 h-100 rounded-circle" src="{{this.owner.avatar}}">
-              </div>
-              <div class="w-75 h-50  d-flex justify-content-center">
-                {{this.owner.fullName}}
-              </div>
-              <div class="w-75 h-50 d-flex justify-content-center">
-                <p class="t"> {{genTime this.createdAt 'MMMM Do YYYY'}} </p>
-              </div>
+</div>
 
 
 
 
+<div class="specific-container-host p-4" id="comment-part">
+
+
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-start align-items-center h-100">
+      <h3>Đánh giá</h3>
+      {{#if wish}}
+      {{else}} <p class="fw-bolg ml-2"> Chưa có đánh giá</p>
+      {{/if}}
+      {{#each wish}}
+      <div class="col-8 p-4 grid2 ">
+
+        <div style="height: 250px; border-radius:20px ;" class="w-100 bg-light  p-4">
+          <p class="w-100 h-50 overflow-hidden">
+
+            {{this.value}}
+          </p>
+
+          {{#for 0 this.star 1}}
+          <span class="fa fa-star text-warning"></span>
+          {{/for}}
+
+
+          <p>({{this.star}}/5)</p>
+          <div class="w-100 h-25 d-flex flex-column flex-wrap">
+            <div class="w-25 h-100">
+              <img class="w-100 h-100 rounded-circle" src="{{this.owner.avatar}}">
             </div>
+            <div class="w-75 h-50  d-flex justify-content-center">
+              {{this.owner.fullName}}
+            </div>
+            <div class="w-75 h-50 d-flex justify-content-center">
+              <p class="t"> {{genTime this.createdAt 'MMMM Do YYYY'}} </p>
+            </div>
+
+
+
 
           </div>
-          {{/each }}
+
         </div>
-      </div>
-
-    </div>
-
-  </div>
-  {{#if isOwner}}
-  {{else}}
-  <div class=" w-100 p-4 " style="min-width: 350px;" id="host-part">
-
-
-    <div class=" py-5 h-100 w-100 d-flex flex-row justify-content-start  ">
-      <div class="row d-flex justify-content-start align-items-center h-100 p-3">
-        <div class="">
-          <div class="border border-1 border-dark" style="border-radius: 15px;">
-            <div class="card-head">
-              <div class="card-title mx-auto p-2">
-                Thông tin chủ nhà
-              </div>
-            </div>
-            <div class="card-body p-4">
-              <div class="d-flex text-black">
-                <div class="flex-shrink-0">
-                  <a href="/user/personaldetail/{{data.host._id}}"><img src="{{data.host.avatar}}" class="img-fluid"
-                      style="width: 180px; border-radius: 10px;" /></a>
-                </div>
-                <div class="flex-grow-1 ms-3 ">
-                  <h5 class="mb-1">{{data.host.fullName}}</h5>
-                  <div class="mb-2 pb-1 row d-flex flex-row" style="color: #2b2a2a;">
-                    <p><i class="fa fa-solid fa-mask"></i> Đã xác minh danh tính </p>
-                    <p> Tham gia vào tháng {{genTime
-                      data.host.created_at 'MMMM YYYY'}}</p>
-                  </div>
-
-                  <div class="d-flex  justify-content-start rounded-3 p-2 mb-3" style="background-color: #efefef;">
-                    <div>
-                      <p class="small text-muted mb-1">
-                        Articles
-                      </p>
-                      <p class="mb-0">41</p>
-                    </div>
-                    <div class="px-3">
-                      <p class="small text-muted mb-1">
-                        Lượt theo dõi
-                      </p>
-                      <p class="mb-0">976</p>
-                    </div>
-                    <div>
-                      <p class="small text-muted mb-1">
-                        {{conversationId}}
-                      </p>
-                      <p class="mb-0">8.5</p>
-                    </div>
-                  </div>
-                  <div class="align-seft-center">
-                    {{#if islogged}}
-                    <form action="/user/message/{{conversationId}}" method="get">
-                      <input type="text" name="cus" value="{{id}}" style="display: none;">
-                      <input type="text" name="host" value="{{data.host._id}}" style="display: none;">
-
-                      <input class="btn btn-primary" type="submit" value="chat to this host">
-                    </form>
-
-                    {{else}}
-                    <a class="dropdown-item btn btn-info text-center w-50 align-self-center text-uppercase"
-                      href="/login" role="button">
-                      chat
-                    </a>
-                    {{/if}}
-
-                  </div>
-
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        {{/each }}
       </div>
     </div>
+
   </div>
-  {{/if}}
+
+</div>
+{{#if isOwner}}
+{{else}}
+<div class=" w-100 p-4 " style="min-width: 350px;" id="host-part">
+
+
+  <div class=" py-5 h-100 w-100 d-flex flex-row justify-content-start  ">
+    <div class="row d-flex justify-content-start align-items-center h-100 p-3">
+      <div class="">
+        <div class="border border-1 border-dark" style="border-radius: 15px;">
+          <div class="card-head">
+            <div class="card-title mx-auto p-2">
+              Thông tin chủ nhà
+            </div>
+          </div>
+          <div class="card-body p-4">
+            <div class="d-flex text-black">
+              <div class="flex-shrink-0">
+                <a href="/user/personaldetail/{{data.host._id}}"><img src="{{data.host.avatar}}" class="img-fluid"
+                    style="width: 180px; border-radius: 10px;" /></a>
+              </div>
+              <div class="flex-grow-1 ms-3 ">
+                <h5 class="mb-1">{{data.host.fullName}}</h5>
+                <div class="mb-2 pb-1 row d-flex flex-row" style="color: #2b2a2a;">
+                  <p><i class="fa fa-solid fa-mask"></i> Đã xác minh danh tính </p>
+                  <p> Tham gia vào tháng {{genTime
+                    data.host.created_at 'MMMM YYYY'}}</p>
+                </div>
+
+                <div class="d-flex  justify-content-start rounded-3 p-2 mb-3" style="background-color: #efefef;">
+                  <div>
+                    <p class="small text-muted mb-1">
+                      Articles
+                    </p>
+                    <p class="mb-0">41</p>
+                  </div>
+                  <div class="px-3">
+                    <p class="small text-muted mb-1">
+                      Lượt theo dõi
+                    </p>
+                    <p class="mb-0">976</p>
+                  </div>
+                  <div>
+                    <p class="small text-muted mb-1">
+                      {{conversationId}}
+                    </p>
+                    <p class="mb-0">8.5</p>
+                  </div>
+                </div>
+                <div class="align-seft-center">
+                  {{#if islogged}}
+                  <form action="/user/message/{{conversationId}}" method="get">
+                    <input type="text" name="cus" value="{{id}}" style="display: none;">
+                    <input type="text" name="host" value="{{data.host._id}}" style="display: none;">
+
+                    <input class="btn btn-primary" type="submit" value="chat to this host">
+                  </form>
+
+                  {{else}}
+                  <a class="dropdown-item btn btn-info text-center w-50 align-self-center text-uppercase" href="/login"
+                    role="button">
+                    chat
+                  </a>
+                  {{/if}}
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{/if}}
 </div>
 
 </div>
@@ -421,19 +436,39 @@
 <script src="/socket.io/socket.io.js"></script>
 <script>
   function increaseValue() {
-    var value = parseInt(document.getElementById('datepicker3').value, 10);
+    var value = parseInt(document.getElementById('numberOfCustomer').value, 10);
     value = isNaN(value) ? 0 : value;
     value = Math.min(value + 1, {{ data.maximuncus }});
-  document.getElementById('datepicker3').value = value;
+  document.getElementById('numberOfCustomer').value = value;
+  var d1 = document.getElementById("startDay").value;
+  var d2 = document.getElementById("endDay").value;
+  const dateOne = new Date(d1);
+  const dateTwo = new Date(d2);
+  const time = Math.abs(dateTwo - dateOne);
+  const days = Math.ceil(time / (1000 * 60 * 60 * 24));
+
+
+  $("#finalcost").val($("#numberOfCustomer").val() * {{ data.price }} * $("#day").val() + 8 + {{ data.price }} * 0.2);
        
     }
 
   function decreaseValue() {
-    var value = parseInt(document.getElementById('datepicker3').value, 10);
+    var value = parseInt(document.getElementById('numberOfCustomer').value, 10);
     value = isNaN(value) ? 0 : value;
     value < 1 ? value = 1 : '';
     value--;
-    document.getElementById('datepicker3').value = value;
+    document.getElementById('numberOfCustomer').value = value;
+    var d1 = document.getElementById("startDay").value;
+    var d2 = document.getElementById("endDay").value;
+    const dateOne = new Date(d1);
+    const dateTwo = new Date(d2);
+    const time = Math.abs(dateTwo - dateOne);
+    const days = Math.ceil(time / (1000 * 60 * 60 * 24));
+
+
+    $("#finalcost").val($("#numberOfCustomer").val() * {{ data.price }} * $("#day").val() + 8 + {{ data.price }} * 0.2);
+       
+
   }
 
   const socket = io();
@@ -475,64 +510,97 @@
 <script>
   $(document).ready(function () {
 
+    $('#dateRangeInput').on('apply.daterangepicker', function (ev, picker) {
+      var startDate = picker.startDate.format('YYYY-MM-DD');
+      var endDate = picker.endDate.format('YYYY-MM-DD');
 
-    var exampleModal = document.getElementById('wishlist')
-    exampleModal.addEventListener('show.bs.modal', function (event) {
+      const dateOne = new Date(startDate);
+      const dateTwo = new Date(endDate);
+      const time = Math.abs(dateTwo - dateOne);
+      const days = Math.ceil(time / (1000 * 60 * 60 * 24));
 
-      // Button that triggered the modal
-      var button = event.relatedTarget
-      // Extract info from data-bs-* attributes
-      var recipient = button.getAttribute('data-bs-roomId')
+      var day = ("0" + dateOne.getDate()).slice(-2);
+      var month = ("0" + (dateOne.getMonth() + 1)).slice(-2);
 
-      // If necessary, you could initiate an AJAX request here
-      // and then do the updating in a callback.
+      var today = dateOne.getFullYear() + "-" + (month) + "-" + (day);
 
-      // Update the modal's content.
-      $("[id=roomId]").val(recipient);
+      $("#day").val(days);
+      $("#startDay").val(today);
+      var day = ("0" + dateTwo.getDate()).slice(-2);
+      var month = ("0" + (dateTwo.getMonth() + 1)).slice(-2);
+
+      var today = dateTwo.getFullYear() + "-" + (month) + "-" + (day);
+
+      $("#endDay").val(today);
+
+
+
+      $("#finalcost").val($("#numberOfCustomer").val() * {{ data.price }} * days + 8 + {{ data.price }} * 0.2);
+
+      });
+
+  $('input[name="datetimes"]').daterangepicker({
+
+    startDate: `${{ data.startday}}`,
+    endDate: `${{ data.endday}}`,
+    minDate: `${{ data.startday}}`,
+    maxDate: `${{ data.endday}}`,
+    locale: {
+      format: 'YYYY-MM-DD',
+      separator: ' to ',
+      applyLabel: 'Apply',
+      cancelLabel: 'Cancel',
+      customRangeLabel: 'Custom Range',
+      daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+      monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+      firstDay: 1
+    },
+    isInvalidDate: function (date) {
+      // Custom function to check if a date is invalid (disabled)
+
+      
+      return disabledDates.includes(date.format('YYYY-MM-DD'));
+    }
+  });
+
+  var exampleModal = document.getElementById('wishlist')
+  exampleModal.addEventListener('show.bs.modal', function (event) {
+
+    // Button that triggered the modal
+    var button = event.relatedTarget
+    // Extract info from data-bs-* attributes
+    var recipient = button.getAttribute('data-bs-roomId')
+
+    // If necessary, you could initiate an AJAX request here
+    // and then do the updating in a callback.
+
+    // Update the modal's content.
+    $("[id=roomId]").val(recipient);
 
 
 
 
 
 
-    })
-
-    var now = new Date();
-
-    var day = ("0" + now.getDate()).slice(-2);
-    var month = ("0" + (now.getMonth() + 1)).slice(-2);
-
-    var today = now.getFullYear() + "-" + (month) + "-" + (day);
-
-    $('#datepicker2').val(today);
-    $('#datepicker5').val(today);
-
-    var d1 = document.getElementById("datepicker5").value;
-    var d2 = document.getElementById("datepicker2").value;
-    const dateOne = new Date(d1);
-    const dateTwo = new Date(d2);
-    const time = Math.abs(dateTwo - dateOne);
-    const days = Math.ceil(time / (1000 * 60 * 60 * 24));
-    $("#day").val(days);
-    $("#finalcost").val($("#datepicker3").val() * {{ data.price }} * days + 8 + {{ data.price }} * 0.2);
+  })
 
   var payment = $("#payment");
   var threshold = payment.offset().top;
   var host = $("#comment-part");
-  var threshold1 = host.offset().top ;
+  var threshold1 = host.offset().top;
 
-  
+
 
   $(window).on("scroll", function () {
     var currentScroll = $(this).scrollTop();
-       if( $( window ).width()<70){
-         payment.removeClass("fixed");
-       }
+    if ($(window).width() < 70) {
+      payment.removeClass("fixed");
+    }
     if (currentScroll > threshold1) {
 
-     
-        payment.addClass("fixed");
-      
+
+      payment.addClass("fixed");
+
 
     } else {
       payment.removeClass("fixed");
@@ -562,38 +630,6 @@
       $("#full").removeClass("display1");
     }
   );
-  $("#datepicker3").change(function () {
-    var d1 = document.getElementById("datepicker5").value;
-    var d2 = document.getElementById("datepicker2").value;
-    const dateOne = new Date(d1);
-    const dateTwo = new Date(d2);
-    const time = Math.abs(dateTwo - dateOne);
-    const days = Math.ceil(time / (1000 * 60 * 60 * 24));
-    $("#day").val(days);
-    $("#finalcost").val($("#datepicker3").val() * {{ data.price }} * days + 8 + {{ data.price }} * 0.2);
-
-  });
-  $("#datepicker2").change(function () {
-    var d1 = document.getElementById("datepicker5").value;
-    var d2 = document.getElementById("datepicker2").value;
-    const dateOne = new Date(d1);
-    const dateTwo = new Date(d2);
-    const time = Math.abs(dateTwo - dateOne);
-    const days = Math.ceil(time / (1000 * 60 * 60 * 24));
-    $("#day").val(days);
-    $("#finalcost").val($("#datepicker3").val() * {{ data.price }} * days + 8 + {{ data.price }} * 0.2);
-
-  });
-  $("#datepicker5").change(function () {
-    var d1 = document.getElementById("datepicker5").value;
-    var d2 = document.getElementById("datepicker2").value;
-    const dateOne = new Date(d1);
-    const dateTwo = new Date(d2);
-    const time = Math.abs(dateTwo - dateOne);
-    const days = Math.ceil(time / (1000 * 60 * 60 * 24));
-    $("#day").val(days);
-    $("#finalcost").val($("#datepicker3").val() * {{ data.price }} * days + 8 + {{ data.price }} * 0.2);
-
-  });
+  
   })
 </script>

@@ -6,19 +6,20 @@ class Resister {
     res.render("register", { hideNavigation: true, });
   }
   async checkEmailExist(req, res, next) {
-    await User.find({ email: req.body.email })
-      .then((docs) => {
-        if (docs.length) {
-          res.render("register", {
-            message: "gmail đã được đăng kí",
-            announce: true,
-            hideNavigation: true,
+    User.countDocuments({email: req.body.email }, function (err, count){ 
+      if(count>0){
+           res.render("register", {
+          message: "gmail đã được đăng kí",
+          announce: true,
+          hideNavigation: true,
 
-          });
-        }
-      })
-      .catch((err) => console.log(err));
-    next();
+        });
+      }
+      else{
+         next();
+      }
+  }); 
+   
   }
 
   load(req, res, next) {

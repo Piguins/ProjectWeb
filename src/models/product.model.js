@@ -10,11 +10,11 @@ const roomSchema = new mongoose.Schema({
   },
   startday: {
     type: Date,
-    get: value => value.toDateString()
+    get: (date)=> moment(date).format("YYYY-MM-DD") 
   },
   endday: {
     type: Date,
-    get: value => value.toDateString()
+    get: (date)=> date.toLocaleDateString("en-US") 
   },
   maximuncus: {
     type: Number
@@ -57,6 +57,10 @@ const roomSchema = new mongoose.Schema({
   Visittime:{
     type:Number
   }
+  ,
+  DatesRented:[{
+    type:Date
+  }]
 });
 const Product = mongoose.model("Room", roomSchema);
 module.exports = Product;
