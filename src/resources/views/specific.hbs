@@ -162,7 +162,7 @@
 
           </div>
           <div class="w-100 d-flex flex-row align-items-center justify-content-between">
-            <label for="finalcost">Tổng chi phí trước thuế :${{ genarr data.DatesRented}} </label>
+            <label for="finalcost">Tổng chi phí trước thuế : <span class="input-group-text">8$</span> </label>
 
             <input class="text-center border-0 bg-transparent" type="number" id="finalcost" name="final" readonly
               value="0">
@@ -555,12 +555,7 @@
       monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
       firstDay: 1
     },
-    isInvalidDate: function (date) {
-      // Custom function to check if a date is invalid (disabled)
-
-      
-      return disabledDates.includes(date.format('YYYY-MM-DD'));
-    }
+  
   });
 
   var exampleModal = document.getElementById('wishlist')
