@@ -29,6 +29,7 @@ result.push(arr[i]);
     },
     json: function(context) {
         return JSON.stringify(context);},
+        
     genTime: function (date, format) {
         return moment(date).format(format).toString();
 
@@ -65,5 +66,9 @@ result.push(arr[i]);
         for (var i = from; i < to; i += incr)
             accum += block.fn(i);
         return accum;
+    },IsYou:function (cusID,UserID){
+        if(cusID&&UserID)
+        return cusID === UserID;
+    return false;
     }
 }

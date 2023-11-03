@@ -5,37 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     
-<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+
 </head>
 <body>
-    <input id="dateRangeInput" type="text" name="datetimes" />
+  <div class="w-100 d-flex align-items-start justify-content-center vh-100 p-4 m-3">
+ <div class="w-50 h-50 " id="calendar"></div>
+  </div>
+   
 
-<script>
-$(function() {
-    
-      $('#dateRangeInput').on('apply.daterangepicker', function(ev, picker) {
-        var startDate = picker.startDate.format('YYYY-MM-DD');
-        var endDate = picker.endDate.format('YYYY-MM-DD');
-        alert('Selected date range: ' + startDate + ' to ' + endDate);
-      });
-  $('input[name="datetimes"]').daterangepicker({
-    timePicker: true,
-    startDate: moment().startOf('hour'),
-    endDate: moment().startOf('hour').add(32, 'hour'),
-    locale: {
-      format: 'M/DD hh:mm A'
-    },
-       isInvalidDate: function(date) {
-          // Custom function to check if a date is invalid (disabled)
-          var disabledDates = ['2023-10-28', '2023-10-29', '2023-10-30'];
-          return disabledDates.includes(date.format('YYYY-MM-DD'));
-        }
+
+<script type="text/javascript">
+  $(function() {
+    $('#calendar').fullCalendar({
+      themeSystem: 'bootstrap4',
+      selectable:true
+      // Other FullCalendar options and callbacks
+    });
   });
-});
 </script>
+
 </body>
 
 </html>

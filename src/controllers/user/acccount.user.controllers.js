@@ -9,6 +9,7 @@ const Reserve = require("../../models/Reserve.model");
 var generator = require('generate-password');
 const bcrypt = require("bcrypt");
 const { response } = require("express");
+const User = require("../../models/users.model");
 class user {
 
     //[Get] /user/avatar
@@ -22,25 +23,23 @@ class user {
             res.redirect("/")
         }).catch(err => res.json("failed"))
     }
-     //[Get] /user/hosting
-    getHosting(req, res, next) {
+    //[Get] /user/hosting
+    async getHosting(req, res, next) {
         let gonnaCome, isMeeting, hasGone;
-        Reserve.find({ host: req.cookies.id }).populate(["room", "cus"]).then((item) => {
-            item = item.map(i => i.toObject());
-            gonnaCome = item.filter((item) => {
-                return item.start.getTime() > Date.now()
-            })
-            isMeeting = item.filter((item) => {
-                return (item.start.getTime() < Date.now() && item.end.getTime() > Date.now())
-            })
-            hasGone = item.filter((item) => {
-                return item.end.getTime() < Date.now()
-            })
-
-
-            res.render("hosting", { hideNavigation: true, gonnaCome, isMeeting, hasGone, userId: req.cookies.id });
-        }).catch(err => console.error(err));
-
+        let rooms = await productData.find({ host: req.cookies.id });
+        let item = await Reserve.find({ host: req.cookies.id }).populate(["room", "cus"])
+        item = item.map(i => i.toObject());
+        gonnaCome = item.filter((item) => {
+            return item.start.getTime() > Date.now()
+        })
+        isMeeting = item.filter((item) => {
+            return (item.start.getTime() < Date.now() && item.end.getTime() > Date.now())
+        })
+        hasGone = item.filter((item) => {
+            return item.end.getTime() < Date.now()
+        }) 
+        
+         res.render("hosting", { rooms,hideNavigation: true, gonnaCome, isMeeting, hasGone, userId: req.cookies.id });
     }
     //[Get] /user/trip
     getTrip(req, res, next) {
@@ -246,16 +245,17 @@ class user {
         }
 
     }
-   //[Get]/user/personaldetail/:id
+    //[Get]/user/personaldetail/:id
     async getPersonaldetail(req, res, next) {
-        let personalroom = await Room.find({ host: req.params.id },{_id:1,img:1}).limit(4);
+        let personalroom = await Room.find({ host: req.params.id }, { _id: 1, img: 1 }).limit(4);
         personalroom = personalroom.map(i => i.toObject());
         let rating = await Rating.find({ host: req.params.id }).populate("owner");
         rating = rating.map(i => i.toObject());
-        let personaldetail = await userData.findOne({ _id: req.params.id }, { role: 1, avatar: 1, fullName: 1, email: 1, phoneNumber: 1, numberOfjudgement: 1, introduce: 1 });
+
+        let personaldetail = await userData.findOne({ _id: req.params.id }, { description: 1, language: 1, habit: 1, role: 1, avatar: 1, fullName: 1, email: 1, phoneNumber: 1, numberOfjudgement: 1, introduce: 1 });
         res.render("PersonalDetail", {
             ratings: rating,
-            hideNavigation: true,
+
             role: personaldetail.role,
             avatar: personaldetail.avatar,
             name: personaldetail.fullName,
@@ -263,11 +263,32 @@ class user {
             phone: personaldetail.phoneNumber,
             evaluate: personaldetail.numberOfjudgement,
             introduce: personaldetail.introduce,
-            rooms: personalroom
+            rooms: personalroom,
+            PersonId: req.params.id,
+            UserId: req.cookies.id,
+            description: personaldetail.description,
+            language: personaldetail.language,
+            habit: personaldetail.habit,
 
         })
 
 
+    }
+
+    getPersonaldetailUpdate(req, res, next) {
+
+        const filter = { _id: req.params.id };
+        const update = {
+            $set:
+            {
+                description: req.body.description,
+                language: req.body.language,
+                habit: req.body.habit
+            }
+        };
+        userData.findOneAndUpdate(filter, update).then(() => {
+            res.redirect("/user/personaldetail/" + req.params.id)
+        }).catch(err => { });
     }
 
 

@@ -41,7 +41,7 @@ class DashBoard {
         rooms.find({ validByAdmin: false }).populate("host").then((count) => {
 
             count = count.map((i) => i.toObject());
-            res.render('dashboard', { hideNavigation: true, avatar: avatar, roomsRequest: true, rooms: count });
+            res.render('dashboard', { avatar: avatar, roomsRequest: true, rooms: count });
         })
 
 

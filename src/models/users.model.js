@@ -15,20 +15,33 @@ const UserSchema = new Schema({
   password: String,
   date: { type: Date, default: Date.now },
   age: { type: Number, min: 0, max: 120 },
-  introduce :{type: String,},
-address: { type: String},
+
+    description: {
+      type: String,
+
+    },
+    language: [{
+      type: String,
+
+    }],
+    habit: [{
+      type: String,
+    }]
+
+  ,
+  address: { type: String },
   avatar: String,
   fullName: String,
   role: String,
   phoneNumber: { type: String },
-  autherized:{
+  autherized: {
     type: Boolean,
-   
+
   },
-  brief:{
-    type:String,
+  brief: {
+    type: String,
   },
-  numberOfjudgement: { type: Number}
+  numberOfjudgement: { type: Number }
 
 }, { timestamps: { createdAt: 'created_at' } });
 const User = mongoose.model("Users", UserSchema);

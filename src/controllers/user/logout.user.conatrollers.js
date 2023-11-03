@@ -3,8 +3,8 @@ class LogOutController {
     index(req, res, next) {
         res.clearCookie("token");
         res.clearCookie("id");
-             res.clearCookie("evaluate",NewUser.numberOfjudgement);
-          res.clearCookie("address", NewUser.address);
+             res.clearCookie("evaluate");
+          res.clearCookie("address");
         res.clearCookie("avatar");
         res.clearCookie("role");
         res.clearCookie("username");

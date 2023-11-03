@@ -77,7 +77,7 @@ user.save();
             .catch((err) => res.json(err));
     const newProduct = new productData({
                     name: req.cookies.name,
-                    host: user[0],
+                    host: req.cookies.id,
                     startday: req.body.startday,
                     endday: req.body.endday,
                     maximuncus: req.cookies.maximumcus,

@@ -21,13 +21,7 @@
 <div class="specific-container">
   <div class="specific-container-name">
     <div class="name">{{data.name}}</div>
-    <div class="wishLish">
-      <button data-bs-roomId={{data._id}} data-bs-toggle="modal" data-bs-target="#wishlist"><i class="bi bi-heart"></i>
-        Lưu
-      </button>
-
-      <button><i class="fa fa-solid fa-share"></i>Chia sẻ</button>
-    </div>
+   
   </div>
 
   <div class="specific-container-img" id="img-part">
@@ -162,7 +156,7 @@
 
           </div>
           <div class="w-100 d-flex flex-row align-items-center justify-content-between">
-            <label for="finalcost">Tổng chi phí trước thuế : <span class="input-group-text">8$</span> </label>
+            <label for="finalcost">Tổng chi phí trước thuế : <span class="input-group-text">8${{data.DatesRented}}</span> </label>
 
             <input class="text-center border-0 bg-transparent" type="number" id="finalcost" name="final" readonly
               value="0">
@@ -509,6 +503,8 @@
 </script>
 <script>
   $(document).ready(function () {
+const wedges = {{{ json data.DatesRented }}}
+
 
     $('#dateRangeInput').on('apply.daterangepicker', function (ev, picker) {
       var startDate = picker.startDate.format('YYYY-MM-DD');
@@ -548,13 +544,26 @@
     locale: {
       format: 'YYYY-MM-DD',
       separator: ' to ',
-      applyLabel: 'Apply',
-      cancelLabel: 'Cancel',
+      applyLabel: 'Chọn',
+      cancelLabel: 'Hủy',
       customRangeLabel: 'Custom Range',
       daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
       monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
       firstDay: 1
     },
+    isInvalidDate: function(date) {
+        var disabledDates = wedges.map((e)=>{
+          return moment(e).format('YYYY-MM-DD')
+        });
+        var dateString = date.format('YYYY-MM-DD');
+        if (disabledDates.includes(dateString)) {
+          return true;
+        }
+        
+        return false;
+      }
+// Use the "isInvalidDate" option to invalidate the array of dates
+
   
   });
 

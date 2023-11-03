@@ -2027,3 +2027,25 @@ input[type=number]::-webkit-outer-spin-button {
   background-color: #333333;
   color: #ffffff;
 }
+#userDesForm{
+  #selectedHabits {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: black;
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 10px;
+  
+  
+ 
+}
+}
+ .selected-habit {
+    display: inline-block;
+    background-color: rgb(154, 24, 46);
+    color: #FFFFFF;
+    padding: 8px;
+    border-radius: 4px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+  }

@@ -34,6 +34,7 @@ router.get("/cc",userController.send);
 router.get("/calender",userController.getHostingCalendar);
 router.get("/message", userController.postMessage);
 router.get("/personaldetail/:id",userController.getPersonaldetail);
+router.post("/personaldetail/:id",userController.getPersonaldetailUpdate);
 router.post("/personaldetail/name",userController.updatePersonalName); 
            
 router.post("/personaldetail/phone",userController.updatePersonalPhone);
