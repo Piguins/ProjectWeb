@@ -310,14 +310,14 @@ body {
       }
       width: 90%;
       z-index: 1;
-      height: 300px;
+      height: 500px;
       overflow: hidden;
       display: grid;
       border-radius: 20px;
       background-color: white;
       grid-template-columns: 1fr 1fr 1fr 1fr;
       grid-template-rows: 1fr 1fr;
-      gap: 3px;
+      gap: 1px;
       margin-bottom: 40px;
       grid-template-areas:
         "img1 img1 img2 img3"
@@ -458,49 +458,22 @@ body {
     top: 80px;
     left: 0px;
     background-color: white;
-    height: 100px;
+    height: 80px;
     width: 100%;
-    padding: 15px;
+    padding: 5px;
     display: flex;
     flex-direction: row;
     align-items: center;
     z-index: 5;
-
-    form {
-      display: flex;
-      opacity: 0.5;
-      padding: 15px;
-      padding-top: 0px;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
-      width: max-content;
-      background-color: white;
-      min-width: 70px;
-      height: 100%;
-      margin-left: 10px;
-
-      p {
-        position: relative;
-        text-align: center;
-        top: 10px;
-        width: 100%;
-        font-size: 12px;
-        font-weight: bolder;
-      }
-
-      button {
-        border: none;
-        background-color: transparent;
-        height: 50%;
-        width: 100%;
-
-        img {
-          width: 35px;
-          height: 35px;
-        }
-      }
-    }
+.room-types-wrapper{
+  height: 100%;
+  width: 70%;
+  min-width: 300px;
+   display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+   
 
     form:hover {
       border-bottom: 2px solid black;
@@ -519,6 +492,7 @@ body {
     }
 
     width: 100%;
+  position: relative;
 
     padding: 30px;
     display: grid;
@@ -672,15 +646,16 @@ body {
 .login {
   &-social {
     position: relative;
-    height: 25px;
+    height: 50px;
     width: 100%;
     display: flex;
     flex-direction: row;
+    align-items: center;
     gap: 4px;
 
     .link1 {
       width: 24%;
-      height: 100%;
+      height: 25px;
       background-color: #f8ede3;
       text-align: center;
       color: #85586f;
@@ -2048,4 +2023,8 @@ input[type=number]::-webkit-outer-spin-button {
     border-radius: 4px;
     margin-right: 5px;
     margin-bottom: 5px;
+  }
+  .custom-calendar{
+    width: 100%;
+    height: 100%;
   }

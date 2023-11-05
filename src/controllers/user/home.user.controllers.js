@@ -8,6 +8,7 @@ const hsetAsync = promisify(client.hSet).bind(client);
 class Home {
     async defaultDisplay(req, res, next) {
         const filter = {};
+        const sort = {};
         filter.startday = (req.query.start) ? { $lte: req.query.start } : { $lte: "2024-07-7" };
         filter.endday = (req.query.end) ? { $gte: req.query.end } : { $gte: "2022-07-7" };
         filter.maximuncus = (req.query.quantity) ? { $gte: req.query.quantity } : { $gte: 0 };
@@ -16,6 +17,16 @@ class Home {
         filter.price = (req.query.minPrice) ? { $gte: req.query.minPrice, $lte: req.query.maxPrice } : { $gte: 0 };
         filter.name = (req.query.search) ? { $regex: "^" + req.query.search, $options: "i" } : { $regex: "^(.*?)" }
         filter.host = { $ne: req.cookies.id }
+     
+  
+       if(req.query.incre||req.query.dec){
+        sort.price= (req.query.incre)?'-1':'1';
+       }
+       
+       if(req.query.newest){
+        sort.created_at= '1'
+       }
+            sort.name=1;
         if (req.query.type) {
             filter.type = req.query.type;
         }
@@ -28,10 +39,10 @@ class Home {
             ? true
             : false;
         let logged;
-        let key = JSON.stringify(filter);
+        let key = JSON.stringify(filter)+JSON.stringify(sort);
         client.hGetAll(key, async (error, value) => {
             if (error || value === null) {
-                let list = await roomCollection.find(filter).populate("host", 'avatar')
+                let list = await roomCollection.find(filter).sort(sort).populate("host", 'avatar')
                 list = list.map((item) => item.toObject());
                 list = list.map(v => ({ ...v, isLoggedIn: isLoggedIn }))
 

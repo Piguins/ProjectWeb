@@ -66,7 +66,7 @@ const fileSelector = document.getElementById('image');
         imgReader.addEventListener("load",(function(event){
             const imgFile=event.target;
             const div=document.createElement("div");
-            div.innerHTML= `<img class="m-2 w-75 h-75 col-4"src="${imgFile.result}" />`;
+            div.innerHTML= `<img class="m-2 w-100 h-100 col-4"src="${imgFile.result}" />`;
             imgContainer.appendChild(div);
         }))
         imgReader.readAsDataURL(fileList[i]);

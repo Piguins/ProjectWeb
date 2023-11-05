@@ -207,14 +207,14 @@ body {
     .specific-container-img-some {
       width: 90%;
       z-index: 1;
-      height: 300px;
+      height: 500px;
       overflow: hidden;
       display: grid;
       border-radius: 20px;
       background-color: white;
       grid-template-columns: 1fr 1fr 1fr 1fr;
       grid-template-rows: 1fr 1fr;
-      gap: 3px;
+      gap: 1px;
       margin-bottom: 40px;
       grid-template-areas: "img1 img1 img2 img3" "img1 img1 img4 img5"; }
       .specific-container-img-some .show {
@@ -317,41 +317,20 @@ body {
     top: 80px;
     left: 0px;
     background-color: white;
-    height: 100px;
+    height: 80px;
     width: 100%;
-    padding: 15px;
+    padding: 5px;
     display: flex;
     flex-direction: row;
     align-items: center;
     z-index: 5; }
-    .home-filter form {
-      display: flex;
-      opacity: 0.5;
-      padding: 15px;
-      padding-top: 0px;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
-      width: max-content;
-      background-color: white;
-      min-width: 70px;
+    .home-filter .room-types-wrapper {
       height: 100%;
-      margin-left: 10px; }
-      .home-filter form p {
-        position: relative;
-        text-align: center;
-        top: 10px;
-        width: 100%;
-        font-size: 12px;
-        font-weight: bolder; }
-      .home-filter form button {
-        border: none;
-        background-color: transparent;
-        height: 50%;
-        width: 100%; }
-        .home-filter form button img {
-          width: 35px;
-          height: 35px; }
+      width: 70%;
+      min-width: 300px;
+      display: flex;
+      flex-direction: row;
+      align-items: center; }
     .home-filter form:hover {
       border-bottom: 2px solid black;
       opacity: 1; }
@@ -359,6 +338,7 @@ body {
       opacity: 1; }
   .home-main {
     width: 100%;
+    position: relative;
     padding: 30px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
@@ -467,14 +447,15 @@ body {
 
 .login-social {
   position: relative;
-  height: 25px;
+  height: 50px;
   width: 100%;
   display: flex;
   flex-direction: row;
+  align-items: center;
   gap: 4px; }
   .login-social .link1 {
     width: 24%;
-    height: 100%;
+    height: 25px;
     background-color: #f8ede3;
     text-align: center;
     color: #85586f; }
@@ -1631,3 +1612,7 @@ section.range-slider {
   border-radius: 4px;
   margin-right: 5px;
   margin-bottom: 5px; }
+
+.custom-calendar {
+  width: 100%;
+  height: 100%; }

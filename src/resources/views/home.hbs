@@ -1,18 +1,62 @@
 <div class="home ">
-  <div class="home-filter ">{{#each e}}
-    <form method="get" action="/">
-      <input type="text" value={{this._id}} name="type" style="display: none;">
-      <button type="submit">
-        <img src="{{this.img}}">
-      </button>
-      <p>{{this.name}}</p>
-    </form>
-    {{/each}} <button class="btn btn-outline-dark align-self-center  rounded-2" data-bs-target="#filter"
-      data-bs-toggle="modal" data-bs-dismiss="modal">Bộ
-      lọc
-      <i class="bi-solid bi-filter"></i>
-    </button>
+  <div class="home-filter room-types-container  ">
+
+    <div class="room-types-wrapper p-1" style="z-index: 1000;">
+
+      {{#each e}}
+      <form style="width: 80px; " class="p-0 m-1 opacity-50  h-100 " method="get" class="room-type" action="/">
+        <input type="text" value={{this._id}} name="type" style="display: none;">
+        <button type="submit" class="w-100 h-50  border-0 d-flex justify-content-center bg-transparent opacity-50">
+          <img style="width: 35px;height:35px;" class="opacity-50" src="{{this.img}}">
+        </button>
+        <p class="w-100 text-center h-50">{{this.name}}</p>
+      </form>
+      {{/each}}
+    </div>
+    <div class="w-25 p-1 d-flex flex-row flex-wrap border border-1">
+      <div style="min-width: 50px;" class="w-25 p-1"> <button style="min-width: 50px; font-size:10px"
+          class="btn btn-outline-dark align-self-center  rounded-2 w-100 h-100" data-bs-target="#filter"
+          data-bs-toggle="modal" data-bs-dismiss="modal">Bộ
+          lọc
+          <i class="bi-solid bi-filter"></i>
+        </button></div>
+      <div style="min-width: 50px;" class="w-25 p-1">
+        <form style="min-width: 50px;font-size:10px" class="w-100 h-100" method="get" action="/">  <button style="min-width: 50px;font-size:10px"
+          class="btn btn-outline-dark align-self-center  rounded-2 w-100 h-100" >Cao cấp
+          <i class="fa-solid fa-scale-unbalanced-flip"></i>
+            <input type="text" id="bed" name="incre" checked value="1" class="d-none">
+        </button></form>
+      
+      </div>
+            <div style="min-width: 50px;" class="w-25 p-1">
+        <form style="min-width: 50px;font-size:10px" class="w-100 h-100" method="get" action="/">  <button style="min-width: 50px;font-size:10px"
+          class="btn btn-outline-dark align-self-center  rounded-2 w-100 h-100" >Giá rẻ
+          <i class="fa-solid fa-scale-unbalanced"></i>
+            <input type="text" id="bed" name="dec" checked value="1" class="d-none">
+        </button></form>
+      
+      </div>
+            <div style="min-width: 50px;" class="w-25 p-1">
+        <form style="min-width: 50px;font-size:10px" class="w-100 h-100" method="get" action="/">  <button style="min-width: 50px;font-size:10px"
+          class="btn btn-outline-dark align-self-center  rounded-2 w-100 h-100" >Mới đăng
+      <i class="fa-solid fa-clock-rotate-left"></i>
+            <input type="text" id="bed" name="newest" checked value="1" class="d-none">
+        </button></form>
+      
+      </div>
+
+
+
+
+    </div>
+
   </div>
+
+
+
+
+
+
   <div class="home-main">
     {{#each list
     }}
@@ -20,9 +64,11 @@
 
 
     <div class="home-main-card position-relative ">
-      <img id="host" src="img/default/portail.png" style="z-index: 1; width:27%; height:27%; margin-top:10px;margin-right:10px"
+      <img id="host" src="img/default/portail.png"
+        style="z-index: 1; width:27%; height:27%; margin-top:10px;margin-right:10px"
         class="rounded  position-absolute top-0 end-0 ">
-      <img id="host" src="{{this.host.avatar}}" style="z-index: 2;  margin-top:30px;margin-right:20px ;width:20%; height:18%; "
+      <img id="host" src="{{this.host.avatar}}"
+        style="z-index: 2;  margin-top:30px;margin-right:20px ;width:20%; height:18%; "
         class="rounded-circle position-absolute top-0 end-0 border border-2 border-dark">
       </img>
       <div id="carouselExample{{this._id}}" class="carousel slide w-100 h-75">
@@ -272,9 +318,25 @@
   </div>
 
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script>
   $(document).ready(function () {
+    $('.room-types-wrapper').slick({
+      slidesToShow: 8,
+      slidesToScroll: 1,
+      prevArrow: '<button class="slide-left  border-1 p-1 m-1 bg-transparent rounded-circle"><i class="fa-solid fa-arrow-left"></i></button>',
+      nextArrow: '<button class="slide-right border-1 p-1 m-1 bg-transparen rounded-circle"><i class="fa-solid fa-arrow-right"></i></button>',
+      responsive: [
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 1
+          }
+        }
+
+      ]
+    });
+
 
     $("#filter-submit-btn").on("click", function () {
       $("#filterForm").trigger("submit");

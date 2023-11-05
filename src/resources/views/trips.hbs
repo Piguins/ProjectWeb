@@ -1,14 +1,15 @@
-<div class="w-100 bg-dark p-4 " style="min-height:100vh">
-  <a class="link link-light" href="/">back</a>
-  <div class="w-100 d-flex flex-row flex-wrap p-4 h-100">
+<a class="link link-light w-100 bg-dark" href="/">back</a>
+<div class="w-100 bg-dark p-4 d-flex flex-row flex-wrap" style="min-height:100vh">
+
+  <div class="w-75 d-flex flex-row flex-wrap p-2 h-100">
     {{#each list}}
     <div class="card m-2 rounded-2 w-25 h-50 bg-light " style="min-width: 200px;" data-bs-toggle="tooltip"
       data-bs-placement="bottom" data-bs-custom-class="custom-tooltip"
       data-bs-title="Bạn đã thuê phòng {{this.room.name}} trong {{this.day}} với giá {{this.value}} $">
       <img style="width: 200px; height:200px" class=" m-1" src="{{this.room.img.[0]}}">
 
-      <button class="btn btn-outline-warning" data-bs-roomId={{this.room._id}}  data-bs-hostId={{this.host._id}}  data-bs-toggle="modal"
-        data-bs-target="#wishlist">Đánh giá
+      <button class="btn btn-outline-warning" data-bs-roomId={{this.room._id}} data-bs-hostId={{this.host._id}}
+        data-bs-toggle="modal" data-bs-target="#wishlist">Đánh giá
       </button>
 
     </div>
@@ -16,17 +17,107 @@
     {{/each}}
 
   </div>
+  <div class="w-25 " style="min-width: 350px;">
+    	<div class="card  w-100 ">
+		
+		<nav class="w-74 d">
+			<div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+				<button class="nav-link link-secondary rounded-pill m-3 active" id="nav-home-tab" data-bs-toggle="tab"
+					data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">
+					Sắp trả phòng</button>
+				<button class="nav-link link-secondary  rounded-pill m-3" id="nav-profile-tab" data-bs-toggle="tab"
+					data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile"
+					aria-selected="false">Hiện đang đón tiếp</button>
+				<button class="nav-link link-secondary  rounded-pill m-3" id="nav-contact-tab" data-bs-toggle="tab"
+					data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact"
+					aria-selected="false">Sắp đến </button>
+			</div>
+		</nav>
+
+		<div class="tab-content p-3 border bg-light" id="nav-tabContent">
+			<div class="tab-pane fade active show" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+				<div class="d-flex flex-row flex-wrap">{{#each hasGone}}
+					<div class="card" style="width: 18rem; border-radius:15%">
+						<div class="card-body w-100 bg-white">
+							<h5 class="card-title w-100"><img class="w-25 h-100 rounded-circle" src={{this.cus.avatar}}>
+
+								<p class=" w-100">{{this.cus.fullName}}</p>
+							</h5>
+							<img class="w-50 h-50" src="{{this.room.img.[0]}}">
+							<p> Ngày trả phòng {{ genTime this.end 'MMMM Do YYYY'}} </p>
+
+
+						</div>
+					</div>
+					{{/each}}
+					{{#if hasGone.length}}
+					{{else}}
+					<p>Hiện tại chưa có phòng sắp trả </p>
+					{{/if}}
+				</div>
+
+			</div>
+			<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+				{{#each isMeeting}}
+				<div class="card" style="width: 18rem; border-radius:15%">
+					<div class="card-body w-100">
+						<h5 class="card-title w-100"><img class="w-25 h-100 rounded-circle" src={{this.cus.avatar}}>
+
+							<p class=" w-100">{{this.cus.fullName}}</p>
+						</h5>
+						<img class="w-50 h-50" src="{{this.room.img.[0]}}">
+						<p> Từ ngày {{ genTime this.start 'MMMM Do YYYY'}} </p>
+
+						<p> Đén ngày {{ genTime this.end 'MMMM Do YYYY'}} </p>
+					</div>
+				</div>
+
+				{{/each}}
+				{{#if isMeeting.length}}
+				{{else}}
+				<p>Hiện không có phòng đón tiếp </p>
+				{{/if}}
+
+
+			</div>
+			<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+				{{#each gonnaCome}}
+				<div class="card" style="width: 18rem; border-radius:15%">
+					<div class="card-body w-100">
+						<h5 class="card-title w-100"><img class="w-25 h-100 rounded-circle" src={{this.cus.avatar}}>
+
+							<p class=" w-100">{{this.cus.fullName}}</p>
+						</h5>
+						<img class="w-50 h-50" src="{{this.room.img.[0]}}FE">
+						<p> Ngày đến {{ genTime this.start 'MMMM Do YYYY'}} </p>
+
+
+					</div>
+				</div>
+
+				{{/each}}
+				{{#if isMeeting.length}}
+				{{else}}
+				<p>Hiện Chưa có khách đặt phòng của bạn</p>
+				{{/if}}
+			</div>
+			{{#each item}}
+			{{this.host}}
+			{{/each}}
+		</div>
+	</div> 
+  </div>
   <div class="modal fade" id="wishlist" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-       
+
         <div class="modal-body">
 
           <div class=" w-100 h-100">
             <form action="/rooms/comment" method="post">
               <div class="form-floating mb-3 w-100">
                 <input name="room" id="roomId" class="d-none">
-                  <input name="host" id="hostId" class="d-none">
+                <input name="host" id="hostId" class="d-none">
                 <input type="text" class="form-control" id="floatingInput" name="value"
                   placeholder="chủ nhà thân thiện ...">
                 <label for="floatingInput">Để lại đánh giá</label>
@@ -68,14 +159,14 @@
         var button = event.relatedTarget
         // Extract info from data-bs-* attributes
         var recipient = button.getAttribute('data-bs-roomId')
-         var hostId = button.getAttribute('data-bs-hostId')
+        var hostId = button.getAttribute('data-bs-hostId')
         // If necessary, you could initiate an AJAX request here
         // and then do the updating in a callback.
 
         // Update the modal's content.
         $("[id=roomId]").val(recipient);
 
-$("[id=hostId]").val(hostId);
+        $("[id=hostId]").val(hostId);
 
 
 

@@ -44,7 +44,7 @@ class user {
     //[Get] /user/trip
     getTrip(req, res, next) {
         let logged;
-
+        let gonnaCome, isMeeting, hasGone;
         if (req.cookies.token) {
             logged = true;
         }
@@ -58,8 +58,16 @@ class user {
         Reserve.find({ cus: req.cookies.id }).populate(["room", "host"])
             .then((list) => {
                 list = list.map((item) => item.toObject());
-
-                res.render("trips", { name, email, phone, avatar, list, islogged: logged, addProcessing: true, hideNavigation: true });
+                gonnaCome = list.filter((item) => {
+                    return item.start.getTime() > Date.now()
+                })
+                isMeeting = list.filter((item) => {
+                    return (item.start.getTime() < Date.now() && item.end.getTime() > Date.now())
+                })
+                hasGone = list.filter((item) => {
+                    return item.end.getTime() < Date.now()
+                }) 
+                res.render("trips", {next:gonnaCome,checkin:isMeeting,checkout:hasGone, name, email, phone, avatar, list, islogged: logged, addProcessing: true, hideNavigation: true });
             })
             .catch((err) => console.log(err));
 
