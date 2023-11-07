@@ -31,7 +31,7 @@ class Home {
             filter.type = req.query.type;
         }
         filter.validByAdmin = true;
-        let datachart = Array(1000).fill(0);
+        let datachart = Array(300).fill(0);
         let isLoggedIn = (req.cookies.token)
             ? true
             : false;
