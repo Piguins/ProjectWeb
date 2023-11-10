@@ -1,0 +1,229 @@
+@import url("https://fonts.googleapis.com/css2?family=Athiti:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,800;1,700&display=swap");
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css");
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Metrophobic&family=Pacifico&display=swap");
+.home {
+  position: relative;
+  top: 180px;
+  width: 100%;
+  height: fit-content;
+  margin-bottom: 100px; }
+  .home-filter {
+    position: fixed;
+    top: 80px;
+    left: 0px;
+    background-color: white;
+    height: 100px;
+    width: 100%;
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    z-index: 5; }
+    .home-filter form {
+      display: flex;
+      opacity: 0.5;
+      padding: 15px;
+      padding-top: 0px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      width: max-content;
+      background-color: white;
+      min-width: 70px;
+      height: 100%;
+      margin-left: 10px; }
+      .home-filter form p {
+        position: relative;
+        text-align: center;
+        top: 10px;
+        width: 100%;
+        font-size: 12px;
+        font-weight: bolder; }
+      .home-filter form button {
+        border: none;
+        background-color: transparent;
+        height: 50%;
+        width: 100%; }
+        .home-filter form button img {
+          width: 35px;
+          height: 35px; }
+    .home-filter form:hover {
+      border-bottom: 2px solid black;
+      opacity: 1; }
+    .home-filter form:focus {
+      opacity: 1; }
+  .home-main {
+    width: 100%;
+    padding: 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    grid-auto-rows: 400px; }
+    .home-main a {
+      text-decoration: none;
+      color: black; }
+    .home-main-card {
+      width: 25%;
+      height: 40%;
+      min-width: 290px;
+      border-radius: 10px;
+      min-height: 400px;
+      display: flex;
+      flex-direction: column; }
+      .home-main-card-footer {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+        height: 1.5em; }
+        .home-main-card-footer div {
+          margin-top: 10px;
+          font-weight: bolder; }
+        .home-main-card-footer .addToWishlist button {
+          border: none;
+          background-color: transparent;
+          font-size: larger; }
+        .home-main-card-footer .addToWishlist button:hover {
+          color: #e41d56; }
+      .home-main-card-body {
+        display: flex;
+        flex-direction: column; }
+        .home-main-card-body-name {
+          display: block;
+          width: 90%;
+          margin-top: 10px;
+          height: 1.5em;
+          float: left;
+          overflow: hidden;
+          font-weight: bolder; }
+        .home-main-card-body-day {
+          width: 100%;
+          margin-top: 10px;
+          height: 20px;
+          display: flex;
+          flex-direction: row; }
+          .home-main-card-body-day p {
+            width: 48%;
+            font-weight: lighter; }
+      .home-main-card a {
+        width: 100%;
+        height: 70.5%;
+        border-radius: 10px; }
+      .home-main-card img {
+        border-radius: 10px;
+        width: 100%;
+        height: 100%; }
+
+.loginPage {
+  padding: 0;
+  margin: 0;
+  background-image: url("/src/public/img/default/loginbg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  justify-content: center; }
+  .loginPage #loginForm {
+    width: 30%;
+    min-width: 300px; }
+
+.register {
+  margin: 0;
+  background-image: url("/src/public/img/background/mdaymmuanuadi.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-family: "Patrick Hand", cursive; }
+  .register #registerForm {
+    width: 30%; }
+
+.mainnav {
+  width: 100%;
+  height: 80px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: 1px solid #ebebeb;
+  position: fixed;
+  top: 0px;
+  z-index: 13;
+  font-family: "roboto"; }
+
+.mainnav-home {
+  flex: 2.7;
+  margin-left: 50px;
+  display: flex;
+  background-color: #fff;
+  height: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  font-family: "Noto Sans", sans-serif; }
+
+.mainnav-home a {
+  text-decoration: none;
+  color: #ff385c;
+  font-weight: bolder; }
+
+.mainnav-home a i {
+  font-size: 25px; }
+
+.mainnav-search {
+  flex: 2.3;
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.mainnav-search button {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  background-color: white;
+  border: 2px solid palevioletred; }
+
+.mainnav-search button input {
+  width: 100%;
+  height: 100%;
+  border-radius: 28px;
+  padding: 5px;
+  border: none;
+  text-align: center; }
+
+.mainnav-add {
+  flex: 1.7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50%; }
+
+.mainnav-add button {
+  height: 100%;
+  border: none;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: white;
+  border-radius: 20px; }
+
+.mainnav-add button:hover {
+  background-color: #ebebeb; }
+
+.mainnav-add a {
+  color: black;
+  text-decoration: none; }
+
+.mainnav-user {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+* {
+  font-family: "Patrick Hand", cursive;
+  font-size: 16px;
+  box-sizing: border-box; }

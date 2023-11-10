@@ -1,0 +1,70 @@
+.mainnav {
+    width: 100%;
+    height: 80px;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-bottom: 1px solid #ebebeb;
+    position: fixed;
+    top: 0px;
+    z-index: 13;
+    font-family: "roboto"; }
+    .mainnav-home {
+      flex: 2.7;
+      margin-left: 50px;
+      display: flex;
+      background-color: #fff;
+      height: 100%;
+      justify-content: flex-start;
+      align-items: center;
+      font-family: "Noto Sans", sans-serif; }
+      .mainnav-home a {
+        text-decoration: none;
+        color: #ff385c;
+        font-weight: bolder; }
+        .mainnav-home a i {
+          font-size: 25px; }
+    .mainnav-search {
+      flex: 2.3;
+      height: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center; }
+      .mainnav-search button {
+        width: 100%;
+        height: 100%;
+        border-radius: 20px;
+        background-color: white;
+        border: 2px solid palevioletred; }
+        .mainnav-search button input {
+          width: 100%;
+          height: 100%;
+          border-radius: 28px;
+          padding: 5px;
+          border: none;
+          text-align: center; }
+    .mainnav-add {
+      flex: 1.7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 50%; }
+      .mainnav-add button {
+        height: 100%;
+        border: none;
+        padding-left: 20px;
+        padding-right: 20px;
+        background-color: white;
+        border-radius: 20px; }
+      .mainnav-add button:hover {
+        background-color: #ebebeb; }
+      .mainnav-add a {
+        color: black;
+        text-decoration: none; }
+    .mainnav-user {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center; }
+  

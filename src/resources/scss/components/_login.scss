@@ -1,0 +1,16 @@
+.loginPage {
+    padding: 0;
+    margin: 0;
+  
+    background-image: url("/src/public/img/default/loginbg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    #loginForm {
+      width: 30%;
+      min-width: 300px;
+    }
+  }
+  

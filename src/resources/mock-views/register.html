@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="/src/public/css/index.css" />
+    <link rel="stylesheet" href="/src/public/css/variables.css" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
+    />
+  </head>
+  <body>
+    <div class="register">
+      <div
+        class="container w-100 vh-100 d-flex flex-row justify-content-center align-items-center"
+      >
+        <form
+          class="d-flex flex-column align-items-center bg-white p-4 rounded-2"
+          id="registerForm"
+          method="post"
+          action="/register"
+        >
+          <p class="fw-bold text-center">Đăng Kí Tài Khoản</p>
+          <div class="form-floating mb-2">
+            <input
+              class="form-control"
+              type="text"
+              id="fullName"
+              name="fullName"
+            />
+            <label for="fullName">Họ và Tên</label>
+          </div>
+          <div class="form-floating mb-2">
+            <input class="form-control" type="email" id="email" name="email" />
+            <label for="email">gmail</label>
+          </div>
+          <div class="form-floating mb-2">
+            <input
+              class="form-control"
+              type="password"
+              id="password"
+              name="password"
+            />
+            <label class="form-label" for="password">Mật Khẩu</label>
+          </div>
+          <div class="form-floating mb-2">
+            <input
+              class="form-control"
+              type="password"
+              id="passwordChecking"
+              name="passwordChecking"
+            />
+            <label for="passwordChecking">Nhập Lại Mật Khẩu</label>
+          </div>
+          <div class="w-75">
+            <button class="btn btn-dark w-75">Register</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

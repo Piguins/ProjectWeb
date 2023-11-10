@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="/src/public/css/index.css" />
+    <link rel="stylesheet" href="/src/public/css/variables.css" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+    />
+  </head>
+  <body>
+    <div class="mainnav">
+      <div class="mainnav-home">
+        <a href="/"
+          ><i class="fa fa-regular fa-map" title="hihi"> montecarlo</i></a
+        >
+      </div>
+      <div class="mainnav-search">
+        <button
+          type="button"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+        >
+          <input
+            type="text"
+            placeholder="Địa điểm ... |   Thời gian ... |   Khách ..."
+          />
+        </button>
+      </div>
+      <div class="mainnav-add">
+        <button class=""><a href="/add">Cho thuê chỗ ở qua fiat</a></button>
+      </div>
+
+      <div class="btn-group mainnav-user p-4 rounded-1">
+        <button
+          class="btn bg-white btn-sm dropdown-toggle"
+          type="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i class="bi bi-person"></i>
+        </button>
+
+        <ul class="dropdown-menu p-2">
+          <li><a class="dropdown-item" href="/logout">Đăng Xuất </a></li>
+
+          <li>
+            <a class="dropdown-item" href="/user/trip"> Thông tin chuyến đi </a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="/user/wishlist">
+              Danh sách yêu thích</a
+            >
+          </li>
+          <li>
+            <a
+              class="dropdown-item"
+              data-bs-toggle="offcanvas"
+              href="#offcanvasExample"
+              role="button"
+              aria-controls="offcanvasExample"
+            >
+              Thông tin cá nhân
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content rounded-5">
+          <div class="modal-header">Trãi nghiệm thực tế nào ...</div>
+          <div class="modal-body">
+            <form class="searchBoard-form" action="/" method="GET">
+              <div class="item">
+                <label for="start"
+                  >Ngày bắt đầu
+                  <input
+                    type="date"
+                    id="start"
+                    onfocus="this.showPicker()"
+                    autocomplete="off"
+                    name="start"
+                  />
+                </label>
+              </div>
+
+              <div class="item">
+                <label for="end"
+                  >Ngày kết thúc
+                  <input
+                    type="date"
+                    onfocus="this.showPicker()"
+                    id="end"
+                    autocomplete="off"
+                    name="end"
+                  />
+                </label>
+              </div>
+              <div class="item">
+                <label for="number"
+                  >Số khách tối đa
+                  <input type="number" id="number" name="quantity" min="1" />
+                </label>
+              </div>
+
+              <div class="item">
+                <label for="search"
+                  >Từ khóa
+                  <input type="text" id="search" name="search" />
+                </label>
+              </div>
+
+              <button type="submit">Tìm Kiếm</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="offcanvas offcanvas-start"
+      tabindex="-1"
+      id="offcanvasExample"
+      aria-labelledby="offcanvasExampleLabel"
+    >
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title fw-bold" id="offcanvasExampleLabel">
+          Thông tin cá nhân
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="offcanvas-body">
+        <div class="container d-flex flex-column align-items-center">
+          <div class="mb-3 row w-100">
+            <div
+              class="col-12 d-flex flex-row justify-content-center bg-light p-4"
+            >
+              <img
+                class="rounded-circle"
+                style="width: 180px; height: 180px"
+                src="/img/user/{{avatar}}"
+              />
+            </div>
+          </div>
+          <div class="mb-3 row w-100 d-flex flex-row flex-wrap">
+            <label for="name" class="col-8 col-form-label fw-bold"
+              >Tên pháp lý</label
+            >
+            <div class="col-8">
+              <input
+                type="text"
+                readonly
+                class="form-control-plaintext"
+                id="name"
+                value="{{name}}"
+              />
+            </div>
+            <a
+              class="link link-dark col-4"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapsename"
+              aria-expanded="false"
+              aria-controls="collapseExample"
+            >
+              Chỉnh sửa
+            </a>
+            <div class="collapse w-100" id="collapsename">
+              <div class="card card-body d-flex flex-row flex-wrap">
+                <div class="form-floating mb-3 w-50">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="floatingInput"
+                    placeholder="..."
+                  />
+                  <label for="floatingInput">Họ</label>
+                </div>
+                <div class="form-floating w-50">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="floatingPassword"
+                    placeholder="..."
+                  />
+                  <label for="floatingPassword">Tên</label>
+                </div>
+                <button class="btn btn-dark text-white">Sửa</button>
+              </div>
+            </div>
+          </div>
+          <div class="mb-3 row w-100 d-flex flex-row flex-wrap">
+            <label for="name" class="col-8 col-form-label fw-bold"
+              >Tài khoản email</label
+            >
+            <div class="col-8">
+              <input
+                type="text"
+                readonly
+                class="form-control-plaintext"
+                id="name"
+                value="{{email}}"
+              />
+            </div>
+            <a
+              class="link link-dark col-4"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseemail"
+              aria-expanded="false"
+              aria-controls="collapseExample"
+            >
+              Chỉnh sửa
+            </a>
+            <div class="collapse w-100" id="collapseemail">
+              <div class="card card-body d-flex flex-row flex-wrap">
+                <div class="form-floating mb-3 w-50">
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="floatingInput"
+                    placeholder="name@example.com"
+                  />
+                  <label for="floatingInput">Email Cũ</label>
+                </div>
+                <div class="form-floating w-50">
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="floatingPassword"
+                    placeholder="Password"
+                  />
+                  <label for="floatingPassword">Email mới</label>
+                </div>
+                <button class="btn btn-dark text-white">Sửa</button>
+              </div>
+            </div>
+          </div>
+          <div class="mb-3 row w-100 d-flex flex-row flex-wrap">
+            <label for="name" class="col-8 col-form-label fw-bold"
+              >Số điện thoại</label
+            >
+            <div class="col-8">
+              <input
+                type="text"
+                readonly
+                class="form-control-plaintext"
+                id="name"
+                value="{{phone}}"
+              />
+            </div>
+            <a
+              class="link link-dark col-4"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapsephone"
+              aria-expanded="false"
+              aria-controls="collapseExample"
+            >
+              Chỉnh sửa
+            </a>
+            <div class="collapse w-100" id="collapsephone">
+              <div class="card card-body d-flex flex-row flex-wrap">
+                <div class="form-floating mb-3 w-100">
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="floatingInput"
+                    placeholder="name@example.com"
+                  />
+                  <label for="floatingInput">Số điện thoại</label>
+                </div>
+
+                <button class="btn btn-dark text-white">Sửa</button>
+              </div>
+            </div>
+          </div>
+          <div class="mb-3 row w-100 d-flex flex-row flex-wrap">
+            <label for="name" class="col-8 col-form-label fw-bold"
+              >Địa chỉ</label
+            >
+            <div class="col-8">
+              <input
+                type="text"
+                readonly
+                class="form-control-plaintext"
+                id="name"
+                value="Đại học cntt"
+              />
+            </div>
+            <a
+              class="link link-dark col-4"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseaddress"
+              aria-expanded="false"
+              aria-controls="collapseExample"
+            >
+              Chỉnh sửa
+            </a>
+            <div class="collapse w-100" id="collapseaddress">
+              <div class="card card-body d-flex flex-column flex-wrap">
+                <div class="form-floating mb-3 w-100">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="floatingInput"
+                    placeholder="..."
+                  />
+                  <label for="floatingInput">Địa chỉ mới</label>
+                </div>
+              </div>
+              <button class="btn btn-dark text-white ml-2">Sửa</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
