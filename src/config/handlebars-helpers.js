@@ -13,27 +13,43 @@ module.exports = {
     bar: function () {
         return "BAR!";
     },
-    iterateArray:function(array, options) {
+    iterateArray: function (array, options) {
         let result = '';
         for (let i = 0; i < array.length; i++) {
-          result += options.fn(array[i]);
-        }
-        return result;
-      },
-    genarr: function (arr){
-        let result=[];
-        for(let i=0; i<arr.length; i++) {
-result.push(arr[i]);
+            result += options.fn(array[i]);
         }
         return result;
     },
-    json: function(context) {
-        return JSON.stringify(context);},
-        
+    genarr: function (arr) {
+        let result = [];
+        for (let i = 0; i < arr.length; i++) {
+            result.push(arr[i]);
+        }
+        return result;
+    },
+    json: function (context) {
+        return JSON.stringify(context);
+    },
+
     genTime: function (date, format) {
         return moment(date).format(format).toString();
 
     },
+    formatCalendar(obj) {
+        obj = JSON.stringify(obj);
+        let result = [];
+        for (let i = 0; i < obj.length; i++) {
+
+            let love = {};
+            love.title = obj[i].name + "dathue",
+            love.start = moment(obj[i].startday).format('YYYY-MM-DD')
+            love.end = moment(obj[i].endday).format('YYYY-MM-DD')
+            result.push(love);
+        }
+
+        return result;
+    },
+
     genTimeloz: function (dates, format) {
         return dates.map((e) => { return "'" + moment(e).format(format).toString() + "'" });
 
@@ -66,9 +82,9 @@ result.push(arr[i]);
         for (var i = from; i < to; i += incr)
             accum += block.fn(i);
         return accum;
-    },IsYou:function (cusID,UserID){
-        if(cusID&&UserID)
-        return cusID === UserID;
-    return false;
+    }, IsYou: function (cusID, UserID) {
+        if (cusID && UserID)
+            return cusID === UserID;
+        return false;
     }
 }

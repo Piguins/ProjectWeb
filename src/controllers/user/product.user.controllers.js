@@ -89,7 +89,6 @@ Comment.findOne({ owner: req.cookies.id, room: req.body.room }).then((item) => {
 
   payment(req, res, next) {
 
-
     const value = req.body.final;
     res.cookie("value", value);
     const create_payment_json = {

@@ -1,6 +1,7 @@
 <a class=" absolute-top align-self-start  btn btn-dark" style="margin: 40px;" href="/">Trở lại</a>
-<a class=" absolute-top align-self-end btn btn-dark" style="margin: 40px;" href="/user/calender">Lịch</a>
-<div class="d-flex flex-column justify-content-center align-items-center  h-auto w-100 bg-light m-3 p-4" style="padding: 12%; min-width:350px">
+<a class=" absolute-top align-self-end btn btn-dark" style="margin: 40px;" href="/user/calendar">Lịch</a>
+<div class="d-flex flex-column justify-content-center align-items-center  h-auto w-100 bg-light m-3 p-4"
+	style="padding: 12%; min-width:350px">
 
 	<h1 class="align-self-start m-3">Chào mừng quay trở lại, Thái Tài {{user.name}}</h1>
 	<div class="card p-3 w-100 ">
@@ -90,16 +91,14 @@
 			{{this.host}}
 			{{/each}}
 		</div>
-	</div> 
-	<div class="w-100 h-auto m-4 p-4 bg-light " id="calendar"></div>
+	</div>
+
+
+	
 </div>
 
- <script type="text/javascript">
-  $(function() {
-    $('#calendar').fullCalendar({
-      themeSystem: 'bootstrap4',
-      selectable:true
-      // Other FullCalendar options and callbacks
-    });
-  });
+<script type="text/javascript">
+
+
+
 </script>

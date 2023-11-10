@@ -31,12 +31,13 @@ router.post("/validemail/:id",userController.send, userController.validateEmail)
 router.get("/activateAccount/:id", userController.activateAccount);
 router.get("/message/:id", userController.getMessage);
 router.get("/cc",userController.send);
-router.get("/calender",userController.getHostingCalendar);
+
+router.get("/calendar",userController.getHostingCalendar);
+router.get("/calendar/:id",userController.getSpecificHostingCalendar);
 router.get("/message", userController.postMessage);
 router.get("/personaldetail/:id",userController.getPersonaldetail);
 router.post("/personaldetail/:id",userController.getPersonaldetailUpdate);
 router.post("/personaldetail/name",userController.updatePersonalName); 
-           
 router.post("/personaldetail/phone",userController.updatePersonalPhone);
 router.post("/personaldetail/address",userController.updatePersonalAddress);
 module.exports = router;
