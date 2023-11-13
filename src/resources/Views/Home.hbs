@@ -1,0 +1,124 @@
+<div class="home ">
+  <div class="home-filter">{{#each e}}
+
+    <form method="get" action="/{{this._id}}">
+
+      <button type="submit">
+        <img src="/img/type/{{this.img}}">
+      </button>
+      <p>{{this.name}}</p>
+    </form>
+
+    {{/each}}
+  </div>
+  <div class="home-main">
+
+
+    {{#each list
+    }}
+
+    <div class="home-main-card">
+      <a href="/product/{{this._id}}"><img src="img/post/{{this.display}}" alt="..."></a>
+
+      <div class="home-main-card-body">
+        <div class="home-main-card-body-name">{{this.name}}</div>
+        <div class="home-main-card-body-day">
+          <p class="t"> {{genTime this.startday 'MMMM Do YYYY'}} </p>
+          <p class=""> {{genTime
+            this.endday 'MMMM Do YYYY'}}</p>
+
+        </div>
+      </div>
+      <div class="home-main-card-footer">
+        <div>${{this.price}}/đêm
+        </div>
+
+
+        <div class="addToWishlist">
+          <button data-bs-roomId={{this._id}} data-bs-toggle="modal" data-bs-target="#wishlist"><i
+              class="bi bi-heart"></i>
+          </button>
+
+        </div>
+      </div>
+    </div>
+
+
+    {{/each}}
+  </div>
+  <br>
+</div>
+
+
+<div class="modal fade" id="wishlist" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalToggleLabel">Danh sách Yêu thích của bạn</h5>
+
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        {{#each wish}}
+        <form action="user/wishlist/update/{{this._id}}" method="post">
+          <input id="roomId" name="roomId" style="display: none;">
+          <input style="display: none;" id="collectionId" name="collectionId" value={{this.room}}>
+          <button id={{this._id}} style="width:100%"
+            class="btn btn-outline-success text-dark border border-2 border-dark my-2 text-start"
+            type="submit">{{this.name}}</button>
+          <h5 style="display: none;"></h5>
+        </form>
+        {{/each}} <button class="btn btn-outline-dark" data-bs-target="#collection" data-bs-toggle="modal"
+          data-bs-dismiss="modal">+</button>
+        <button class="btn btn-outline-dark" data-bs-target="#collection" data-bs-toggle="modal"
+          data-bs-dismiss="modal">Tạo
+          danh sách mong muốn mới</button>
+      </div>
+      <div class="modal-footer">
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="collection" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalToggleLabel2"> Đặt tên cho danh sách mong muốn này</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <form action="/user/wishlist/collection" method="post">
+          <label for="name"></label>
+          <input name="name" type="text"></input>
+          <input class="btn btn-dark" type="submit" value="Tạo">
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+  $(document).ready(function () {
+    var exampleModal = document.getElementById('wishlist')
+    exampleModal.addEventListener('show.bs.modal', function (event) {
+
+      // Button that triggered the modal
+      var button = event.relatedTarget
+      // Extract info from data-bs-* attributes
+      var recipient = button.getAttribute('data-bs-roomId')
+
+      // If necessary, you could initiate an AJAX request here
+      // and then do the updating in a callback.
+
+      // Update the modal's content.
+      $("[id=roomId]").val(recipient);
+    })
+
+  });
+</script>
