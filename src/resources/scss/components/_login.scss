@@ -14,3 +14,74 @@
     }
   }
   
+
+  .login {
+    width: 50%;
+    &-social {
+      position: relative;
+      height: 25px;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      gap: 4px;
+  
+      .link1 {
+        width: 24%;
+        height: 100%;
+        background-color: #f8ede3;
+        text-align: center;
+        color: #85586f;
+      }
+  
+      .link2 {
+        width: 24%;
+        text-align: center;
+        height: 100%;
+        color: #85586f;
+        background-color: #f8ede3;
+      }
+  
+      .link3 {
+        width: 24%;
+        text-align: center;
+        height: 100%;
+        color: #85586f;
+        background-color: #f8ede3;
+      }
+  
+      .link4 {
+        text-align: center;
+        width: 24%;
+        height: 100%;
+        color: #85586f;
+        background-color: #f8ede3;
+      }
+  
+      a:hover {
+        background-color: #85586f;
+        color: #d0b8a8;
+        border: 1px solid black;
+        transform: scale(1.1);
+        cursor: pointer;
+      }
+    }
+  
+    &-bottom {
+      display: flex;
+      padding: 20px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+  
+      a {
+        color: #d0b8a8;
+        text-decoration: none;
+      }
+  
+      a:hover {
+        color: #85586f;
+        text-decoration: underline;
+      }
+    }
+  }
+  
