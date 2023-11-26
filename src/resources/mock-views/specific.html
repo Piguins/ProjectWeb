@@ -1,0 +1,572 @@
+<head>
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+  />
+  <link rel="stylesheet" href="/src/public/css/index.css" />
+  <link rel="stylesheet" href="/src/public/css/variables.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  />
+</head>
+<ul
+  class="specific-nav"
+  style="z-index: 10001; display: none"
+  id="specific-nav"
+>
+  <li>
+    <a aria-current="page" href="#img-part">Ảnh</a>
+  </li>
+
+  <li>
+    <a href="#detail-part">Chi tiết</a>
+  </li>
+  <li>
+    <a href="#convenience-part">Tiện nghi</a>
+  </li>
+  <li>
+    <a href="#comment-part">Đánh giá</a>
+  </li>
+  <li>
+    <a href="#host-part">Chủ nhà</a>
+  </li>
+</ul>
+
+<div class="specific-container">
+  <div class="specific-container-name">
+    <div class="name">Tên phòng xịn xò</div>
+    <div class="wishLish">
+      <button
+        data-bs-roomId="SomeId"
+        data-bs-toggle="modal"
+        data-bs-target="#wishlist"
+      >
+        <i class="bi bi-heart"></i>
+        Lưu
+      </button>
+      <button><i class="fa fa-solid fa-share"></i>Chia sẻ</button>
+    </div>
+  </div>
+
+  <div class="specific-container-img" id="img-part">
+    <div class="specific-container-img-some">
+      <div
+        class="img1"
+        type="button"
+        data-bs-toggle="modal"
+        data-bs-target="#love"
+      >
+        <img
+          class=""
+          src="/src/public/img/post/1bbbf7bb-69b5-48c8-be4a-1461fe8b9a4d.png"
+        />
+      </div>
+      <div
+        class="img2"
+        type="button"
+        data-bs-toggle="modal"
+        data-bs-target="#love"
+      >
+        <img
+          src="/src/public/img/post/0e0d67e5-d6c0-4177-a1f2-6851002b6f27.png"
+        />
+      </div>
+      <div
+        class="img3"
+        type="button"
+        data-bs-toggle="modal"
+        data-bs-target="#love"
+      >
+        <img
+          src="/src/public/img/post/0c6af52a-b25c-4242-9dc0-935db4b3ecc2.png"
+        />
+      </div>
+      <div
+        class="img4"
+        type="button"
+        data-bs-toggle="modal"
+        data-bs-target="#love"
+      >
+        <img
+          src="/src/public/img/post/0af18d0a-c107-4d9e-82aa-267b533af830.png"
+        />
+      </div>
+      <div
+        class="img5"
+        type="button"
+        data-bs-toggle="modal"
+        data-bs-target="#love"
+      >
+        <img
+          src="/src/public/img/post/1bc666f2-c468-4b5c-b35e-06d866aad6fd.png"
+        />
+      </div>
+      <div class="show">
+        <button
+          class="btn btn-light"
+          data-bs-toggle="modal"
+          data-bs-target="#love"
+        >
+          Xem tất cả các ảnh
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="float-container" id="detail-part">
+    <div class="specific-container-detail">
+      <div class="specific-container-detail-host">
+        <h2>Toàn bộ nhà</h2>
+      </div>
+      <div class="specific-container-detail-house">
+        <p>4 khách tối đa . 2 phòng ngủ . 1 nhà tắm</p>
+      </div>
+      <hr />
+      <h3>Nơi này có gì cho bạn</h3>
+      <div
+        class="row d-flex justify-content-start align-items-center h-100 w-100 p-3"
+      >
+        <p class="col-6"><i class="bi bi-wifi ms-2"></i> Wi-fi</p>
+        <p class="col-6">
+          <i class="bi bi-p-circle ms-2"></i> Chỗ đỗ xe miễn phí tại nơi ở
+        </p>
+        <p class="col-6"><i class="bi bi-water ms-2"></i> Bể bơi</p>
+        <p class="col-6"><i class="bi bi-tv ms-2"></i> TV</p>
+        <p class="col-6">
+          <i class="fa fa-solid fa-vest-patches ms-2"></i> Máy sấy quần áo
+        </p>
+        <p class="col-6">
+          <i class="fa-sharp fa-light fa fa-snowflake ms-2"></i> Điều hòa nhiệt
+          độ
+        </p>
+        <p class="col-6"><i class="fa fa-solid fa-shower ms-2"></i> Bồn tắm</p>
+        <p class="col-6">
+          <i class="fa-solid fa fa-suitcase ms-2"></i> Cho phép gửi hành lý
+        </p>
+
+        <p class="col-6">
+          <i class="fa fa-solid fa-wind ms-2"></i> Máy phát hiện khí CO
+        </p>
+      </div>
+    </div>
+    <hr />
+    <div class="specific-container-payment" id="payment">
+      <form method="post" action="/product/payment">
+        <div class="reservate-info" style="display: none">
+          <input type="text" name="roomId" value="StaticRoomId" />
+          <input type="text" name="hostId" value="StaticHostId" />
+          <input type="number" name="days" value="0" id="day" />
+        </div>
+        <div class="specific-container-payment-price">
+          <p>$100/đêm</p>
+        </div>
+        <div class="specific-container-payment-inputday">
+          <div class="specific-container-payment-inputday-start">
+            <label for="datepicker">Ngày nhận phòng</label>
+            <input
+              type="date"
+              name="startday"
+              id="datepicker2"
+              autocomplete="off"
+              max="2023-12-31"
+              min="2023-01-01"
+            />
+          </div>
+          <div class="specific-container-payment-inputday-end">
+            <label for="datepicker2">Ngày trả phòng</label>
+            <input
+              type="date"
+              name="endday"
+              id="datepicker5"
+              max="2023-12-31"
+              min="2023-01-01"
+              autocomplete="off"
+            />
+          </div>
+        </div>
+        <hr />
+        <div class="specific-container-payment-inputnumber">
+          <label for="datepicker2"
+            >Số lượng khách
+            <input
+              type="number"
+              name="cc"
+              id="datepicker3"
+              value="1"
+              autocomplete="off"
+              max="4"
+              min="1"
+            />
+          </label>
+        </div>
+        <div class="specific-container-payment-inputsubmit">
+          <input type="submit" value="Đặt phòng" />
+        </div>
+        <p>Bạn vẫn chưa bị trừ tiền</p>
+        <div class="specific-container-payment-fee">
+          <div class="extracost">
+            <p>Phí vệ sinh $8</p>
+          </div>
+          <div class="fiatcost">
+            <p>Phí dịch vụ $10</p>
+            <input type="number" readonly />
+          </div>
+          <div class="realcost">
+            <label for="finalcost">Tổng chi phí trước thuế :$ </label>
+            <input
+              type="number"
+              id="finalcost"
+              name="final"
+              readonly
+              value="118"
+            />
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="specific-container-host" id="comment-part">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-start align-items-center h-100">
+        <div class="col-8 p-4">
+          <h3>Đánh giá</h3>
+          <p class="fw-bolg ml-2">Chưa có đánh giá</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="specific-container-host" id="host-part">
+    <div class="container py-5 h-100" style="min-width: 765px">
+      <div
+        class="row d-flex justify-content-start align-items-center h-100 p-3"
+      >
+        <div class="col-8">
+          <div class="card p-2" style="border-radius: 15px">
+            <div class="card-head">
+              <div class="card-title mx-auto p-2">Thông tin chủ nhà</div>
+            </div>
+            <div class="card-body p-4">
+              <div class="d-flex text-black">
+                <div class="flex-shrink-0">
+                  <img
+                    src="/src/public/img/user/hihi.png"
+                    class="img-fluid"
+                    style="width: 180px; border-radius: 10px"
+                  />
+                </div>
+                <div class="flex-grow-1 ms-3">
+                  <h5 class="mb-1">Static Full Name</h5>
+                  <div
+                    class="mb-2 pb-1 row d-flex flex-row"
+                    style="color: #2b2a2a"
+                  >
+                    <p>
+                      <i class="fa fa-solid fa-mask"></i> Đã xác minh danh tính
+                    </p>
+                    <p>Tham gia vào tháng January 2023</p>
+                  </div>
+
+                  <div
+                    class="d-flex justify-content-start rounded-3 p-2 mb-3"
+                    style="background-color: #efefef"
+                  >
+                    <div>
+                      <p class="small text-muted mb-1">Articles</p>
+                      <p class="mb-0">41</p>
+                    </div>
+                    <div class="px-3">
+                      <p class="small text-muted mb-1">Lượt theo dõi</p>
+                      <p class="mb-0">976</p>
+                    </div>
+                    <div>
+                      <p class="small text-muted mb-1">Đánh giá</p>
+                      <p class="mb-0">8.5</p>
+                    </div>
+                  </div>
+                  <div class="">
+                    <button
+                      type="button"
+                      data-bs-toggle="collapse"
+                      href="#collapseExample"
+                      role="button"
+                      aria-expanded="false"
+                      aria-controls="collapseExample"
+                      class="btn btn-primary me-1 pb-2"
+                    >
+                      Liên hệ với chủ nhà
+                    </button>
+                    <div class="collapse" id="collapseExample">
+                      <div class="w-100 p-2">
+                        <form
+                          action="/static/user/message/staticId"
+                          class="bg-white w-100 rounded-3 p-2 d-flex flex-row"
+                          method="post"
+                          class="w-100"
+                        >
+                          <input type="text" name="message" class="w-75" />
+                          <input
+                            class="w-25 h-100 btn btn-outline-dark ml-2"
+                            type="submit"
+                            value="gửi"
+                          />
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+</div>
+<div
+  class="modal fade"
+  id="love"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div id="carouselExample" class="carousel slide bg-dark">
+          <div class="carousel-inner" id="resultsBox">
+            <div class="carousel-item">
+              <img
+                class="d-block w-80"
+                src="/src/public/img/post/0af18d0a-c107-4d9e-82aa-267b533af830.png"
+              />
+            </div>
+            <div class="carousel-item">
+              <img
+                class="d-block w-80"
+                src="/src/public/img/post/0c6af52a-b25c-4242-9dc0-935db4b3ecc2.png"
+              />
+            </div>
+            <div class="carousel-item">
+              <img
+                class="d-block w-80"
+                src="/src/public/img/post/0e0d67e5-d6c0-4177-a1f2-6851002b6f27.png"
+              />
+            </div>
+            <div class="carousel-item active">
+              <img
+                class="d-block w-80"
+                src="/src/public/img/post/1bbbf7bb-69b5-48c8-be4a-1461fe8b9a4d.png"
+              />
+            </div>
+          </div>
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#carouselExample"
+            data-bs-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#carouselExample"
+            data-bs-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="wishlist"
+  aria-hidden="true"
+  aria-labelledby="exampleModalToggleLabel"
+  tabindex="-1"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalToggleLabel">
+          Danh sách Yêu thích của bạn
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form action="/user/wishlist/update/staticId" method="post">
+          <input id="roomId" name="roomId" style="display: none" />
+          <input
+            style="display: none"
+            id="collectionId"
+            name="collectionId"
+            value="StaticRoomId"
+          />
+          <button
+            id="StaticId"
+            style="width: 100%"
+            class="btn btn-outline-light border border-light my-2 text-start"
+            type="submit"
+          >
+            Static Name
+          </button>
+        </form>
+        <button
+          class="btn btn-light"
+          data-bs-target="#collection"
+          data-bs-toggle="modal"
+          data-bs-dismiss="modal"
+        >
+          +
+        </button>
+        <button
+          class="btn btn-light"
+          data-bs-target="#collection"
+          data-bs-toggle="modal"
+          data-bs-dismiss="modal"
+        >
+          Tạo danh sách mong muốn mới
+        </button>
+      </div>
+      <div class="modal-footer"></div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="collection"
+  aria-hidden="true"
+  aria-labelledby="exampleModalToggleLabel2"
+  tabindex="-1"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalToggleLabel2">
+          Đặt tên cho danh sách mong muốn này
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form action="/user/wishlist/collection" method="post">
+          <label for="name"></label>
+          <input name="name" type="text" />
+          <input class="btn btn-dark" type="submit" value="Tạo" />
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+    var exampleModal = document.getElementById("wishlist");
+    exampleModal.addEventListener("show.bs.modal", function (event) {
+      // Button that triggered the modal
+      var button = event.relatedTarget;
+      // Extract info from data-bs-* attributes
+      var recipient = button.getAttribute("data-bs-roomId");
+      // Update the modal's content.
+      $("[id=roomId]").val(recipient);
+    });
+
+    var now = new Date();
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+    var today = now.getFullYear() + "-" + month + "-" + day;
+    $("#datepicker2").val(today);
+    $("#datepicker5").val(today);
+
+    var d1 = document.getElementById("datepicker5").value;
+    var d2 = document.getElementById("datepicker2").value;
+    const dateOne = new Date(d1);
+    const dateTwo = new Date(d2);
+    const time = Math.abs(dateTwo - dateOne);
+    const days = Math.ceil(time / (1000 * 60 * 60 * 24));
+    $("#day").val(days);
+
+    // Replace the Handlebars expression with a static value or use JS to fetch the price
+    var price = 100;
+    $("#finalcost").val(
+      $("#datepicker3").val() * price * days + 8 + price * 0.2
+    );
+
+    var payment = $("#payment");
+    var threshold = payment.offset().top;
+    var host = $("#host-part");
+    var threshold1 = payment.offset().top;
+    console.log(threshold);
+    $(window).on("scroll", function () {
+      var currentScroll = $(this).scrollTop();
+      if (currentScroll > threshold - 50) {
+        if (currentScroll > threshold1 + screen.height) {
+          payment.removeClass("fixed");
+        } else {
+          payment.addClass("fixed");
+        }
+      } else {
+        payment.removeClass("fixed");
+      }
+      if (currentScroll > threshold) {
+        $("#specific-nav").addClass("displayFlex");
+      } else {
+        $("#specific-nav").removeClass("displayFlex");
+      }
+    });
+
+    $("#resultsBox li:first").addClass("active");
+
+    $("#show").click(function () {
+      $("#full").addClass("display1");
+    });
+    $("#unshow").click(function () {
+      $("#full").removeClass("display1");
+    });
+
+    // Repeat this section for #datepicker3, #datepicker2, and #datepicker5 change events
+    $("#datepicker3").change(function () {
+      var d1 = document.getElementById("datepicker5").value;
+      var d2 = document.getElementById("datepicker2").value;
+      const dateOne = new Date(d1);
+      const dateTwo = new Date(d2);
+      const time = Math.abs(dateTwo - dateOne);
+      const days = Math.ceil(time / (1000 * 60 * 60 * 24));
+      $("#day").val(days);
+      $("#finalcost").val(
+        $("#datepicker3").val() * price * days + 8 + price * 0.2
+      );
+    });
+  });
+</script>

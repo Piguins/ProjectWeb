@@ -194,6 +194,249 @@
   .register #registerForm {
     width: 30%; }
 
+.specific-container {
+  position: relative;
+  top: 80px;
+  padding-left: 40px;
+  padding-right: 60px;
+  width: 100%; }
+  .specific-container .float-container {
+    width: 100%;
+    height: 550px;
+    position: relative;
+    padding: 0px; }
+  .specific-container-name {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    padding: 30px; }
+    .specific-container-name .name {
+      font-weight: bolder;
+      font-size: 1.5em; }
+    .specific-container-name .wishLish button {
+      border: none;
+      background-color: transparent;
+      color: #e41d56; }
+    .specific-container-name .wishLish button:hover {
+      border-bottom: 1px solid #e41d56; }
+  .specific-container-img {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; }
+    .specific-container-img-full {
+      display: none;
+      width: 100%;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      background-color: white;
+      z-index: 1000;
+      padding-left: 40px;
+      padding-right: 40px; }
+      .specific-container-img-full-img {
+        width: 100%; }
+    .specific-container-img-some {
+      width: 90%;
+      z-index: 1;
+      height: 300px;
+      overflow: hidden;
+      display: grid;
+      border-radius: 20px;
+      background-color: white;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 3px;
+      margin-bottom: 40px;
+      grid-template-areas: "img1 img1 img2 img3" "img1 img1 img4 img5"; }
+      .specific-container-img-some .show {
+        z-index: 2;
+        position: absolute;
+        bottom: 20px;
+        right: 70px;
+        background-color: white;
+        border-radius: 15px;
+        overflow: hidden; }
+        .specific-container-img-some .show button {
+          background-color: white;
+          border-radius: 10px;
+          color: black;
+          font-weight: bolder; }
+      .specific-container-img-some .img1 {
+        width: 98%;
+        height: 98%;
+        grid-area: img1; }
+        .specific-container-img-some .img1 img {
+          width: 100%;
+          height: 100%; }
+      .specific-container-img-some .img2 {
+        width: 98%;
+        height: 98%;
+        grid-area: img2; }
+        .specific-container-img-some .img2 img {
+          width: 100%;
+          height: 100%; }
+      .specific-container-img-some .img3 {
+        width: 98%;
+        height: 98%;
+        grid-area: img3; }
+        .specific-container-img-some .img3 img {
+          width: 100%;
+          height: 100%; }
+      .specific-container-img-some .img4 {
+        width: 98%;
+        height: 98%;
+        grid-area: img4; }
+        .specific-container-img-some .img4 img {
+          width: 100%;
+          height: 100%; }
+      .specific-container-img-some .img5 {
+        width: 98%;
+        height: 98%;
+        grid-area: img5; }
+        .specific-container-img-some .img5 img {
+          width: 100%;
+          height: 100%; }
+  .specific-container-payment {
+    background-color: white;
+    width: 30%;
+    float: right;
+    height: 450px;
+    padding: 20px;
+    border: 0.5px solid black;
+    border-radius: 10px; }
+    .specific-container-payment-fee .realcost {
+      width: 100%;
+      display: flex;
+      flex-direction: row; }
+      .specific-container-payment-fee .realcost label {
+        color: black;
+        font-size: larger;
+        font-weight: bold;
+        width: fit-content;
+        height: 1.25em; }
+      .specific-container-payment-fee .realcost input {
+        border: none;
+        width: 30%;
+        background-color: transparent;
+        color: black;
+        font-size: larger;
+        font-weight: bold;
+        height: 1, 25em; }
+    .specific-container-payment-fee .fiatcost {
+      width: 100%;
+      display: flex;
+      flex-direction: row; }
+      .specific-container-payment-fee .fiatcost input {
+        width: 45%;
+        border: none;
+        background-color: transparent;
+        height: 1.25em; }
+      .specific-container-payment-fee .fiatcost p {
+        width: fit-content; }
+    .specific-container-payment-inputsubmit {
+      width: 100%;
+      padding: 10px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center; }
+      .specific-container-payment-inputsubmit input {
+        padding: 5px;
+        background-color: #e41d56;
+        color: white;
+        border: none;
+        border-radius: 7px;
+        font-size: larger;
+        height: 2.25em;
+        width: 100%; }
+      .specific-container-payment-inputsubmit input:hover {
+        opacity: 0.9; }
+    .specific-container-payment-inputday {
+      width: 100%;
+      height: 3em;
+      border: 4px;
+      margin-bottom: 20px; }
+      .specific-container-payment-inputday-start {
+        width: 48%;
+        display: flex;
+        flex-direction: column;
+        float: left; }
+        .specific-container-payment-inputday-start label {
+          font-weight: bold; }
+        .specific-container-payment-inputday-start input {
+          border: none; }
+      .specific-container-payment-inputday-end {
+        width: 48%;
+        display: flex;
+        flex-direction: column;
+        float: right; }
+        .specific-container-payment-inputday-end label {
+          font-weight: bold; }
+        .specific-container-payment-inputday-end input {
+          border: none; }
+    .specific-container-payment-price p {
+      font-weight: bold;
+      font-size: 1.5em; }
+  .specific-container-detail {
+    float: left;
+    width: 50%;
+    padding-left: 30px; }
+    .specific-container-detail-house {
+      margin-left: 30px;
+      font-size: 2em; }
+    .specific-container-detail-host {
+      margin-left: 30px;
+      display: flex;
+      flex-direction: row;
+      align-items: center; }
+      .specific-container-detail-host h2 {
+        width: 30%; }
+      .specific-container-detail-host p {
+        font-size: larger;
+        font-weight: bolder;
+        width: 45%; }
+  .specific-container-host {
+    width: 100%;
+    padding: 30px; }
+
+.searchBoard-form {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex-wrap: wrap; }
+  .searchBoard-form button {
+    margin: 10px;
+    border: none;
+    color: white;
+    background-color: #e41d56;
+    border-radius: 10px; }
+  .searchBoard-form button:hover {
+    opacity: 0.8;
+    width: max-content;
+    background-color: #ff385c;
+    color: black; }
+  .searchBoard-form .item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    width: 25%;
+    min-width: 50px; }
+    .searchBoard-form .item input[type="date"]:in-range::-webkit-datetime-edit-year-field,
+    .searchBoard-form .item input[type="date"]:in-range::-webkit-datetime-edit-month-field,
+    .searchBoard-form .item input[type="date"]:in-range::-webkit-datetime-edit-day-field,
+    .searchBoard-form .item input[type="date"]:in-range::-webkit-datetime-edit-text {
+      color: transparent; }
+    .searchBoard-form .item input {
+      border: 1.2px solid gray;
+      width: 100%; }
+    .searchBoard-form .item label {
+      width: 100%; }
+
 .mainnav {
   width: 100%;
   height: 80px;
