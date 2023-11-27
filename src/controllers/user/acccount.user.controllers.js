@@ -12,6 +12,7 @@ const { response } = require("express");
 const User = require("../../models/users.model");
 const {moment}=require("../../../node_modules/moment");
 const { reverse } = require("lodash");
+const Product = require("../../models/product.model");
 class user {
 
     //[Get] /user/avatar
@@ -163,10 +164,10 @@ res.render("calendardetail",{reser,rooms});
 
     }
     updateWishlist(req, res, next) {
-        productData.find({ _id: req.body.roomId }).then((love) => {
+        Product.find({ _id: req.body.roomId }).then((love) => {
             love = love.map((i) => i.toObject()); Collection.findByIdAndUpdate(
                 req.params.id,
-                { $push: { room: req.body.roomId, display: love[0].display } },
+                { $push: { room: req.body.roomId, display: love[0].img[0] } },
                 function (err, docs) {
                     if (err) {
                         console.log(err);
