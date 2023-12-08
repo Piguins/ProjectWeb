@@ -11,3 +11,12 @@ var storage = multer.diskStorage({
     callback(null, file.originalname);
   },
 });
+
+var upload = multer({ storage: storage }).array("productImg", 12);
+Route.get("/", addProductController.index);
+Route.post("/step0", addProductController.add0);
+Route.get("/step1", addProductController.index1);
+Route.post("/step1", addProductController.add1);
+Route.get("/step2", addProductController.index2);
+Route.post("/step2", upload, addProductController.add2);
+module.exports = Route;
