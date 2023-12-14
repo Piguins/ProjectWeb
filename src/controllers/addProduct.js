@@ -48,3 +48,48 @@ class addProduct {
 
         res.redirect("step2");
     }
+    add2(req, res, next) {
+
+        const love = req.files.map(e => e.originalname);
+
+
+
+        user.find({ _id: req.cookies.id })
+            .then((user) => {
+
+                const newProduct = new productData({
+                    name: req.cookies.name,
+                    host: user[0],
+                    startday: req.cookies.startday,
+                    endday: req.cookies.endday,
+                    maximuncus: req.cookies.maximumcus,
+                    price: req.cookies.price,
+                    type: req.cookies.type,
+                    bed: req.cookies.bed,
+                    shower: req.cookies.shower,
+                    hosthome: req.cookies.hosthome,
+                    img: love,
+                    display: love[0]
+                });
+                newProduct.save();
+
+
+            })
+            .catch((err) => res.json(err));
+
+        res.clearCookie("name");
+        res.clearCookie("startday");
+        res.clearCookie("endday");
+        res.clearCookie("img");
+        res.clearCookie("type");
+        res.clearCookie("bed");
+        res.clearCookie("shower");
+        res.clearCookie("hosthome");
+        res.clearCookie("price");
+        res.clearCookie("maximumcus");
+        res.clearCookie("display");
+
+        res.redirect("/");
+    }
+}
+module.exports = new addProduct();
