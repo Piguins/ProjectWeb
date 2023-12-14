@@ -31,3 +31,20 @@ class addProduct {
     index2(req, res, next) {
         res.render("addProduct2", { addProcessing: true });
     }
+
+    add0(req, res, next) {
+        res.cookie("name", req.body.name);
+        res.cookie("type", req.body.type);
+        res.redirect("step1");
+    }
+    add1(req, res, next) {
+        res.cookie("startday", req.body.startday);
+        res.cookie("endday", req.body.endday);
+        res.cookie("maximumcus", req.body.maximumcus);
+        res.cookie("price", req.body.price);
+        res.cookie("hosthome", req.body.hosthome);
+        res.cookie("bed", req.body.bed);
+        res.cookie("shower", req.body.shower);
+
+        res.redirect("step2");
+    }
