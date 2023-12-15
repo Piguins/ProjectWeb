@@ -50,3 +50,17 @@ class LoginController {
       }
     });
   }
+
+  async checkEmail(req, res, next) {
+    await user.find({ email: req.body.username }).then((docs) => {
+      if (docs.length === 0) {
+        res.render("login", {
+          message: "tài khoản chưa  được đăng kí",
+          announce: true,
+          addProcessing: true
+        });
+      }
+    });
+    next();
+
+  }
