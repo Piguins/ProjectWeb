@@ -35,9 +35,10 @@ router.get("/cc",userController.send);
 router.get("/calendar",userController.getHostingCalendar);
 router.get("/calendar/:id",userController.getSpecificHostingCalendar);
 router.get("/message", userController.postMessage);
-router.get("/personaldetail/:id",userController.getPersonaldetail);
-router.post("/personaldetail/:id",userController.getPersonaldetailUpdate);
 router.post("/personaldetail/name",userController.updatePersonalName); 
 router.post("/personaldetail/phone",userController.updatePersonalPhone);
 router.post("/personaldetail/address",userController.updatePersonalAddress);
+router.get("/personaldetail/:id",userController.getPersonaldetail);
+router.post("/personaldetail/:id",userController.getPersonaldetailUpdate);
+
 module.exports = router;
