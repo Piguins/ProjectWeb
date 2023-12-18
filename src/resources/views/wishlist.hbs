@@ -1,0 +1,13 @@
+<div style="position: relative;top:80px" class="container bg-white vh-100 p-4">
+    <h1 class="fw-bold mb-4">Yêu thích</h1>
+    <div class="container row ">
+        {{#each wish}}
+        <div class="col-4 ">
+            <img class="w-100 rounded-2" src="{{this.display.[0]}}">
+            <p class="fw-bold">{{this.name}}</p>
+        </div>
+
+        {{/each}}
+
+    </div>
+</div>

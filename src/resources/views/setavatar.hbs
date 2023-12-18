@@ -1,0 +1,40 @@
+<div class="d-flex container p-3 flex-column align-items-center justify-content-center w-100 vh-100">
+<div class="w-100 d-flex flex-column align-items-center justify-content-center">
+    <h1 class="text-center w-75 "> Cập nhật ảnh đại diện</h1>
+    <form class="bg-light p-2 w-50 d-flex align-items-center justify-content-center flex-column" method="post" action="/user/avatar" enctype="multipart/form-data">
+        <div class="add-input add-img">
+            <label for="image"> <img id="uploadPreview" class="rounded-circle mb-3" style="width: 250px; height:250px"
+                    alt="Avatar" /></label>
+            <input style="display: none;" type="file" id="image" onchange="PreviewImage()" rows="2" name="productImg"
+                multiple />
+
+        </div>
+
+
+            <input class="btn btn-outline-dark align-self-center" type="submit" value="lưu ảnh đại diện"></input>
+             
+ 
+    </form>
+</div>
+
+</div>
+
+
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+        document.getElementById("uploadPreview").src = "https://static.vecteezy.com/system/resources/previews/009/734/564/original/default-avatar-profile-icon-of-social-media-user-vector.jpg";
+    });
+
+    function PreviewImage() {
+        var oFReader = new FileReader();
+        oFReader.readAsDataURL(document.getElementById("image").files[0]);
+
+        oFReader.onload = function (oFREvent) {
+            document.getElementById("uploadPreview").src = oFREvent.target.result;
+        };
+    };
+
+</script>

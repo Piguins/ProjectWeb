@@ -1,0 +1,685 @@
+<ul class="specific-nav" style="z-index: 10001; display:none" id="specific-nav">
+  <li>
+    <a aria-current="page" href="#img-part">Ảnh</a>
+  </li>
+
+  <li>
+    <a href="#detail-part">Chi tiết</a>
+  </li>
+  <li>
+    <a href="#convenience-part">Tiện nghi</a>
+  </li>
+  <li>
+    <a href="#comment-part">Đánh giá</a>
+  </li>
+  <li>
+    <a href="#host-part">Chủ nhà</a>
+  </li>
+
+</ul>
+
+<div class="specific-container">
+  <div class="w-100 d-flex flex-column p-4">
+    <div style="font-weight: bold; font-size:2rem;text-transform:uppercase" class="name p-4">{{data.name}}</div>
+    <p class=""><u>{{wish.length}} luot danh gia</u></p>
+  </div>
+
+  <div class="specific-container-img" id="img-part">
+
+    <div class="specific-container-img-some">
+      <div class="img1" type="button" data-bs-toggle="modal" data-bs-target="#love"> {{#with img.[0]}}
+        <img class="rounded-2" src="{{this}}"> {{/with}}
+      </div>
+      <div class="img2 rounded-3" type="button" data-bs-toggle="modal" data-bs-target="#love"> {{#with img.[1]}}
+        <img src="{{this}}"> {{/with}}
+      </div>
+      <div class="img3 rounded-3" type="button" data-bs-toggle="modal" data-bs-target="#love"> {{#with img.[2]}}
+        <img src="{{this}}"> {{/with}}
+      </div>
+      <div class="img4 rounded-3" type="button" data-bs-toggle="modal" data-bs-target="#love"> {{#with img.[3]}}
+        <img src="{{this}}"> {{/with}}
+      </div>
+      <div class="img5 rounded-3" type="button" data-bs-toggle="modal" data-bs-target="#love"> {{#with img.[4]}}
+        <img src="{{this}}"> {{/with}}
+      </div>
+      <div class="show">
+        <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#love">:::Xem tất cả các
+          ảnh</button>
+      </div>
+    </div>
+
+
+  </div>
+
+
+  <div class="float-container justify-content-center" id="detail-part">
+    <div class="specific-container-detail w-75 p-5 " style="min-width: 350px;">
+      <div class="">
+        <h2>Toàn bộ nhà</h2>
+
+      </div>
+      <div class="">
+        <p>
+          {{data.maximuncus}} khách tối đa . {{data.bed}} phòng ngủ . {{data.shower}} nhà tắm
+        </p>
+      </div>
+
+
+      <hr>
+      <h3>Nơi này có gì cho bạn</h3>
+      <div class="row d-flex justify-content-center flex-row align-items-center h-100 w-100 bg-light  p-3">
+        <p class="col-6"><i class="bi bi-wifi ms-2"></i> {{item.value}}</p>
+        <p class="col-6"><i class="bi bi-wifi ms-2"></i> Wi-fi</p>
+        <p class="col-6"><i class="bi bi-p-circle ms-2"></i> Chỗ đỗ xe miễn phí tại nơi ở</p>
+        <p class="col-6"><i class="bi bi-water ms-2"></i> Bể bơi</p>
+        <p class="col-6"><i class="bi bi-tv ms-2"></i> TV</p>
+        <p class="col-6"><i class=" fa fa-solid fa-vest-patches ms-2"></i> Máy sấy quần áo</p>
+        <p class="col-6"><i class="fa-sharp fa-light fa fa-snowflake ms-2"></i> Điều hòa nhiệt độ</p>
+        <p class="col-6"><i class="fa fa-solid fa-shower ms-2"></i> Bồn tắm</p>
+        <p class="col-6"><i class="fa-solid fa fa-suitcase ms-2"></i> Cho phép gửi hành lý</p>
+        <p class="col-6"><i class="fa fa-solid fa-wind ms-2"></i> Máy phát hiện khí CO</p>
+
+
+
+      </div>
+<div class="w-100 " style="height: 350px;">
+<input id="calendar" name="calendar" class="" style="height: 0px;width:100% " type="text">
+</div>
+
+    </div>
+    <hr>
+    <div class="specific-container-payment w-25 d-flex flex-column align-items-center justify-content-center p-3"
+      style="min-width: 350px;" id="payment">
+      <form method="post" action="/rooms/payment"
+        class="detailForm w-75 d-flex flex-column align-items-center border border-dark rounded-2  p-3 bg-white"
+        style="min-width: 350px;">
+        <div class="reservate-info" style="display:none">
+          <input type="text" name="roomId" value={{data._id}}>
+          <input type="text" name="hostId" value={{data.host._id}}>
+          <input type="number" name="days" value="0" id="day">
+        </div>
+        <div class="">
+          <p style="font-weight: bold !important; font-size:larger !important" class="font-weight-bold">
+            ${{data.price}}/đêm</p>
+
+        </div>
+        <div class="w-100 d-flex flex-row  justify-content-center">
+
+          <div style="height:30px" class="w-100 d-flex flex-column align-items-center">
+            <label class="w-75 text-center" for="datepicker">Ngày nhận phòng</label>
+            <input id="dateRangeInput" type="text" name="datetimes" />
+          </div>
+          <div class="w-50 d-flex flex-column align-items-center d-none ">
+            <label class="w-75 text-center" for="datepicker">Ngày nhận phòng</label>
+            <input class="w-75" type="date" name="startday" id="startDay" autocomplete="off" max={{ genTime
+              data.endday "YYYY-MM-DD" }} min={{ genTime data.startday "YYYY-MM-DD" }}>
+
+          </div>
+          <div class="w-50 d-flex flex-column align-items-center d-none">
+            <label class="w-75 text-center" for="datepicker2">Ngày trả phòng</label>
+            <input class="w-75" type="date" name="endday" id="endDay" max={{genTime data.endday "YYYY-MM-DD" }}
+              min={{genTime data.startday "YYYY-MM-DD" }} autocomplete="off">
+
+          </div>
+        </div>
+        <hr>
+        <div class="d-flex flex-row justify-content-between w-100 p-4  " style="height:fit-content;">
+          <label class="" for="maxcus">Số lượng khách tối đa </label>
+          <div class="value-container">
+            <div class="value-button" id="decrease" onclick="decreaseValue()" value="Decrease Value">-</div>
+            <input type="number" id="numberOfCustomer" value="1" name="cc" required class="border-none number"
+              max="{{data.maximuncus}}" min="1" />
+            <div class="value-button" id="increase" onclick="increaseValue()" value="Increase Value">+</div>
+          </div>
+
+
+        </div>
+
+        <div class="w-100 p-3 ">
+          <input class="w-100 btn btn-danger text-center" type="submit" value="Đặt phòng" />
+        </div>
+        <p class="w-100 text-center">Bạn vẫn chưa bị trừ tiền</p>
+        <div class="w-100 d-flex flex-column align-items-start">
+
+
+          <div class="w-100 d-flex flex-row align-items-center justify-content-between">
+            <p>Phí vệ sinh</p>
+            <div class="input-group-prepend">
+
+              <span class="input-group-text">8$</span>
+            </div>
+
+          </div>
+          <div class="w-100 d-flex flex-row align-items-center justify-content-between">
+            <p>Phí dịch vụ </p>
+            <div class="input-group-prepend">
+
+              <span class="input-group-text">{{extracost data.price}}$</span>
+            </div>
+
+          </div>
+          <div class="w-100 d-flex flex-row align-items-center justify-content-between">
+            <label for="finalcost">Tổng chi phí trước thuế : </label>
+
+            <input class="text-center border-0 bg-transparent" type="number" id="finalcost" name="final" readonly
+              value="0">
+
+          </div>
+        </div>
+    </div>
+    </form>
+  </div>
+
+</div>
+
+
+
+<div class="specific-container-host p-4" id="comment-part">
+
+
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-start align-items-center h-100">
+      <h3>Đánh giá</h3>
+      {{#if wish}}
+      {{else}} <p class="fw-bolg ml-2"> Chưa có đánh giá</p>
+      {{/if}}
+      {{#each wish}}
+      <div class="col-8 p-4 grid2 ">
+
+        <div style="height: 250px; border-radius:20px ;" class="w-100 bg-light  p-4">
+          <p class="w-100 h-50 overflow-hidden">
+
+            {{this.value}}
+          </p>
+
+          {{#for 0 this.star 1}}
+          <span class="fa fa-star text-warning"></span>
+          {{/for}}
+
+
+          <p>({{this.star}}/5)</p>
+          <div class="w-100 h-25 d-flex flex-column flex-wrap">
+            <div class="w-25 h-100">
+              <img class="w-100 h-100 rounded-circle" src="{{this.owner.avatar}}">
+            </div>
+            <div class="w-75 h-50  d-flex justify-content-center">
+              {{this.owner.fullName}}
+            </div>
+            <div class="w-75 h-50 d-flex justify-content-center">
+              <p class="t"> {{genTime this.createdAt 'MMMM Do YYYY'}} </p>
+            </div>
+
+
+
+
+          </div>
+
+        </div>
+        {{/each }}
+        <hr>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+{{#if isOwner}}
+{{else}}
+<div class=" w-75 p-4 d-flex justify-content-center " style="min-width: 350px;" id="host-part">
+  <div class=" w-75 p-4 rounded-3 d-flex flex-column align-items-center justify-content-center bg-light ">
+    <div class="p-2 w-100 text-capitalize text-center ">
+      Thông tin chủ nhà
+    </div>
+
+
+
+    <div class="w-100 flex-row d-flex flex-wrap p-4">
+      <div class="w-50  flex-column align-items-center justify-content-center">    <h5 class="mb-1 w-100 text-center  ">{{data.host.fullName}}</h5>
+       <a class="d-flex justify-content-center" href="/user/personaldetail/{{data.host._id}}"><img
+          src="{{data.host.avatar}}" class="img-fluid" style="width: 180px; border-radius: 10px;" /></a>
+      
+        <p class="w-100 text-center"><i class="fa fa-solid fa-mask"></i> Đã xác minh danh tính </p>
+        <p class="w-100 text-center"> Tham gia vào tháng {{genTime
+          data.host.created_at 'MMMM YYYY'}}</p>
+     
+</div>
+  
+      <div class="d-flex flex-column  align-items-center h-100 w-50 rounded-3 p-2 mb-3">
+        <h3>About me</h3>
+        <p class="p-2">{{data.host.description}}</p>
+      </div>
+      {{!-- <div class="align-seft-center">
+        {{#if islogged}}
+        <form action="/user/message/{{conversationId}}" method="get">
+          <input type="text" name="cus" value="{{id}}" style="display: none;">
+          <input type="text" name="host" value="{{data.host._id}}" style="display: none;">
+
+          <input class="btn btn-primary" type="submit" value="chat to this host">
+        </form>
+
+        {{else}}
+        <a class="dropdown-item btn btn-info text-center w-50 align-self-center text-uppercase" href="/login"
+          role="button">
+          chat
+        </a>
+        {{/if}}
+
+      </div> --}}
+
+    </div>
+
+
+
+
+
+  </div>
+</div>
+{{/if}}
+</div>
+
+</div>
+<div class="modal fade" id="love" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen ">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="carouselExample" class="carousel slide p-4 bg-dark  d-flex justify-content-center">
+          <div class="carousel-inner   w-75 " id="resultsBox">
+
+            {{#each data.img}}
+            <div class="carousel-item w-100">
+              <img class="d-block  rounded-3" style="width: 100%; height:100%" src="{{this}}">
+            </div>
+
+            {{/each}}
+            <div class="carousel-item active w-100"> {{#with img.[0]}}
+              <img class="d-block rounded-3" style="width: 100%; height:100%" src="{{this}}"> {{/with}}
+            </div>
+
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="wishlist" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalToggleLabel">Danh sách Yêu thích của bạn</h5>
+
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        {{#each wish}}
+        <form action="/user/wishlist/update/{{this._id}}" method="post">
+          <input id="roomId" name="roomId" style="display: none;">
+          <input style="display: none;" name="collectionId" value={{this.room}}>
+          <button id={{this._id}} style="width:100%" class="btn btn-outline-light border border-light my-2 text-start"
+            type="submit">{{this.name}}</button>
+
+        </form>
+        {{/each}} <button class="btn btn-light" data-bs-target="#collection" data-bs-toggle="modal"
+          data-bs-dismiss="modal">+</button>
+        <button class="btn btn-light" data-bs-target="#collection" data-bs-toggle="modal" data-bs-dismiss="modal">Tạo
+          danh sách mong muốn mới</button>
+      </div>
+      <div class="modal-footer">
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="collection" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalToggleLabel2"> Đặt tên cho danh sách mong muốn này</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <form action="/user/wishlist/collection" method="post">
+          <label for="name"></label>
+          <input name="name" type="text"></input>
+          <input class="btn btn-dark" type="submit" value="Tạo">
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="offcanvas offcanvas-end  " data-bs-backdrop="false" tabindex="-1"
+  style="z-index: 100000; width:400px !important ,height:50%,min-height:400px,min-width:300px" id="messageOffcanvas"
+  aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title fw-light" id="offcanvasExampleLabel">{{data.host.fullName}}</h5>
+    </h5>
+
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body w-100 position-relative h-100">
+    <section style="background-color: #eee; " class="w-100 h-100">
+      <div class="container  w-100 h-100">
+
+        <div class=" w-100  h-100 position-relative">
+
+
+
+
+
+          <form id="msgForm" action="" class="h-100 position-relative">
+            <div class="w-100  h-75 " style="overflow-y: scroll;" id="messageBox"></div>
+            <input class=" position-absolute bottom-0 start-0 w-75 rounded-5" id="msg" type="text" name="msg" value="">
+            <input class="" style="display:none" id="hostId" type="text" name="msg" value="{{data.host._id}}">
+
+            <input class="" style="display:none" id="cusId" type="text" name="msg" value="{{id}}">
+            <input class="btn btn-danger w-25  position-absolute bottom-0 end-0 " type="submit" id="submitbtn"
+              value="send">
+          </form>
+          <div id="messages">
+
+
+
+            </ul>
+
+
+          </div>
+
+        </div>
+    </section>
+
+
+  </div>
+
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  function increaseValue() {
+    var value = parseInt(document.getElementById('numberOfCustomer').value, 10);
+    value = isNaN(value) ? 0 : value;
+    value = Math.min(value + 1, {{ data.maximuncus }});
+  document.getElementById('numberOfCustomer').value = value;
+  var d1 = document.getElementById("startDay").value;
+  var d2 = document.getElementById("endDay").value;
+  const dateOne = new Date(d1);
+  const dateTwo = new Date(d2);
+  const time = Math.abs(dateTwo - dateOne);
+  const days = Math.ceil(time / (1000 * 60 * 60 * 24));
+
+
+  $("#finalcost").val($("#numberOfCustomer").val() * {{ data.price }} * $("#day").val() + 8 + {{ data.price }} * 0.2);
+       
+    }
+
+  function decreaseValue() {
+    var value = parseInt(document.getElementById('numberOfCustomer').value, 10);
+    value = isNaN(value) ? 0 : value;
+    value < 1 ? value = 1 : '';
+    value--;
+    document.getElementById('numberOfCustomer').value = value;
+    var d1 = document.getElementById("startDay").value;
+    var d2 = document.getElementById("endDay").value;
+    const dateOne = new Date(d1);
+    const dateTwo = new Date(d2);
+    const time = Math.abs(dateTwo - dateOne);
+    const days = Math.ceil(time / (1000 * 60 * 60 * 24));
+
+
+    $("#finalcost").val($("#numberOfCustomer").val() * {{ data.price }} * $("#day").val() + 8 + {{ data.price }} * 0.2);
+       
+
+  }
+
+  const socket = io();
+
+  const chartForm = document.querySelector('#msgForm');
+
+  chartForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    let mes = document.getElementById("msg").value;
+    let host = document.getElementById("hostId").value;
+    let cus = document.getElementById("cusId").value;
+    $('#msg').val("");
+
+    socket.emit('on-chat', {
+      message: mes,
+      host: host,
+      cus: cus
+    })
+
+
+
+  })
+  socket.on('user-chat', (message) => {
+    let host = document.getElementById("hostId").value;
+    let cus = document.getElementById("cusId").value;
+    let textPos = "";
+    let bg = "bg-secondary";
+    if (message.cus === cus) {
+      textPos = "end";
+      bg = "bg-primary text-white";
+    }
+    var img = "<img src=\"/img/user/{{data.host.avatar}}\" class=\"rounded-circle d-flex align-self-" + textPos + "\" width=\"20\">";
+    var card = "<div class=\"d-flex flex-column align-items-" + textPos + "\"><p class=\"fw-light fs mb-0 rounded-4\">{{data.host.fullName}}</p><div style=\" width:fit-content\" class=\" p-2  d-flex flex-row-reverse\">" + img + "<p class=\"mb-0 rounded-3 " + bg + "p-2\">" + message.message +
+      "</p></div>"
+    $('#messageBox').append(card);
+  })
+
+</script>
+<script>
+  $(document).ready(function () {
+    const wedges = {{{ json data.DatesRented }}}
+
+    $('input[name="calendar"]').daterangepicker({
+
+      alwaysShowCalendars: true,
+      startDate: `${{ data.startday }}`,
+      endDate: `${{ data.endday }}`,
+      minDate: `${{ data.startday }}`,
+      maxDate: `${{ data.endday }}`,
+      drops:'up',
+      
+      locale: {
+        format: 'YYYY-MM-DD',
+        separator: ' to ',
+        applyLabel: 'Chọn',
+        cancelLabel: 'Hủy',
+        customRangeLabel: 'Custom Range',
+        daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+        monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        firstDay: 1
+      },
+      isInvalidDate: function (date) {
+        var disabledDates = wedges.map((e) => {
+          return moment(e).format('YYYY-MM-DD')
+        });
+        var dateString = date.format('YYYY-MM-DD');
+        if (disabledDates.includes(dateString)) {
+          return true;
+        }
+
+        return false;
+      }
+      // Use the "isInvalidDate" option to invalidate the array of dates
+
+
+    });
+
+  $('#calendar').on('apply.daterangepicker', function (ev, picker) {
+    var startDate = picker.startDate.format('YYYY-MM-DD');
+    var endDate = picker.endDate.format('YYYY-MM-DD');
+
+    const dateOne = new Date(startDate);
+    const dateTwo = new Date(endDate);
+    const time = Math.abs(dateTwo - dateOne);
+    const days = Math.ceil(time / (1000 * 60 * 60 * 24));
+
+    var day = ("0" + dateOne.getDate()).slice(-2);
+    var month = ("0" + (dateOne.getMonth() + 1)).slice(-2);
+
+    var today = dateOne.getFullYear() + "-" + (month) + "-" + (day);
+
+    $("#day").val(days);
+    $("#startDay").val(today);
+    var day = ("0" + dateTwo.getDate()).slice(-2);
+    var month = ("0" + (dateTwo.getMonth() + 1)).slice(-2);
+
+    var today = dateTwo.getFullYear() + "-" + (month) + "-" + (day);
+
+    $("#endDay").val(today);
+
+
+
+    $("#finalcost").val($("#numberOfCustomer").val() * {{ data.price }} * days + 8 + {{ data.price }} * 0.2);
+
+      });
+         var dateRangePicker = $('#calendar').daterangepicker();
+
+      // Show the calendar without clicking on the input element
+      dateRangePicker.data('daterangepicker').show();
+  $('#dateRangeInput').on('apply.daterangepicker', function (ev, picker) {
+    var startDate = picker.startDate.format('YYYY-MM-DD');
+    var endDate = picker.endDate.format('YYYY-MM-DD');
+
+    const dateOne = new Date(startDate);
+    const dateTwo = new Date(endDate);
+    const time = Math.abs(dateTwo - dateOne);
+    const days = Math.ceil(time / (1000 * 60 * 60 * 24));
+
+    var day = ("0" + dateOne.getDate()).slice(-2);
+    var month = ("0" + (dateOne.getMonth() + 1)).slice(-2);
+
+    var today = dateOne.getFullYear() + "-" + (month) + "-" + (day);
+
+    $("#day").val(days);
+    $("#startDay").val(today);
+    var day = ("0" + dateTwo.getDate()).slice(-2);
+    var month = ("0" + (dateTwo.getMonth() + 1)).slice(-2);
+
+    var today = dateTwo.getFullYear() + "-" + (month) + "-" + (day);
+
+    $("#endDay").val(today);
+
+
+
+    $("#finalcost").val($("#numberOfCustomer").val() * {{ data.price }} * days + 8 + {{ data.price }} * 0.2);
+
+      });
+
+  $('input[name="datetimes"]').daterangepicker({
+
+    startDate: `${{ data.startday }}`,
+    endDate: `${{ data.endday }}`,
+    minDate: `${{ data.startday }}`,
+    maxDate: `${{ data.endday }}`,
+    locale: {
+      format: 'YYYY-MM-DD',
+      separator: ' to ',
+      applyLabel: 'Chọn',
+      cancelLabel: 'Hủy',
+      customRangeLabel: 'Custom Range',
+      daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+      monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+      firstDay: 1
+    },
+    isInvalidDate: function (date) {
+      var disabledDates = wedges.map((e) => {
+        return moment(e).format('YYYY-MM-DD')
+      });
+      var dateString = date.format('YYYY-MM-DD');
+      if (disabledDates.includes(dateString)) {
+        return true;
+      }
+
+      return false;
+    }
+    // Use the "isInvalidDate" option to invalidate the array of dates
+
+
+  });
+
+  var exampleModal = document.getElementById('wishlist')
+  exampleModal.addEventListener('show.bs.modal', function (event) {
+
+    // Button that triggered the modal
+    var button = event.relatedTarget
+    // Extract info from data-bs-* attributes
+    var recipient = button.getAttribute('data-bs-roomId')
+
+    // If necessary, you could initiate an AJAX request here
+    // and then do the updating in a callback.
+
+    // Update the modal's content.
+    $("[id=roomId]").val(recipient);
+
+
+
+
+
+
+  })
+
+  var payment = $("#payment");
+  var threshold = payment.offset().top;
+  var host = $("#comment-part");
+  var threshold1 = host.offset().top;
+
+
+
+  $(window).on("scroll", function () {
+    var currentScroll = $(this).scrollTop();
+    {{!-- if ($(window).width() < 70) {
+      payment.removeClass("fixed");
+    }
+    if (currentScroll > threshold1) {
+
+
+      payment.addClass("fixed");
+
+
+    } else {
+      payment.removeClass("fixed");
+
+    } --}}
+
+    if (currentScroll > threshold + 250) {
+
+      $("#specific-nav").addClass("displayFlex");
+    } else {
+
+      $("#specific-nav").removeClass("displayFlex");
+    }
+
+  });
+
+
+  $('#resultsBox li:first').addClass('active');
+
+  $("#show").click(
+    function () {
+      $("#full").addClass("display1");
+    }
+  );
+  $("#unshow").click(
+    function () {
+      $("#full").removeClass("display1");
+    }
+  );
+  
+  })
+</script>

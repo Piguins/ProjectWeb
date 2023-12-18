@@ -1,0 +1,319 @@
+<div class=" d-flex w-100 flex-row bg-light p-4" style=" margin-top:80px">
+  <div class="mb-3 row w-100 d-flex flex-row">
+    <div style="opacity: 0;" class=" flex-column d-flex col-4 ">
+      <div style="border-radius: 30px; min-width:200px"
+        class="m-4 w-100 d-flex flex-row justify-content-center bg-white p-4 rounded-4">
+        <div class="col-6 d-flex flex-column align-items-center m-3">
+          <img class="rounded-circle align-self-center" style="width:100px;height:100px" src="{{avatar}}"
+            alt="user avatar">
+          <div class="w-100 text-center">
+            {{name}}
+          </div>
+          <div class="w-100 text-center">
+            {{role}}
+          </div>
+        </div>
+        <div class="col-6 d-flex flex-column">
+          <div class="w-100 d-flex flex-column">
+            <p>{{ratings.length}}</p>
+            <p>Lượt đánh giá</p>
+          </div>
+          <hr>
+          <div class="w-100">
+            <p>{{evaluate}}</p>
+            <p>Năm kinh nghiệm</p>
+          </div>
+        </div>
+
+      </div>
+      <div style="border-radius: 30px; min-width:200px"
+        class="m-4 w-100 d-flex flex-row justify-content-center bg-white p-4 rounded-4">
+        <div class="w-100 d-flex flex-column align-items-center">
+          Thông tin đã được xác nhận của {{name}}
+
+          <div class="w-100 text-start">
+            <i class="bi-solid bi-check"></i>Danh tính
+          </div>
+          <div class="w-100 text-start">
+            <i class="bi-solid bi-check"></i> Số điện thoại
+          </div>
+          <div class="w-100 text-start">
+            <i class="bi-solid bi-check"></i> địa chỉ email
+          </div>
+        </div>
+
+
+      </div>
+
+
+    </div>
+    <div class=" flex-column d-flex col-4 position-fixed">
+      <div style="border-radius: 30px; min-width:200px"
+        class="m-4 w-100 d-flex flex-row justify-content-center bg-white p-4 rounded-4">
+        <div class="col-6 d-flex flex-column align-items-center m-3">
+          <img class="rounded-circle align-self-center" style="width:100px;height:100px" src="{{avatar}}"
+            alt="user avatar">
+          <div class="w-100 text-center">
+            {{name}}
+          </div>
+          <div class="w-100 text-center">
+            {{role}}
+          </div>
+        </div>
+        <div class="col-6 d-flex flex-column">
+          <div class="w-100 d-flex flex-column">
+            <p>{{ratings.length}}</p>
+            <p>Lượt đánh giá</p>
+          </div>
+          <hr>
+          <div class="w-100">
+            <p>{{evaluate}}</p>
+            <p>Năm kinh nghiệm</p>
+          </div>
+        </div>
+
+      </div>
+      <div style="border-radius: 30px; min-width:200px"
+        class="m-4 w-100 d-flex flex-row justify-content-center bg-white p-4 rounded-4">
+        <div class="w-100 d-flex flex-column align-items-center">
+          Thông tin đã được xác nhận của {{name}}
+
+          <div class="w-100 text-start">
+            <i class="bi-solid bi-check"></i>Danh tính
+          </div>
+          <div class="w-100 text-start">
+            <i class="bi-solid bi-check"></i> Số điện thoại
+          </div>
+          <div class="w-100 text-start">
+            <i class="bi-solid bi-check"></i> địa chỉ email
+          </div>
+        </div>
+
+
+      </div>
+
+
+    </div>
+    <div class="col-8 d-flex flex-column align-items-center">
+
+      <div style="border-radius: 20px;" class="w-75 d-flex flex-column bg-white p-4">
+        <div class="d-flex w-100 ">
+          <h1 class="w-75">Thông tin về {{name}}</h1> <button class="btn btn-outline-warning w-25"
+            data-bs-roomId={{this.room._id}} data-bs-hostId={{this.host._id}} data-bs-toggle="modal"
+            data-bs-target="#wishlist"><i class="fa-solid fa-pen-nib"></i>
+          </button>
+        </div>
+
+        <div class="p-3 w-100">
+
+          <h2 class="text-danger">About</h2>
+
+
+          {{#if description}} <p class="m-3">{{description}}</p>
+          <ul class="habits-list">
+           
+              <h2 class="text-danger"> Ngôn ngữ</h2>
+            {{#each language}}
+            <li>{{this}}</li>
+            {{/each}}
+          </ul>
+
+          <ul class="languages-list">
+         
+            <h2 class="text-danger">   Sở thích </h2>
+            {{#each habit}}
+            <li>{{this}}</li>
+            {{/each}}
+          </ul>
+          {{else}}
+          <p class="w-100"> người dùng chưa cập nhật giới thiệu</p>
+          {{/if}}
+          {{#if (IsYou PersonId UserId)}}
+
+          {{else}}
+
+          {{/if}}
+        </div>
+        <hr class="w-75">
+        <div style="border-radius: 10px;" class="w-75 d-flex flex-column bg-white p-4">
+          <h1>Đánh giá về {{name}}</h1>
+          <div class="w-100 grid2">
+            {{#each ratings}}
+            <div style="height: 200px; border-radius:20px;" class="   p-4">
+              
+              <div class="w-100 h-25 d-flex flex-row flex-wrap">
+                <div class="w-25 h-100">
+                  <img class="w-100 h-100 rounded-circle" src="{{this.owner.avatar}}">
+                </div>
+                <div style="font-weight:bold" class=" p-2 w-75 h-50  d-flex justify-content-start">
+                  {{this.owner.fullName}}
+                </div>
+                <div class="w-75 h-50 d-flex justify-content-start">
+                  {{genTime this.createAt 'MMMM Do YYYY'}}
+                </div>
+<p class="w-100 h-75 overflow-hidden">{{this.value}}</p>
+
+
+              </div>
+            </div>
+            {{/each}}
+          </div>
+
+        </div>
+        <hr class="w-75">
+
+        <div style="border-radius: 10px;" class="w-75 d-flex flex-column bg-white p-4">
+          {{#if (IsUser role "host")}}
+
+          <h1>Danh sách nhà cho thuê của {{name}}</h1>
+
+          {{else}}
+          <h1>Hiện không có nhà đăng trên nền tảng</h1>
+          {{/if}}
+          <div class="w-100 grid2">
+            {{#each rooms}}
+            <div style="height: 200px; border-radius:20px" class="w-100    p-4">
+
+              <a class="h-75 w-75" href="/rooms/{{this._id}}">
+                <img class="w-100 h-100" src="{{this.img.[0]}}">
+              </a>
+            </div>
+            {{/each}}
+
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+
+
+
+
+  </div>
+  <div class="modal fade" id="wishlist" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+
+        <div class="modal-body">
+
+          <div class=" w-100 h-100">
+            <form id="userDesForm" action="/user/personaldetail/{{PersonId}}" method="post">
+
+              <div class="input-group">
+                <div class="input-group-prepend d-flex flex-column w-100">
+                  <span class="input-group-text m-2 bg-warning">Giới Thiệu Bản Thân</span>
+                </div>
+                <textarea name="description" class="form-control rounded-1" aria-label="With textarea"></textarea>
+              </div>
+              <label for="language">Language:</label>
+              <div class="custom-select">
+                <select id="language" name="language" class="form-select">
+
+                  <option value="English">English <i class="fas fa-globe"></i></option>
+                  <option value="Spanish">Spanish <i class="fas fa-globe"></i></option>
+                  <option value="Chinese">Chinese <i class="fas fa-globe"></i></option>
+                  <option value="Hindi">Hindi <i class="fas fa-globe"></i></option>
+                  <option value="Arabic">Arabic <i class="fas fa-globe"></i></option>
+                  <option value="Portuguese">Portuguese <i class="fas fa-globe"></i></option>
+                  <option value="Bengali">Bengali <i class="fas fa-globe"></i></option>
+                  <option value="Vietnamese">Vietnamese <i class="fas fa-flag"></i></option>
+                  <option value="Russian">Russian <i class="fas fa-globe"></i></option>
+                  <!-- Add more language options as needed -->
+                </select>
+              </div>
+              <div class=" bg-light p-2 m-2" id="selected-language"></div>
+
+          </div>
+
+          <label for="habits">Habits: <i class="fa-regular fa-face-grin-hearts"></i></label>
+          <div id="habits">
+            <input class="d-none" type="checkbox" id="Readingregularly" name="habit" value="Đọc sách thường xuyên">
+            <label class="m-2 bg-danger p-1 text-white rounded-1" for="Readingregularly"><i
+                class="fa-solid fa-book-open"></i> Đọc sách thường xuyên</label>
+
+            <input class="d-none" type="checkbox" id="Meditatingdaily" name="habit" value="hiền định hàng ngày">
+            <label class="m-2 bg-danger p-1 text-white rounded-1" for="Meditatingdaily"><i
+                class="fa-solid fa-heart-pulse"></i> Thiền định hàng ngày</label>
+            <input class="d-none" type="checkbox" id="Exercisingregularly" name="habit" value=" Tập thể dục đều đặn">
+            <label class="m-2 bg-danger p-1 text-white rounded-1" for="Exercisingregularly"> <i
+                class="fa-solid fa-person-walking"></i> Tập thể dục đều đặn</label>
+            <input class="d-none" type="checkbox" id="Practicinggratitude" name="habit" value="Biết ơn và cảm kích">
+            <label class="m-2 bg-danger p-1 text-white rounded-1" for="Practicinggratitude"><i
+                class="fa-brands fa-gratipay"></i>Biết ơn và cảm kích </label>
+            <input class="d-none" type="checkbox" id="Settinggoals" name="habit" value="Đặt mục tiêu">
+            <label class="m-2 bg-danger p-1 text-white rounded-1" for="Settinggoals"> <i
+                class="fa-solid fa-bullseye"></i>Đặt mục tiêu</label>
+            <input class="d-none" type="checkbox" id="Savingmoney" name="habit" value="Tiết
+              kiệm tiền">
+            <label class="m-2 bg-danger p-1 text-white rounded-1" for="Savingmoney"><i class="fa-solid fa-coins"></i>
+              Tiết
+              kiệm tiền</label>
+            <!-- Add more habit checkboxes as needed -->
+          </div>
+
+          <div id="selectedHabits"></div>
+
+          <input type="submit" value="Cập nhật "
+            class="p-1 m-1 rounded-1 text-white border-0 btn btn-primary w-50 float-end mt-3">
+          </form>
+
+        </div>
+        <div class="modal-footer">
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+<script>
+  const habitCheckboxes = document.querySelectorAll('input[name="habit"]');
+  const selectedHabitsContainer = document.getElementById('selectedHabits');
+
+  habitCheckboxes.forEach(function (checkbox) {
+    checkbox.addEventListener('change', function () {
+      if (this.checked) {
+        const selectedHabit = document.createElement('span');
+        selectedHabit.classList.add('selected-habit');
+        selectedHabit.textContent = this.value;
+        selectedHabitsContainer.appendChild(selectedHabit);
+
+      } else {
+        const selectedHabits = selectedHabitsContainer.querySelectorAll('.selected-habit');
+        selectedHabits.forEach(function (habit) {
+          if (habit.textContent === checkbox.value) {
+            habit.remove();
+          }
+        });
+
+      }
+    });
+  });
+
+  selectedHabitsContainer.addEventListener('click', function (event) {
+    if (event.target.classList.contains('selected-habit')) {
+      const habitText = event.target.textContent;
+      const correspondingCheckbox = document.querySelector(`input[name="habit"][value="${habitText}"]`);
+      if (correspondingCheckbox) {
+        correspondingCheckbox.checked = false;
+       
+        event.target.remove();
+      }
+    }
+  });
+  const languageSelect = document.getElementById('language');
+  const selectedLanguage = document.getElementById('selected-language');
+  const selectedLanguages = new Set();
+
+  languageSelect.addEventListener('change', function () {
+    const selectedOption = this.options[this.selectedIndex].text;
+    if (!selectedLanguages.has(selectedOption)) {
+      selectedLanguages.add(selectedOption);
+      selectedLanguage.innerHTML += selectedOption + ' <i class="fas fa-check"></i>, ';
+    }
+  });
+
+</script>
