@@ -87,7 +87,7 @@ user.save();
                     shower: req.cookies.shower,
                     hosthome: true,
                     img: req.cookies.img,
-                    display: req.cookies.img[0].path,
+                    display: req.cookies.img[0]?req.cookies.img[0].path:"https://i.ibb.co/FxhPxzF/a5.png",
                     isRented: false,
                     address: req.cookies.address,
                     validByAdmin: true,
