@@ -485,6 +485,8 @@
   $(document).ready(function () {
     const wedges = {{{ json data.DatesRented }}}
    $("#day").val(1);
+    
+     $("#finalcost").val($("#numberOfCustomer").val() * {{ data.price }} * 1 + 8 + {{ data.price }} * 0.2);
     $('input[name="calendar"]').daterangepicker({
 
       alwaysShowCalendars: true,
@@ -532,7 +534,7 @@
     var day = ("0" + dateOne.getDate()).slice(-2);
     var month = ("0" + (dateOne.getMonth() + 1)).slice(-2);
 
-    var today = dateOne.getFullYear() + "-" + (month) + "-" + (day);
+    var today = dateOne.getFullYear() + "-" + (moxnth) + "-" + (day);
 
     $("#day").val(days);
     $("#startDay").val(today);
