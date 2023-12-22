@@ -2,6 +2,8 @@
 const resevation = require("../../models/Reserve.model");
 const user = require("../../models/users.model");
 const rooms = require("../../models/product.model");
+const moment = require("moment/moment");
+
 class DashBoard {
     index(req, res, next) {
         let avatar = req.cookies.avatar;
@@ -11,14 +13,29 @@ class DashBoard {
         resevation.find().then((item) => {
             const initialValue = 0;
             const reduceAr = item.map((item) => item.value);
-
+            const createdDays = item.map((item) =>  moment(item.created_at).format("dd/M").toString());;
+         
+            const values = item.map((item) => parseInt(item.value));
+           
             const sumWithInitial = reduceAr.reduce((accumulator, currentValue) => accumulator + parseInt(currentValue), initialValue);
-            user.count({}).then((counter) => {
-
+            user.find({}).then((us) => {
+                const roleCount = [0,0,0];
+                const roleName = ["admin","host","user"];
+                us.forEach(user => {
+                    if (user.role === 'admin') {
+                        roleCount[0]++;
+                    } else if (user.role === 'host') {
+                        roleCount[1]++;
+                    } else if (user.role === 'user') {
+                        roleCount[2]++;
+                    }
+                });
+                let counter = us.length;
+           
 
                 rooms.count({}).then((count) => {
 
-                    res.render('dashboard', { indexPage: true, hideNavigation: true, avatar: avatar, totalVenue: sumWithInitial, userAmount: counter, roomAmount: count });
+                    res.render('dashboard', { roleCount,roleName ,createdDays: createdDays, values: values, indexPage: true, hideNavigation: true, avatar: avatar, totalVenue: sumWithInitial, userAmount: counter, roomAmount: count });
                 })
 
             })

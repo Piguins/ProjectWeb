@@ -10,9 +10,10 @@ var generator = require('generate-password');
 const bcrypt = require("bcrypt");
 const { response } = require("express");
 const User = require("../../models/users.model");
-const {moment}=require("../../../node_modules/moment");
+const { moment } = require("../../../node_modules/moment");
 const { reverse } = require("lodash");
 const Product = require("../../models/product.model");
+const userService = require("../../service/user.service");
 class user {
 
     //[Get] /user/avatar
@@ -20,22 +21,26 @@ class user {
         res.render("setavatar", { hideNavigation: true });
     }
     //[Post] /user/avatar
-    saveAvatar(req, res, next) {
-        userData.findByIdAndUpdate({ _id: req.cookies.id }, { avatar: req.file.path }).then((love) => {
+    async saveAvatar(req, res, next) {
+        try {
+            await userService.updateUser(req.cookies.id, { avatar: req.file.path });
             res.cookie("avatar", req.file.path);
             res.redirect("/")
-        }).catch(err => res.json("failed"))
+        }
+        catch (err) {
+            throw err;
+        }
     }
     //[Get] /user/hosting
     async getHosting(req, res, next) {
         let gonnaCome, isMeeting, hasGone;
         let rooms = await productData.find({ host: req.cookies.id });
-        rooms=rooms.map(item=>item.toObject());
-        
+        rooms = rooms.map(item => item.toObject());
+
         let item = await Reserve.find({ host: req.cookies.id }).populate(["room", "cus"])
-    
+
         item = item.map(i => i.toObject());
-   
+
         gonnaCome = item.filter((item) => {
             return item.start.getTime() > Date.now()
         })
@@ -44,36 +49,36 @@ class user {
         })
         hasGone = item.filter((item) => {
             return item.end.getTime() < Date.now()
-        }) 
-      rooms =rooms.map((e)=>{
-        let date = new Date(e.startday); // Create a new Date object
+        })
+        rooms = rooms.map((e) => {
+            let date = new Date(e.startday); // Create a new Date object
 
-let year = date.getFullYear(); 
-let month = String(date.getMonth() + 1).padStart(2, '0'); 
-let day = String(date.getDate()).padStart(2, '0'); 
+            let year = date.getFullYear();
+            let month = String(date.getMonth() + 1).padStart(2, '0');
+            let day = String(date.getDate()).padStart(2, '0');
 
-let start = year + '-' + month + '-' + day; 
+            let start = year + '-' + month + '-' + day;
 
-let enddate = new Date(e.endday); // Create a new Date object
+            let enddate = new Date(e.endday); // Create a new Date object
 
-let year1 = enddate.getFullYear(); 
-let month1 = String(enddate.getMonth() + 1).padStart(2, '0'); 
-let day1 = String(enddate.getDate()).padStart(2, '0'); 
+            let year1 = enddate.getFullYear();
+            let month1 = String(enddate.getMonth() + 1).padStart(2, '0');
+            let day1 = String(enddate.getDate()).padStart(2, '0');
 
-let end = year1 + '-' + month1 + '-' + day1; 
+            let end = year1 + '-' + month1 + '-' + day1;
 
 
-        return {
-            _id:e._id,
-            name:e.name,
-            title:"da duoc " ,
-            start:start,
-            end:end
-        }
-     });
-   
-     
-         res.render("hosting", { rooms,hideNavigation: true, gonnaCome, isMeeting, hasGone, userId: req.cookies.id });
+            return {
+                _id: e._id,
+                name: e.name,
+                title: "da duoc ",
+                start: start,
+                end: end
+            }
+        });
+
+
+        res.render("hosting", { rooms, hideNavigation: true, gonnaCome, isMeeting, hasGone, userId: req.cookies.id });
     }
     //[Get] /user/trip
     getTrip(req, res, next) {
@@ -100,56 +105,57 @@ let end = year1 + '-' + month1 + '-' + day1;
                 })
                 hasGone = list.filter((item) => {
                     return item.end.getTime() < Date.now()
-                }) 
-                res.render("trips", {next:gonnaCome,checkin:isMeeting,checkout:hasGone, name, email, phone, avatar, list, islogged: logged, addProcessing: true, hideNavigation: true });
+                })
+                res.render("trips", { next: gonnaCome, checkin: isMeeting, checkout: hasGone, name, email, phone, avatar, list, islogged: logged, addProcessing: true, hideNavigation: true });
             })
             .catch((err) => console.log(err));
 
     }
-   async getHostingCalendar(req, res, next) {
+    async getHostingCalendar(req, res, next) {
 
         let rooms = await productData.find({ host: req.cookies.id });
 
-        rooms=rooms.map(item=>item.toObject());
-        res.render("calendar", { hideNavigation: true,rooms });
+        rooms = rooms.map(item => item.toObject());
+       
+        res.render("calendar", { hideNavigation: true, rooms });
     }
-    async getSpecificHostingCalendar(req,res,next){
-        let rooms = await productData.find({ host: req.cookies.id });
-
-        rooms=rooms.map(item=>item.toObject());
-        let reser=await Reserve.find({room:req.params.id}).populate("cus");
+    async getSpecificHostingCalendar(req, res, next) {
+        let rooms = await productData.find({ _id: req.cookies.id });
         
-   reser.map((e)=>{return e.toObject()});
+        rooms = rooms.map(item => item.toObject());
+        let reser = await Reserve.find({ room: req.params.id }).populate("cus");
 
-        reser =reser.map((e)=>{
+        reser.map((e) => { return e.toObject() });
+
+        reser = reser.map((e) => {
             let date = new Date(e.start); // Create a new Date object
-    
-    let year = date.getFullYear(); 
-    let month = String(date.getMonth() + 1).padStart(2, '0'); 
-    let day = String(date.getDate()-1).padStart(2, '0'); 
-    
-    let start = year + '-' + month + '-' + day; 
-    
-    let enddate = new Date(e.end); // Create a new Date object
-    
-    let year1 = enddate.getFullYear(); 
-    let month1 = String(enddate.getMonth() + 1).padStart(2, '0'); 
-    let day1 = String(enddate.getDate()).padStart(2, '0'); 
-    
-    let end = year1 + '-' + month1 + '-' + day1; 
-    
-    
-            return {
-                _id:e._id,
-                name:e.name,
-                title:"đã được thuê bởi " +e.cus.fullName,
-                start:start,
-                end:end
-            }
-         });
 
-      
-res.render("calendardetail",{reser,rooms});
+            let year = date.getFullYear();
+            let month = String(date.getMonth() + 1).padStart(2, '0');
+            let day = String(date.getDate() - 1).padStart(2, '0');
+
+            let start = year + '-' + month + '-' + day;
+
+            let enddate = new Date(e.end); // Create a new Date object
+
+            let year1 = enddate.getFullYear();
+            let month1 = String(enddate.getMonth() + 1).padStart(2, '0');
+            let day1 = String(enddate.getDate()).padStart(2, '0');
+
+            let end = year1 + '-' + month1 + '-' + day1;
+
+
+            return {
+                _id: e._id,
+                name: e.name,
+                title: "đã được thuê bởi " + e.cus.fullName,
+                start: start,
+                end: end
+            }
+        });
+
+
+        res.render("calendardetail", { reser, rooms });
     }
     //[Post] /user/wishlist/collection
     addCollection(req, res, next) {
@@ -359,18 +365,18 @@ res.render("calendardetail",{reser,rooms});
 
     }
 
-    getPersonaldetailUpdate(req, res, next) {
+    async getPersonaldetailUpdate(req, res, next) {
 
         const filter = { _id: req.params.id };
         const update = {
-            $set:
-            {
+      
                 description: req.body.description,
                 language: req.body.language,
                 habit: req.body.habit
-            }
+            
         };
-        userData.findOneAndUpdate(filter, update).then(() => {
+    
+        userService.updateUser(filter, update).then(() => {
             res.redirect("/user/personaldetail/" + req.params.id)
         }).catch(err => { });
     }
@@ -391,10 +397,10 @@ res.render("calendardetail",{reser,rooms});
 
         await userData.findOne({ _id: req.cookies.id }).then((user) => {
             user.phoneNumber = req.body.phone;
-
+            user.save()
         }).catch(err => console.log(err));
         res.cookie("phone", req.body.phone);
-        user.save(); res.redirect("/");
+        ; res.redirect("/");
     }
     async updatePersonalAddress(req, res, next) {
 

@@ -24,20 +24,19 @@ class LoginController {
         });
 
         NewUser.save();
+
         const token = jwt.sign({ name: NewUser.email }, "fiat");
         res.cookie("id", NewUser._id);
         res.cookie("token", token);
-        res.cookie("avatar", NewUser.avatar);
+
         res.cookie("username", NewUser.fullName);
         res.cookie("role", NewUser.role);
         res.cookie("email", NewUser.email);
-        res.cookie("evaluate",NewUser.numberOfjudgement);
-          res.cookie("evaluate",NewUser.numberOfjudgement);
-          res.cookie("address", NewUser.address);
-          res.cookie("phone", NewUser.phoneNumber);
   
-        
-        
+        res.redirect("/user/avatar");
+
+
+
 
       }
       else {
@@ -51,8 +50,8 @@ class LoginController {
         res.cookie("role", docs[0].role);
         res.cookie("email", docs[0].email);
         res.cookie("phone", docs[0].phoneNumber || "chưa cập nhật");
-        res.cookie("evaluate",docs[0].numberOfjudgement);
-   
+        res.cookie("evaluate", docs[0].numberOfjudgement);
+
         res.cookie("address", req.body.password);
 
         if (docs[0].avatar === undefined) {
@@ -106,7 +105,7 @@ class LoginController {
               res.cookie("username", data.fullName);
               res.cookie("password", data.password);
               res.cookie("role", data.role);
-              res.cookie("evaluate",data.numberOfjudgement);
+              res.cookie("evaluate", data.numberOfjudgement);
               res.cookie("email", req.body.username);
               res.cookie("address", req.body.password);
               res.cookie("phone", req.body.phone);
