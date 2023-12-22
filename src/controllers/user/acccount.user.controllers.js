@@ -4,7 +4,7 @@ const productData = require("../../models/product.model");
 const Collection = require("../../models/collection.model");
 const Converesation = require("../../models/conversation.model");
 const Rating = require("../../models/rating.model");
-const sendmail = require("../../config/nodemail");
+const {verifyEmail,sendPassword} = require("../../config/nodemail");
 const Reserve = require("../../models/Reserve.model");
 var generator = require('generate-password');
 const bcrypt = require("bcrypt");
@@ -23,9 +23,14 @@ class user {
     //[Post] /user/avatar
     async saveAvatar(req, res, next) {
         try {
-            await userService.updateUser(req.cookies.id, { avatar: req.file.path });
+           let user= await userService.updateUser(req.cookies.id, { avatar: req.file.path });
             res.cookie("avatar", req.file.path);
-            res.redirect("/")
+            if (user.autherized !== false) {
+                res.redirect("/");
+              }
+              else {
+                res.redirect(`/user/validemail/${user._id}`);
+              }
         }
         catch (err) {
             throw err;
@@ -259,7 +264,7 @@ class user {
         try {
 
             const url = `${process.env.BASE_URL}/user/activateAccount/${req.params.id}`;
-            await sendmail(req.cookies.email, "Verify Email", url);
+            await verifyEmail(req.cookies.email, "Verify Email", url);
 
             next();
         } catch (error) {
@@ -318,7 +323,7 @@ class user {
             bcrypt.hash(password, 10).then((hash) => {
                 userData.findOneAndUpdate({ email: req.body.email }, { password: hash }).then((item) => {
                     const url = "Your new password is " + password;
-                    sendmail(req.body.email, "Verify Email", url).then((item) => {
+                    sendPassword(req.body.email, "Verify Email", url).then((item) => {
                         res.render("forgetpassword", {
                             message: "mật khẩu mới được gửi tơi " + req.body.email,
                             announce: true,
