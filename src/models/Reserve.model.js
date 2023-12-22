@@ -24,7 +24,12 @@ const reserveSchema = new mongoose.Schema({
     },
     cus: {
         type: mongoose.Schema.Types.ObjectId, ref: "Users"
+    },
+    created_at: {
+        type: Date,
+        default: Date.now
     }
+
 });
 const Reserve = mongoose.model("Reserve", reserveSchema);
 module.exports = Reserve;
